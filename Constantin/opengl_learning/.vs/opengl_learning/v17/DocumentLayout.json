@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\dev\\opengl_learning\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CAAE9CF9-ECC5-4864-BCDD-5F5B1E9180B6}|opengl_learning\\opengl_learning.vcxproj|C:\\dev\\opengl_learning\\opengl_learning\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CAAE9CF9-ECC5-4864-BCDD-5F5B1E9180B6}|opengl_learning\\opengl_learning.vcxproj|solutionrelative:opengl_learning\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAAE9CF9-ECC5-4864-BCDD-5F5B1E9180B6}|opengl_learning\\opengl_learning.vcxproj|C:\\DEV\\OPENGL_LEARNING\\OPENGL_LEARNING\\DEPENDENCIES\\GLEW\\INCLUDE\\GL\\GLEW.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CAAE9CF9-ECC5-4864-BCDD-5F5B1E9180B6}|opengl_learning\\opengl_learning.vcxproj|solutionrelative:OPENGL_LEARNING\\DEPENDENCIES\\GLEW\\INCLUDE\\GL\\GLEW.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "glew.h",
+              "DocumentMoniker": "C:\\dev\\opengl_learning\\opengl_learning\\Dependencies\\GLEW\\include\\GL\\glew.h",
+              "RelativeDocumentMoniker": "opengl_learning\\Dependencies\\GLEW\\include\\GL\\glew.h",
+              "ToolTip": "C:\\dev\\opengl_learning\\opengl_learning\\Dependencies\\GLEW\\include\\GL\\glew.h",
+              "RelativeToolTip": "opengl_learning\\Dependencies\\GLEW\\include\\GL\\glew.h",
+              "ViewState": "AQIAAKQBAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-02-28T15:51:36.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\dev\\opengl_learning\\opengl_learning\\src\\main.cpp",
+              "RelativeDocumentMoniker": "opengl_learning\\src\\main.cpp",
+              "ToolTip": "C:\\dev\\opengl_learning\\opengl_learning\\src\\main.cpp",
+              "RelativeToolTip": "opengl_learning\\src\\main.cpp",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAABYAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-02-22T11:23:14.241Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
