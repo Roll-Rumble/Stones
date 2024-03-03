@@ -8,9 +8,11 @@ endif()
 
 project ("fpga_move")
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/jtag_atlantic/lib/jtag_atlantic.dll" "${CMAKE_CURRENT_BINARY_DIR}/jtag_atlantic.dll" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/jtag_atlantic/lib/jtag_client.dll" "${CMAKE_CURRENT_BINARY_DIR}/jtag_client.dll" COPYONLY)
 
 # Add source to this project's executable.
-add_executable (fpga_move "src/main.cpp" "src/controller.cpp")
+add_executable (fpga_move "src/main.cpp" "src/controller.cpp" "src/objects.cpp")
 
 
 target_include_directories(fpga_move PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include"
