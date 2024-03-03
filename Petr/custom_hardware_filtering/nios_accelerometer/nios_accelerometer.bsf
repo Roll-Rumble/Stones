@@ -38,11 +38,11 @@ refer to the applicable agreement for further details.
 		(line (pt 0 160)(pt 304 160)(line_width 1))
 	)
 	(port
-		(pt 0 200)
+		(pt 0 240)
 		(input)
-		(text "fir_in_x_external_connection_export[30..0]" (rect 0 0 169 12)(font "Arial" (font_size 8)))
-		(text "fir_in_x_external_connection_export[30..0]" (rect 4 189 256 200)(font "Arial" (font_size 8)))
-		(line (pt 0 200)(pt 304 200)(line_width 3))
+		(text "fir_out_x_external_connection_export" (rect 0 0 151 12)(font "Arial" (font_size 8)))
+		(text "fir_out_x_external_connection_export" (rect 4 229 220 240)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 304 240)(line_width 1))
 	)
 	(port
 		(pt 0 320)
@@ -66,11 +66,11 @@ refer to the applicable agreement for further details.
 		(line (pt 0 104)(pt 304 104)(line_width 1))
 	)
 	(port
-		(pt 0 240)
+		(pt 0 200)
 		(output)
-		(text "fir_out_x_external_connection_export[30..0]" (rect 0 0 175 12)(font "Arial" (font_size 8)))
-		(text "fir_out_x_external_connection_export[30..0]" (rect 4 229 262 240)(font "Arial" (font_size 8)))
-		(line (pt 0 240)(pt 304 240)(line_width 3))
+		(text "fir_in_x_external_connection_export" (rect 0 0 145 12)(font "Arial" (font_size 8)))
+		(text "fir_in_x_external_connection_export" (rect 4 189 214 200)(font "Arial" (font_size 8)))
+		(line (pt 0 200)(pt 304 200)(line_width 1))
 	)
 	(port
 		(pt 0 280)

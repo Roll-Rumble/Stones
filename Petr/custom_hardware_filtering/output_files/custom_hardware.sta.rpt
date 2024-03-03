@@ -1,5 +1,5 @@
 Timing Analyzer report for custom_hardware
-Sat Mar 02 23:59:56 2024
+Sun Mar 03 13:19:17 2024
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -94,14 +94,13 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 24          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 2.51        ;
+; Average used               ; 2.37        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;  10.2%      ;
-;     Processor 3            ;  10.1%      ;
-;     Processors 4-16        ;  10.1%      ;
+;     Processor 2            ;   9.2%      ;
+;     Processors 3-16        ;   9.1%      ;
 +----------------------------+-------------+
 
 
@@ -110,8 +109,8 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------------------------------------------------------------------+--------+--------------------------+
 ; SDC File Path                                                                                                                                 ; Status ; Read at                  ;
 +-----------------------------------------------------------------------------------------------------------------------------------------------+--------+--------------------------+
-; c:/users/petr/desktop/2nd_year/mr_crown_hill_rep/custom_hardware_filtering/db/ip/nios_accelerometer/submodules/altera_reset_controller.sdc    ; OK     ; Sat Mar 02 23:59:54 2024 ;
-; c:/users/petr/desktop/2nd_year/mr_crown_hill_rep/custom_hardware_filtering/db/ip/nios_accelerometer/submodules/nios_accelerometer_cpu_cpu.sdc ; OK     ; Sat Mar 02 23:59:54 2024 ;
+; c:/users/petr/desktop/2nd_year/mr_crown_hill_rep/custom_hardware_filtering/db/ip/nios_accelerometer/submodules/altera_reset_controller.sdc    ; OK     ; Sun Mar 03 13:19:15 2024 ;
+; c:/users/petr/desktop/2nd_year/mr_crown_hill_rep/custom_hardware_filtering/db/ip/nios_accelerometer/submodules/nios_accelerometer_cpu_cpu.sdc ; OK     ; Sun Mar 03 13:19:15 2024 ;
 +-----------------------------------------------------------------------------------------------------------------------------------------------+--------+--------------------------+
 
 
@@ -129,7 +128,7 @@ refer to the applicable agreement for further details.
 +------------+-----------------+---------------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name          ; Note ;
 +------------+-----------------+---------------------+------+
-; 127.03 MHz ; 127.03 MHz      ; altera_reserved_tck ;      ;
+; 154.42 MHz ; 154.42 MHz      ; altera_reserved_tck ;      ;
 +------------+-----------------+---------------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -139,7 +138,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+--------+---------------+
 ; Clock               ; Slack  ; End Point TNS ;
 +---------------------+--------+---------------+
-; altera_reserved_tck ; 46.064 ; 0.000         ;
+; altera_reserved_tck ; 46.762 ; 0.000         ;
 +---------------------+--------+---------------+
 
 
@@ -148,7 +147,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+-------+---------------+
 ; Clock               ; Slack ; End Point TNS ;
 +---------------------+-------+---------------+
-; altera_reserved_tck ; 0.341 ; 0.000         ;
+; altera_reserved_tck ; 0.340 ; 0.000         ;
 +---------------------+-------+---------------+
 
 
@@ -157,7 +156,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+--------+---------------+
 ; Clock               ; Slack  ; End Point TNS ;
 +---------------------+--------+---------------+
-; altera_reserved_tck ; 47.746 ; 0.000         ;
+; altera_reserved_tck ; 48.042 ; 0.000         ;
 +---------------------+--------+---------------+
 
 
@@ -166,7 +165,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+-------+---------------+
 ; Clock               ; Slack ; End Point TNS ;
 +---------------------+-------+---------------+
-; altera_reserved_tck ; 1.301 ; 0.000         ;
+; altera_reserved_tck ; 1.377 ; 0.000         ;
 +---------------------+-------+---------------+
 
 
@@ -175,7 +174,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+--------+--------------------+
 ; Clock               ; Slack  ; End Point TNS      ;
 +---------------------+--------+--------------------+
-; altera_reserved_tck ; 49.631 ; 0.000              ;
+; altera_reserved_tck ; 49.630 ; 0.000              ;
 +---------------------+--------+--------------------+
 
 
@@ -188,7 +187,7 @@ Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
 Number of Synchronizer Chains Found: 3
 Shortest Synchronizer Chain: 2 Registers
 Fraction of Chains for which MTBFs Could Not be Calculated: 0.333
-Worst Case Available Settling Time: 196.801 ns
+Worst Case Available Settling Time: 196.921 ns
 
 Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
@@ -202,7 +201,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +------------+-----------------+---------------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name          ; Note ;
 +------------+-----------------+---------------------+------+
-; 137.29 MHz ; 137.29 MHz      ; altera_reserved_tck ;      ;
+; 166.78 MHz ; 166.78 MHz      ; altera_reserved_tck ;      ;
 +------------+-----------------+---------------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -212,7 +211,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+--------+---------------+
 ; Clock               ; Slack  ; End Point TNS ;
 +---------------------+--------+---------------+
-; altera_reserved_tck ; 46.358 ; 0.000         ;
+; altera_reserved_tck ; 47.002 ; 0.000         ;
 +---------------------+--------+---------------+
 
 
@@ -221,7 +220,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+-------+---------------+
 ; Clock               ; Slack ; End Point TNS ;
 +---------------------+-------+---------------+
-; altera_reserved_tck ; 0.306 ; 0.000         ;
+; altera_reserved_tck ; 0.305 ; 0.000         ;
 +---------------------+-------+---------------+
 
 
@@ -230,7 +229,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+--------+---------------+
 ; Clock               ; Slack  ; End Point TNS ;
 +---------------------+--------+---------------+
-; altera_reserved_tck ; 47.918 ; 0.000         ;
+; altera_reserved_tck ; 48.230 ; 0.000         ;
 +---------------------+--------+---------------+
 
 
@@ -239,7 +238,7 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------------------+-------+---------------+
 ; Clock               ; Slack ; End Point TNS ;
 +---------------------+-------+---------------+
-; altera_reserved_tck ; 1.207 ; 0.000         ;
+; altera_reserved_tck ; 1.237 ; 0.000         ;
 +---------------------+-------+---------------+
 
 
@@ -261,7 +260,7 @@ Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
 Number of Synchronizer Chains Found: 3
 Shortest Synchronizer Chain: 2 Registers
 Fraction of Chains for which MTBFs Could Not be Calculated: 0.333
-Worst Case Available Settling Time: 197.097 ns
+Worst Case Available Settling Time: 197.199 ns
 
 Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
@@ -275,7 +274,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +---------------------+--------+---------------+
 ; Clock               ; Slack  ; End Point TNS ;
 +---------------------+--------+---------------+
-; altera_reserved_tck ; 48.566 ; 0.000         ;
+; altera_reserved_tck ; 48.924 ; 0.000         ;
 +---------------------+--------+---------------+
 
 
@@ -284,7 +283,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +---------------------+-------+---------------+
 ; Clock               ; Slack ; End Point TNS ;
 +---------------------+-------+---------------+
-; altera_reserved_tck ; 0.148 ; 0.000         ;
+; altera_reserved_tck ; 0.147 ; 0.000         ;
 +---------------------+-------+---------------+
 
 
@@ -293,7 +292,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +---------------------+--------+---------------+
 ; Clock               ; Slack  ; End Point TNS ;
 +---------------------+--------+---------------+
-; altera_reserved_tck ; 49.217 ; 0.000         ;
+; altera_reserved_tck ; 49.370 ; 0.000         ;
 +---------------------+--------+---------------+
 
 
@@ -302,7 +301,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +---------------------+-------+---------------+
 ; Clock               ; Slack ; End Point TNS ;
 +---------------------+-------+---------------+
-; altera_reserved_tck ; 0.562 ; 0.000         ;
+; altera_reserved_tck ; 0.583 ; 0.000         ;
 +---------------------+-------+---------------+
 
 
@@ -311,7 +310,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +---------------------+--------+-------------------+
 ; Clock               ; Slack  ; End Point TNS     ;
 +---------------------+--------+-------------------+
-; altera_reserved_tck ; 49.421 ; 0.000             ;
+; altera_reserved_tck ; 49.420 ; 0.000             ;
 +---------------------+--------+-------------------+
 
 
@@ -324,7 +323,7 @@ Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
 Number of Synchronizer Chains Found: 3
 Shortest Synchronizer Chain: 2 Registers
 Fraction of Chains for which MTBFs Could Not be Calculated: 0.333
-Worst Case Available Settling Time: 198.670 ns
+Worst Case Available Settling Time: 198.701 ns
 
 Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
@@ -338,8 +337,8 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +----------------------+--------+-------+----------+---------+---------------------+
 ; Clock                ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
 +----------------------+--------+-------+----------+---------+---------------------+
-; Worst-case Slack     ; 46.064 ; 0.148 ; 47.746   ; 0.562   ; 49.421              ;
-;  altera_reserved_tck ; 46.064 ; 0.148 ; 47.746   ; 0.562   ; 49.421              ;
+; Worst-case Slack     ; 46.762 ; 0.147 ; 48.042   ; 0.583   ; 49.420              ;
+;  altera_reserved_tck ; 46.762 ; 0.147 ; 48.042   ; 0.583   ; 49.420              ;
 ; Design-wide TNS      ; 0.0    ; 0.0   ; 0.0      ; 0.0     ; 0.0                 ;
 ;  altera_reserved_tck ; 0.000  ; 0.000 ; 0.000    ; 0.000   ; 0.000               ;
 +----------------------+--------+-------+----------+---------+---------------------+
@@ -1161,7 +1160,7 @@ Typical MTBF values are calculated based on the nominal silicon characteristics,
 +---------------------+---------------------+----------+----------+----------+----------+
 ; From Clock          ; To Clock            ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +---------------------+---------------------+----------+----------+----------+----------+
-; altera_reserved_tck ; altera_reserved_tck ; 1529     ; 0        ; 40       ; 3        ;
+; altera_reserved_tck ; altera_reserved_tck ; 1533     ; 0        ; 40       ; 3        ;
 +---------------------+---------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -1171,7 +1170,7 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +---------------------+---------------------+----------+----------+----------+----------+
 ; From Clock          ; To Clock            ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +---------------------+---------------------+----------+----------+----------+----------+
-; altera_reserved_tck ; altera_reserved_tck ; 1529     ; 0        ; 40       ; 3        ;
+; altera_reserved_tck ; altera_reserved_tck ; 1533     ; 0        ; 40       ; 3        ;
 +---------------------+---------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -1306,7 +1305,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Mar 02 23:59:53 2024
+    Info: Processing started: Sun Mar 03 13:19:15 2024
 Info: Command: quartus_sta custom_hardware -c custom_hardware
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -1359,26 +1358,26 @@ Critical Warning (332168): The following clock transfers have no clock uncertain
 Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow 1200mV 85C Model
 Info: Can't run Report Timing Closure Recommendations. The current device family is not supported.
-Info (332146): Worst-case setup slack is 46.064
+Info (332146): Worst-case setup slack is 46.762
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    46.064               0.000 altera_reserved_tck 
-Info (332146): Worst-case hold slack is 0.341
+    Info (332119):    46.762               0.000 altera_reserved_tck 
+Info (332146): Worst-case hold slack is 0.340
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.341               0.000 altera_reserved_tck 
-Info (332146): Worst-case recovery slack is 47.746
+    Info (332119):     0.340               0.000 altera_reserved_tck 
+Info (332146): Worst-case recovery slack is 48.042
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    47.746               0.000 altera_reserved_tck 
-Info (332146): Worst-case removal slack is 1.301
+    Info (332119):    48.042               0.000 altera_reserved_tck 
+Info (332146): Worst-case removal slack is 1.377
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     1.301               0.000 altera_reserved_tck 
-Info (332146): Worst-case minimum pulse width slack is 49.631
+    Info (332119):     1.377               0.000 altera_reserved_tck 
+Info (332146): Worst-case minimum pulse width slack is 49.630
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    49.631               0.000 altera_reserved_tck 
+    Info (332119):    49.630               0.000 altera_reserved_tck 
 Info (332114): Report Metastability: Found 3 synchronizer chains.
     Info (332114): Worst-Case MTBF of Design is 1e+09 years or 3.15e+16 seconds.
     Info (332114): Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
@@ -1386,7 +1385,7 @@ Info (332114): Report Metastability: Found 3 synchronizer chains.
     Info (332114): Number of Synchronizer Chains Found: 3
     Info (332114): Shortest Synchronizer Chain: 2 Registers
     Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 0.333
-    Info (332114): Worst Case Available Settling Time: 196.801 ns
+    Info (332114): Worst Case Available Settling Time: 196.921 ns
     Info (332114): 
     Info (332114): Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
     Info (332114):   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
@@ -1403,22 +1402,22 @@ Critical Warning (332168): The following clock transfers have no clock uncertain
     Critical Warning (332169): From altera_reserved_tck (Rise) to altera_reserved_tck (Rise) (setup and hold)
     Critical Warning (332169): From altera_reserved_tck (Rise) to altera_reserved_tck (Fall) (setup and hold)
     Critical Warning (332169): From altera_reserved_tck (Fall) to altera_reserved_tck (Fall) (setup and hold)
-Info (332146): Worst-case setup slack is 46.358
+Info (332146): Worst-case setup slack is 47.002
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    46.358               0.000 altera_reserved_tck 
-Info (332146): Worst-case hold slack is 0.306
+    Info (332119):    47.002               0.000 altera_reserved_tck 
+Info (332146): Worst-case hold slack is 0.305
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.306               0.000 altera_reserved_tck 
-Info (332146): Worst-case recovery slack is 47.918
+    Info (332119):     0.305               0.000 altera_reserved_tck 
+Info (332146): Worst-case recovery slack is 48.230
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    47.918               0.000 altera_reserved_tck 
-Info (332146): Worst-case removal slack is 1.207
+    Info (332119):    48.230               0.000 altera_reserved_tck 
+Info (332146): Worst-case removal slack is 1.237
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     1.207               0.000 altera_reserved_tck 
+    Info (332119):     1.237               0.000 altera_reserved_tck 
 Info (332146): Worst-case minimum pulse width slack is 49.654
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
@@ -1430,7 +1429,7 @@ Info (332114): Report Metastability: Found 3 synchronizer chains.
     Info (332114): Number of Synchronizer Chains Found: 3
     Info (332114): Shortest Synchronizer Chain: 2 Registers
     Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 0.333
-    Info (332114): Worst Case Available Settling Time: 197.097 ns
+    Info (332114): Worst Case Available Settling Time: 197.199 ns
     Info (332114): 
     Info (332114): Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
     Info (332114):   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
@@ -1445,26 +1444,26 @@ Critical Warning (332168): The following clock transfers have no clock uncertain
     Critical Warning (332169): From altera_reserved_tck (Rise) to altera_reserved_tck (Rise) (setup and hold)
     Critical Warning (332169): From altera_reserved_tck (Rise) to altera_reserved_tck (Fall) (setup and hold)
     Critical Warning (332169): From altera_reserved_tck (Fall) to altera_reserved_tck (Fall) (setup and hold)
-Info (332146): Worst-case setup slack is 48.566
+Info (332146): Worst-case setup slack is 48.924
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    48.566               0.000 altera_reserved_tck 
-Info (332146): Worst-case hold slack is 0.148
+    Info (332119):    48.924               0.000 altera_reserved_tck 
+Info (332146): Worst-case hold slack is 0.147
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.148               0.000 altera_reserved_tck 
-Info (332146): Worst-case recovery slack is 49.217
+    Info (332119):     0.147               0.000 altera_reserved_tck 
+Info (332146): Worst-case recovery slack is 49.370
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    49.217               0.000 altera_reserved_tck 
-Info (332146): Worst-case removal slack is 0.562
+    Info (332119):    49.370               0.000 altera_reserved_tck 
+Info (332146): Worst-case removal slack is 0.583
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.562               0.000 altera_reserved_tck 
-Info (332146): Worst-case minimum pulse width slack is 49.421
+    Info (332119):     0.583               0.000 altera_reserved_tck 
+Info (332146): Worst-case minimum pulse width slack is 49.420
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    49.421               0.000 altera_reserved_tck 
+    Info (332119):    49.420               0.000 altera_reserved_tck 
 Info (332114): Report Metastability: Found 3 synchronizer chains.
     Info (332114): Worst-Case MTBF of Design is 1e+09 years or 3.15e+16 seconds.
     Info (332114): Typical MTBF of Design is 1e+09 years or 3.15e+16 seconds.
@@ -1472,7 +1471,7 @@ Info (332114): Report Metastability: Found 3 synchronizer chains.
     Info (332114): Number of Synchronizer Chains Found: 3
     Info (332114): Shortest Synchronizer Chain: 2 Registers
     Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 0.333
-    Info (332114): Worst Case Available Settling Time: 198.670 ns
+    Info (332114): Worst Case Available Settling Time: 198.701 ns
     Info (332114): 
     Info (332114): Worst-Case MTBF values are calculated based on the worst-case silicon characteristics, with worst-case operating conditions.
     Info (332114):   - Under worst-case conditions, an increase of 100ps in available settling time will increase MTBF values by a factor of 1.8
@@ -1481,9 +1480,9 @@ Info (332114): Report Metastability: Found 3 synchronizer chains.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 16 warnings
-    Info: Peak virtual memory: 5009 megabytes
-    Info: Processing ended: Sat Mar 02 23:59:56 2024
-    Info: Elapsed time: 00:00:03
+    Info: Peak virtual memory: 5007 megabytes
+    Info: Processing ended: Sun Mar 03 13:19:17 2024
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:03
 
 

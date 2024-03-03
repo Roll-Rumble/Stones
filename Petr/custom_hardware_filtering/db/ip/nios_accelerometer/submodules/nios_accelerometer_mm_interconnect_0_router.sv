@@ -226,13 +226,13 @@ module nios_accelerometer_mm_interconnect_0_router
     end
 
     // ( 0x21040 .. 0x21050 )
-    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 18'h21040  && read_transaction  ) begin
+    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 18'h21040   ) begin
             src_channel = 9'b100000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
     // ( 0x21050 .. 0x21060 )
-    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 18'h21050   ) begin
+    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 18'h21050  && read_transaction  ) begin
             src_channel = 9'b010000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end

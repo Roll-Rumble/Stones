@@ -4,15 +4,15 @@
 
 `timescale 1 ps / 1 ps
 module nios_accelerometer (
-		inout  wire        accelerometer_spi_external_interface_I2C_SDAT,      // accelerometer_spi_external_interface.I2C_SDAT
-		output wire        accelerometer_spi_external_interface_I2C_SCLK,      //                                     .I2C_SCLK
-		output wire        accelerometer_spi_external_interface_G_SENSOR_CS_N, //                                     .G_SENSOR_CS_N
-		input  wire        accelerometer_spi_external_interface_G_SENSOR_INT,  //                                     .G_SENSOR_INT
-		input  wire        clk_clk,                                            //                                  clk.clk
-		input  wire [30:0] fir_in_x_external_connection_export,                //         fir_in_x_external_connection.export
-		output wire [30:0] fir_out_x_external_connection_export,               //        fir_out_x_external_connection.export
-		output wire [9:0]  led_external_connection_export,                     //              led_external_connection.export
-		input  wire        reset_reset_n                                       //                                reset.reset_n
+		inout  wire       accelerometer_spi_external_interface_I2C_SDAT,      // accelerometer_spi_external_interface.I2C_SDAT
+		output wire       accelerometer_spi_external_interface_I2C_SCLK,      //                                     .I2C_SCLK
+		output wire       accelerometer_spi_external_interface_G_SENSOR_CS_N, //                                     .G_SENSOR_CS_N
+		input  wire       accelerometer_spi_external_interface_G_SENSOR_INT,  //                                     .G_SENSOR_INT
+		input  wire       clk_clk,                                            //                                  clk.clk
+		output wire       fir_in_x_external_connection_export,                //         fir_in_x_external_connection.export
+		input  wire       fir_out_x_external_connection_export,               //        fir_out_x_external_connection.export
+		output wire [9:0] led_external_connection_export,                     //              led_external_connection.export
+		input  wire       reset_reset_n                                       //                                reset.reset_n
 	);
 
 	wire  [31:0] cpu_data_master_readdata;                                                            // mm_interconnect_0:cpu_data_master_readdata -> cpu:d_readdata
@@ -71,13 +71,13 @@ module nios_accelerometer (
 	wire   [2:0] mm_interconnect_0_timer_0_s1_address;                                                // mm_interconnect_0:timer_0_s1_address -> timer_0:address
 	wire         mm_interconnect_0_timer_0_s1_write;                                                  // mm_interconnect_0:timer_0_s1_write -> timer_0:write_n
 	wire  [15:0] mm_interconnect_0_timer_0_s1_writedata;                                              // mm_interconnect_0:timer_0_s1_writedata -> timer_0:writedata
-	wire         mm_interconnect_0_fir_out_x_s1_chipselect;                                           // mm_interconnect_0:fir_out_x_s1_chipselect -> fir_out_x:chipselect
 	wire  [31:0] mm_interconnect_0_fir_out_x_s1_readdata;                                             // fir_out_x:readdata -> mm_interconnect_0:fir_out_x_s1_readdata
 	wire   [1:0] mm_interconnect_0_fir_out_x_s1_address;                                              // mm_interconnect_0:fir_out_x_s1_address -> fir_out_x:address
-	wire         mm_interconnect_0_fir_out_x_s1_write;                                                // mm_interconnect_0:fir_out_x_s1_write -> fir_out_x:write_n
-	wire  [31:0] mm_interconnect_0_fir_out_x_s1_writedata;                                            // mm_interconnect_0:fir_out_x_s1_writedata -> fir_out_x:writedata
+	wire         mm_interconnect_0_fir_in_x_s1_chipselect;                                            // mm_interconnect_0:fir_in_x_s1_chipselect -> fir_in_x:chipselect
 	wire  [31:0] mm_interconnect_0_fir_in_x_s1_readdata;                                              // fir_in_x:readdata -> mm_interconnect_0:fir_in_x_s1_readdata
 	wire   [1:0] mm_interconnect_0_fir_in_x_s1_address;                                               // mm_interconnect_0:fir_in_x_s1_address -> fir_in_x:address
+	wire         mm_interconnect_0_fir_in_x_s1_write;                                                 // mm_interconnect_0:fir_in_x_s1_write -> fir_in_x:write_n
+	wire  [31:0] mm_interconnect_0_fir_in_x_s1_writedata;                                             // mm_interconnect_0:fir_in_x_s1_writedata -> fir_in_x:writedata
 	wire         irq_mapper_receiver0_irq;                                                            // accelerometer_spi:irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                                            // jtag_uart:av_irq -> irq_mapper:receiver1_irq
 	wire         irq_mapper_receiver2_irq;                                                            // timer:irq -> irq_mapper:receiver2_irq
@@ -133,22 +133,22 @@ module nios_accelerometer (
 	);
 
 	nios_accelerometer_fir_in_x fir_in_x (
-		.clk      (clk_clk),                                //                 clk.clk
-		.reset_n  (~rst_controller_reset_out_reset),        //               reset.reset_n
-		.address  (mm_interconnect_0_fir_in_x_s1_address),  //                  s1.address
-		.readdata (mm_interconnect_0_fir_in_x_s1_readdata), //                    .readdata
-		.in_port  (fir_in_x_external_connection_export)     // external_connection.export
+		.clk        (clk_clk),                                  //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),          //               reset.reset_n
+		.address    (mm_interconnect_0_fir_in_x_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_fir_in_x_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_fir_in_x_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_fir_in_x_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_fir_in_x_s1_readdata),   //                    .readdata
+		.out_port   (fir_in_x_external_connection_export)       // external_connection.export
 	);
 
 	nios_accelerometer_fir_out_x fir_out_x (
-		.clk        (clk_clk),                                   //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),           //               reset.reset_n
-		.address    (mm_interconnect_0_fir_out_x_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_fir_out_x_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_fir_out_x_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_fir_out_x_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_fir_out_x_s1_readdata),   //                    .readdata
-		.out_port   (fir_out_x_external_connection_export)       // external_connection.export
+		.clk      (clk_clk),                                 //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),         //               reset.reset_n
+		.address  (mm_interconnect_0_fir_out_x_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_fir_out_x_s1_readdata), //                    .readdata
+		.in_port  (fir_out_x_external_connection_export)     // external_connection.export
 	);
 
 	nios_accelerometer_jtag_uart jtag_uart (
@@ -242,12 +242,12 @@ module nios_accelerometer (
 		.cpu_debug_mem_slave_waitrequest                                   (mm_interconnect_0_cpu_debug_mem_slave_waitrequest),                                   //                                                      .waitrequest
 		.cpu_debug_mem_slave_debugaccess                                   (mm_interconnect_0_cpu_debug_mem_slave_debugaccess),                                   //                                                      .debugaccess
 		.fir_in_x_s1_address                                               (mm_interconnect_0_fir_in_x_s1_address),                                               //                                           fir_in_x_s1.address
+		.fir_in_x_s1_write                                                 (mm_interconnect_0_fir_in_x_s1_write),                                                 //                                                      .write
 		.fir_in_x_s1_readdata                                              (mm_interconnect_0_fir_in_x_s1_readdata),                                              //                                                      .readdata
+		.fir_in_x_s1_writedata                                             (mm_interconnect_0_fir_in_x_s1_writedata),                                             //                                                      .writedata
+		.fir_in_x_s1_chipselect                                            (mm_interconnect_0_fir_in_x_s1_chipselect),                                            //                                                      .chipselect
 		.fir_out_x_s1_address                                              (mm_interconnect_0_fir_out_x_s1_address),                                              //                                          fir_out_x_s1.address
-		.fir_out_x_s1_write                                                (mm_interconnect_0_fir_out_x_s1_write),                                                //                                                      .write
 		.fir_out_x_s1_readdata                                             (mm_interconnect_0_fir_out_x_s1_readdata),                                             //                                                      .readdata
-		.fir_out_x_s1_writedata                                            (mm_interconnect_0_fir_out_x_s1_writedata),                                            //                                                      .writedata
-		.fir_out_x_s1_chipselect                                           (mm_interconnect_0_fir_out_x_s1_chipselect),                                           //                                                      .chipselect
 		.jtag_uart_avalon_jtag_slave_address                               (mm_interconnect_0_jtag_uart_avalon_jtag_slave_address),                               //                           jtag_uart_avalon_jtag_slave.address
 		.jtag_uart_avalon_jtag_slave_write                                 (mm_interconnect_0_jtag_uart_avalon_jtag_slave_write),                                 //                                                      .write
 		.jtag_uart_avalon_jtag_slave_read                                  (mm_interconnect_0_jtag_uart_avalon_jtag_slave_read),                                  //                                                      .read
