@@ -70,10 +70,10 @@ module DE10_LITE_Golden_Top(
 //======================================================
 
 //Hardware FIR for x
-logic 				[31:0]		FIR_X_IN;
-logic				[31:0]		FIR_X_OUT;
+wire 				[31:0]		FIR_X_IN;
+wire				[31:0]		FIR_X_OUT;
 
-logic							SAMPLE_TICK;
+wire							SAMPLE_TICK;
 
 
 //=======================================================

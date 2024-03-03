@@ -1,5 +1,5 @@
 Flow report for custom_hardware
-Sun Mar 03 19:26:18 2024
+Sun Mar 03 21:20:02 2024
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,21 +40,21 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sun Mar 03 19:26:14 2024       ;
+; Flow Status                        ; Successful - Sun Mar 03 21:19:58 2024       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; custom_hardware                             ;
 ; Top-level Entity Name              ; DE10_LITE_Golden_Top                        ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C7G                              ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 2,711 / 49,760 ( 5 % )                      ;
-;     Total combinational functions  ; 2,428 / 49,760 ( 5 % )                      ;
-;     Dedicated logic registers      ; 1,653 / 49,760 ( 3 % )                      ;
-; Total registers                    ; 1653                                        ;
+; Total logic elements               ; 4,003 / 49,760 ( 8 % )                      ;
+;     Total combinational functions  ; 3,263 / 49,760 ( 7 % )                      ;
+;     Dedicated logic registers      ; 2,154 / 49,760 ( 4 % )                      ;
+; Total registers                    ; 2154                                        ;
 ; Total pins                         ; 185 / 360 ( 51 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 535,552 / 1,677,312 ( 32 % )                ;
-; Embedded Multiplier 9-bit elements ; 12 / 288 ( 4 % )                            ;
+; Embedded Multiplier 9-bit elements ; 80 / 288 ( 28 % )                           ;
 ; Total PLLs                         ; 0 / 4 ( 0 % )                               ;
 ; UFM blocks                         ; 0 / 1 ( 0 % )                               ;
 ; ADC blocks                         ; 0 / 2 ( 0 % )                               ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 03/03/2024 19:25:18 ;
+; Start date & time ; 03/03/2024 21:19:01 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; custom_hardware     ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+-----------------+----------------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value   ; Entity Name          ; Section Id ;
 +-------------------------------------+----------------------------------------+-----------------+----------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 150462082447374.170949391818420        ; --              ; --                   ; --         ;
+; COMPILER_SIGNATURE_ID               ; 150462082447374.170950074020264        ; --              ; --                   ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --              ; --                   ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --              ; --                   ; --         ;
 ; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --              ; DE10_LITE_Golden_Top ; Top        ;
@@ -95,11 +95,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:40     ; 1.0                     ; 4984 MB             ; 00:00:25                           ;
-; Fitter               ; 00:00:10     ; 1.7                     ; 6669 MB             ; 00:00:10                           ;
-; Assembler            ; 00:00:02     ; 1.0                     ; 4703 MB             ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:03     ; 2.4                     ; 5015 MB             ; 00:00:03                           ;
-; Total                ; 00:00:55     ; --                      ; --                  ; 00:00:39                           ;
+; Analysis & Synthesis ; 00:00:40     ; 1.0                     ; 4997 MB             ; 00:00:28                           ;
+; Fitter               ; 00:00:11     ; 1.9                     ; 6714 MB             ; 00:00:14                           ;
+; Assembler            ; 00:00:02     ; 1.0                     ; 4706 MB             ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:03     ; 2.9                     ; 5024 MB             ; 00:00:04                           ;
+; Total                ; 00:00:56     ; --                      ; --                  ; 00:00:47                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

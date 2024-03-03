@@ -102,49 +102,17 @@ int main()
   alt_32 sample = 1;
   alt_32 res;
   write_to_fir_x(sample);
-  alt_printf("value sent was %x\n", sample);
+  alt_printf("value sent was %s\n", sample);
   res = read_from_fir_x();
-  alt_printf("res: %x\n", res);
+  alt_printf("res: %s\n", res);
 
   sample = 1;
   write_to_fir_x(sample);
-  alt_printf("value sent was %x\n", sample);
+  alt_printf("value sent was %s\n", sample);
   res = read_from_fir_x();
-  alt_printf("res: %x\n", res);
+  alt_printf("res: %s\n", res);
 
-  sample = 1;
-  write_to_fir_x(sample);
-  alt_printf("value sent was %x\n", sample);
-  res = read_from_fir_x();
-  alt_printf("res: %x\n", res);
 
-  alt_printf("now testing read after write\n\n");
-  sample = 1;
-  write_to_fir_x(sample);
-  res = read_from_fir_x();
-  alt_printf("value sent was %x\n", sample);
-  alt_printf("res: %x\n", res);
-
-  sample = 2;
-	write_to_fir_x(sample);
-	res = read_from_fir_x();
-	alt_printf("value sent was %x\n", sample);
-	alt_printf("res: %x\n", res);
- sample = 2;
-	write_to_fir_x(sample);
-	res = read_from_fir_x();
-	alt_printf("value sent was %x\n", sample);
-	alt_printf("res: %x\n", res);
- sample = 2;
-	write_to_fir_x(sample);
-	res = read_from_fir_x();
-	alt_printf("value sent was %x\n", sample);
-	alt_printf("res: %x\n", res);
- sample = 2;
-	write_to_fir_x(sample);
-	res = read_from_fir_x();
-	alt_printf("value sent was %x\n", sample);
-	alt_printf("res: %x\n", res);
 
   /* Event loop never exits. */
   //while (1);
