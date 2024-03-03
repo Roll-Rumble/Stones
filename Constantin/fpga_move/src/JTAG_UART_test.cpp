@@ -13,6 +13,7 @@
 int main()
 {
 	Controller niosII;
+
 	niosII.startNewThread();
 }
 

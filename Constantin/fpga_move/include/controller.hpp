@@ -1,27 +1,17 @@
 #ifndef CONTROLLER_HPP
 #define CONTROLLER_HPP
 
-#include <jtag_atlantic.h>
-
-
-#define STR_BUFFER_SIZE 50
-#define READ_BUFFER_SIZE 1
-
-#define INPUT_THRESHOLD 20
-#define OUTLIER_THRESHOLD 256
+#include <cstdint>
 
 class Controller {
 public:
-	Controller();
-	~Controller();
+	int16_t getXVal();
+	int16_t getYVal();
+	int16_t getZVal();
 
-	short getXVal();
-	short getYVal();
-	short getZVal();
 
-	std::pair<float, float> get_xy();
-
-	static std::pair<float, float> normalise_xy(float x, float y);
+	void startNewThread();
+	void operator()();
 
 private:
 	//void readJTAG();
@@ -29,7 +19,6 @@ private:
 	short x_val;
 	short y_val;
 	short z_val;
-	JTAGATLANTIC* handle;
 };
 
 #endif
