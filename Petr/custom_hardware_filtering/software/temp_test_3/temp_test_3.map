@@ -1,0 +1,722 @@
+Archive member included to satisfy reference by file (symbol)
+
+../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+                              obj/default/hello_world_small.o (alt_irq_register)
+../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o) (alt_irq_active)
+../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+                              ../temp_test_3_bsp//obj/HAL/src/crt0.o (alt_load)
+../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+                              ../temp_test_3_bsp//obj/HAL/src/crt0.o (alt_main)
+../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+                              obj/default/hello_world_small.o (alt_printf)
+../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o) (alt_putchar)
+../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o) (alt_irq_init)
+../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o) (altera_avalon_jtag_uart_write)
+../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o) (alt_avalon_timer_sc_init)
+../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o) (altera_avalon_timer_ts_freq)
+../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o) (alt_dcache_flush_all)
+../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o) (alt_dev_list)
+../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o) (alt_dev_llist_insert)
+../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o) (alt_errno)
+../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o) (alt_icache_flush_all)
+../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o) (alt_irq_entry)
+../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o) (alt_irq_handler)
+../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o) (alt_tick)
+../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o) (altera_nios2_gen2_irq_init)
+../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o) (alt_exception)
+../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o) (alt_instruction_exception_entry)
+c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+                              ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o) (errno)
+
+Allocating common symbols
+Common symbol       size              file
+
+alt_irq             0x100             ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+errno               0x4               c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+led                 0x2               obj/default/hello_world_small.o
+level               0x4               obj/default/hello_world_small.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+reset            0x0000000000010000 0x0000000000000020
+onchip_memory    0x0000000000010020 0x000000000000ffe0
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD ../temp_test_3_bsp//obj/HAL/src/crt0.o
+LOAD obj/default/hello_world_small.o
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libstdc++.a
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libm.a
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a
+START GROUP
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a
+LOAD ../temp_test_3_bsp/\libhal_bsp.a
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libm.a
+END GROUP
+LOAD c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/mno-hw-mul\libgcc.a
+                0x0000000000010000                __alt_mem_onchip_memory = 0x10000
+
+.entry          0x0000000000010000       0x20
+ *(.entry)
+ .entry         0x0000000000010000       0x20 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+                0x0000000000010000                __reset
+                0x000000000001000c                _exit
+
+.exceptions     0x0000000000010020      0x160
+                0x0000000000010020                PROVIDE (__ram_exceptions_start, ABSOLUTE (.))
+                0x0000000000010020                . = ALIGN (0x20)
+ *(.irq)
+ *(.exceptions.entry.label)
+ .exceptions.entry.label
+                0x0000000000010020        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+                0x0000000000010020                alt_irq_entry
+ .exceptions.entry.label
+                0x0000000000010020        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+                0x0000000000010020                alt_exception
+ *(.exceptions.entry.user)
+ *(.exceptions.entry.ecc_fatal)
+ *(.exceptions.entry)
+ .exceptions.entry
+                0x0000000000010020       0x54 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ *(.exceptions.irqtest.user)
+ *(.exceptions.irqtest)
+ .exceptions.irqtest
+                0x0000000000010074       0x10 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ *(.exceptions.irqhandler.user)
+ *(.exceptions.irqhandler)
+ .exceptions.irqhandler
+                0x0000000000010084        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ *(.exceptions.irqreturn.user)
+ *(.exceptions.irqreturn)
+ .exceptions.irqreturn
+                0x0000000000010088        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ *(.exceptions.notirq.label)
+ .exceptions.notirq.label
+                0x000000000001008c        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ *(.exceptions.notirq.user)
+ *(.exceptions.notirq)
+ .exceptions.notirq
+                0x000000000001008c        0x8 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ *(.exceptions.soft.user)
+ *(.exceptions.soft)
+ *(.exceptions.unknown.user)
+ *(.exceptions.unknown)
+ .exceptions.unknown
+                0x0000000000010094       0x14 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ *(.exceptions.exit.label)
+ .exceptions.exit.label
+                0x00000000000100a8        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .exceptions.exit.label
+                0x00000000000100a8        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ *(.exceptions.exit.user)
+ *(.exceptions.exit)
+ .exceptions.exit
+                0x00000000000100a8       0x54 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ *(.exceptions)
+ .exceptions    0x00000000000100fc       0x60 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+                0x00000000000100fc                alt_irq_handler
+ .exceptions    0x000000000001015c       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                0x000000000001015c                alt_instruction_exception_entry
+                0x0000000000010180                PROVIDE (__ram_exceptions_end, ABSOLUTE (.))
+                0x0000000000010020                PROVIDE (__flash_exceptions_start, LOADADDR (.exceptions))
+
+.text           0x0000000000010180      0x808
+                [!provide]                        PROVIDE (stext, ABSOLUTE (.))
+ *(.interp)
+ *(.hash)
+ *(.dynsym)
+ *(.dynstr)
+ *(.gnu.version)
+ *(.gnu.version_d)
+ *(.gnu.version_r)
+ *(.rel.init)
+ *(.rela.init)
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+ *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+ *(.rel.fini)
+ *(.rela.fini)
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+ *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+ *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+ *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+ *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+ *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+ *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+ *(.rel.ctors)
+ *(.rela.ctors)
+ *(.rel.dtors)
+ *(.rela.dtors)
+ *(.rel.got)
+ *(.rela.got)
+ *(.rel.sdata .rel.sdata.* .rel.gnu.linkonce.s.*)
+ *(.rela.sdata .rela.sdata.* .rela.gnu.linkonce.s.*)
+ *(.rel.sbss .rel.sbss.* .rel.gnu.linkonce.sb.*)
+ *(.rela.sbss .rela.sbss.* .rela.gnu.linkonce.sb.*)
+ *(.rel.sdata2 .rel.sdata2.* .rel.gnu.linkonce.s2.*)
+ *(.rela.sdata2 .rela.sdata2.* .rela.gnu.linkonce.s2.*)
+ *(.rel.sbss2 .rel.sbss2.* .rel.gnu.linkonce.sb2.*)
+ *(.rela.sbss2 .rela.sbss2.* .rela.gnu.linkonce.sb2.*)
+ *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+ *(.rel.plt)
+ *(.rela.plt)
+ *(.rel.dyn)
+ *(.init)
+ *(.plt)
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x0000000000010180       0x3c ../temp_test_3_bsp//obj/HAL/src/crt0.o
+                0x0000000000010180                _start
+ .text          0x00000000000101bc      0x110 obj/default/hello_world_small.o
+                0x00000000000101bc                sys_timer_isr
+                0x000000000001023c                timer_init
+                0x00000000000102ac                fir_x_read
+                0x00000000000102bc                fir_x_write
+ .text.startup  0x00000000000102cc       0x78 obj/default/hello_world_small.o
+                0x00000000000102cc                main
+ .text          0x0000000000010344       0x94 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+                0x0000000000010344                alt_irq_register
+ .text          0x00000000000103d8        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .text          0x00000000000103d8       0xe0 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+                0x00000000000103d8                alt_load
+ .text          0x00000000000104b8       0x2c ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+                0x00000000000104b8                alt_main
+ .text          0x00000000000104e4      0x170 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+                0x00000000000104e4                alt_printf
+ .text          0x0000000000010654       0x48 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+                0x0000000000010654                alt_putchar
+ .text          0x000000000001069c       0x70 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+                0x000000000001069c                alt_irq_init
+                0x00000000000106bc                alt_sys_init
+ .text          0x000000000001070c       0x34 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+                0x000000000001070c                altera_avalon_jtag_uart_write
+ .text          0x0000000000010740       0x64 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+                0x000000000001077c                alt_avalon_timer_sc_init
+ .text          0x00000000000107a4        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .text          0x00000000000107a4        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+                0x00000000000107a4                alt_dcache_flush_all
+ .text          0x00000000000107a8        0x8 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .text          0x00000000000107b0       0x6c ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+                0x00000000000107b0                alt_dev_llist_insert
+ .text          0x000000000001081c        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .text          0x000000000001081c        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+                0x000000000001081c                alt_icache_flush_all
+ .text          0x0000000000010820        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .text          0x0000000000010820        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .text          0x0000000000010820       0xec ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+                0x0000000000010820                alt_alarm_stop
+                0x0000000000010854                alt_tick
+ .text          0x000000000001090c        0x8 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+                0x000000000001090c                altera_nios2_gen2_irq_init
+ .text          0x0000000000010914        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .text          0x0000000000010914       0x74 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                0x0000000000010914                alt_exception_cause_generated_bad_addr
+ .text          0x0000000000010988        0x0 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+ *(.gnu.warning.*)
+ *(.fini)
+                [!provide]                        PROVIDE (__etext, ABSOLUTE (.))
+                [!provide]                        PROVIDE (_etext, ABSOLUTE (.))
+                [!provide]                        PROVIDE (etext, ABSOLUTE (.))
+ *(.eh_frame_hdr)
+                0x0000000000010988                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (__preinit_array_start, ABSOLUTE (.))
+ *(.preinit_array)
+                [!provide]                        PROVIDE (__preinit_array_end, ABSOLUTE (.))
+                [!provide]                        PROVIDE (__init_array_start, ABSOLUTE (.))
+ *(.init_array)
+                [!provide]                        PROVIDE (__init_array_end, ABSOLUTE (.))
+                [!provide]                        PROVIDE (__fini_array_start, ABSOLUTE (.))
+ *(.fini_array)
+                [!provide]                        PROVIDE (__fini_array_end, ABSOLUTE (.))
+ *(.eh_frame)
+ *(.gcc_except_table .gcc_except_table.*)
+ *(.dynamic)
+                [!provide]                        PROVIDE (__CTOR_LIST__, ABSOLUTE (.))
+ *(.ctors)
+ *(SORT(.ctors.*))
+                [!provide]                        PROVIDE (__CTOR_END__, ABSOLUTE (.))
+                [!provide]                        PROVIDE (__DTOR_LIST__, ABSOLUTE (.))
+ *(.dtors)
+ *(SORT(.dtors.*))
+                [!provide]                        PROVIDE (__DTOR_END__, ABSOLUTE (.))
+ *(.jcr)
+                0x0000000000010988                . = ALIGN (0x4)
+
+.rodata         0x0000000000010988       0x8c
+                0x0000000000010988                PROVIDE (__ram_rodata_start, ABSOLUTE (.))
+                0x0000000000010988                . = ALIGN (0x4)
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x0000000000010988       0x17 obj/default/hello_world_small.o
+ *fill*         0x000000000001099f        0x1 
+ .rodata        0x00000000000109a0       0x50 obj/default/hello_world_small.o
+                0x00000000000109a0                fixed_coeffs
+ .rodata.str1.4
+                0x00000000000109f0       0x17 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ *fill*         0x0000000000010a07        0x1 
+ .rodata.str1.4
+                0x0000000000010a08        0xc ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+                                          0xa (size before relaxing)
+ *(.rodata1)
+                0x0000000000010a14                . = ALIGN (0x4)
+                0x0000000000010a14                PROVIDE (__ram_rodata_end, ABSOLUTE (.))
+                0x0000000000010988                PROVIDE (__flash_rodata_start, LOADADDR (.rodata))
+
+.rwdata         0x0000000000010a14       0xac load address 0x0000000000010ac0
+                0x0000000000010a14                PROVIDE (__ram_rwdata_start, ABSOLUTE (.))
+                0x0000000000010a14                . = ALIGN (0x4)
+ *(.got.plt)
+ *(.got)
+ *(.data1)
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .data          0x0000000000010a14        0x0 obj/default/hello_world_small.o
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .data          0x0000000000010a14        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .data          0x0000000000010a14       0x2c ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .data          0x0000000000010a40        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .data          0x0000000000010a40        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .data          0x0000000000010a40        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .data          0x0000000000010a40        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .data          0x0000000000010a40       0x58 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+                0x0000000000010a40                alt_fd_list
+                0x0000000000010a70                alt_dev_null
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .data          0x0000000000010a98        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .data          0x0000000000010a98        0x0 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+                0x0000000000018a98                _gp = ABSOLUTE ((. + 0x8000))
+                [!provide]                        PROVIDE (gp, _gp)
+ *(.rwdata .rwdata.*)
+ *(.sdata .sdata.* .gnu.linkonce.s.*)
+ .sdata         0x0000000000010a98        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+                0x0000000000010a98                alt_priority_mask
+ .sdata         0x0000000000010a9c        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+                0x0000000000010a9c                jtag_uart
+ .sdata         0x0000000000010aa0       0x14 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+                0x0000000000010aa0                alt_max_fd
+                0x0000000000010aa4                alt_dev_list
+                0x0000000000010aac                alt_fs_list
+ .sdata         0x0000000000010ab4        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+                0x0000000000010ab4                alt_errno
+ .sdata         0x0000000000010ab8        0x8 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+                0x0000000000010ab8                alt_alarm_list
+ *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
+                0x0000000000010ac0                . = ALIGN (0x4)
+                0x0000000000010ac0                _edata = ABSOLUTE (.)
+                [!provide]                        PROVIDE (edata, ABSOLUTE (.))
+                0x0000000000010ac0                PROVIDE (__ram_rwdata_end, ABSOLUTE (.))
+                0x0000000000010ac0                PROVIDE (__flash_rwdata_start, LOADADDR (.rwdata))
+
+.bss            0x0000000000010b6c      0x134
+                0x0000000000010b6c                __bss_start = ABSOLUTE (.)
+                [!provide]                        PROVIDE (__sbss_start, ABSOLUTE (.))
+                [!provide]                        PROVIDE (___sbss_start, ABSOLUTE (.))
+ *(.dynsbss)
+ *(.sbss .sbss.* .gnu.linkonce.sb.*)
+ .sbss          0x0000000000010b6c        0x1 obj/default/hello_world_small.o
+                0x0000000000010b6c                pwm
+ *fill*         0x0000000000010b6d        0x3 
+ .sbss          0x0000000000010b70        0x8 obj/default/hello_world_small.o
+                0x0000000000010b70                led
+                0x0000000000010b74                level
+ .sbss          0x0000000000010b78        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+                0x0000000000010b78                alt_irq_active
+ .sbss          0x0000000000010b7c        0xc ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+                0x0000000000010b7c                alt_envp
+                0x0000000000010b80                alt_argv
+                0x0000000000010b84                alt_argc
+ .sbss          0x0000000000010b88        0x8 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+                0x0000000000010b88                altera_avalon_timer_ts_freq
+                0x0000000000010b8c                altera_avalon_timer_ts_base
+ .sbss          0x0000000000010b90        0x8 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+                0x0000000000010b90                _alt_nticks
+                0x0000000000010b94                _alt_tick_rate
+ .sbss          0x0000000000010b98        0x4 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                0x0000000000010b98                alt_instruction_exception_handler
+ .sbss          0x0000000000010b9c        0x4 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+                0x0000000000010b9c                errno
+ *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
+ *(.scommon)
+                [!provide]                        PROVIDE (__sbss_end, ABSOLUTE (.))
+                [!provide]                        PROVIDE (___sbss_end, ABSOLUTE (.))
+ *(.dynbss)
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .bss           0x0000000000010ba0        0x0 obj/default/hello_world_small.o
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .bss           0x0000000000010ba0        0x0 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .bss           0x0000000000010ba0        0x0 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+ *(COMMON)
+ COMMON         0x0000000000010ba0      0x100 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+                0x0000000000010ba0                alt_irq
+                0x0000000000010ca0                . = ALIGN (0x4)
+                0x0000000000010ca0                __bss_end = ABSOLUTE (.)
+
+.onchip_memory  0x0000000000010ca0        0x0
+                [!provide]                        PROVIDE (_alt_partition_onchip_memory_start, ABSOLUTE (.))
+ *(.onchip_memory .onchip_memory. onchip_memory.*)
+                0x0000000000010ca0                . = ALIGN (0x4)
+                [!provide]                        PROVIDE (_alt_partition_onchip_memory_end, ABSOLUTE (.))
+                0x0000000000010ca0                _end = ABSOLUTE (.)
+                0x0000000000010ca0                end = ABSOLUTE (.)
+                0x0000000000010ca0                __alt_stack_base = ABSOLUTE (.)
+                [!provide]                        PROVIDE (_alt_partition_onchip_memory_load_addr, LOADADDR (.onchip_memory))
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x23
+ *(.comment)
+ .comment       0x0000000000000000       0x23 obj/default/hello_world_small.o
+                                         0x24 (size before relaxing)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .comment       0x0000000000000023       0x24 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .comment       0x0000000000000023       0x24 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000      0x320
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000       0x28 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .debug_aranges
+                0x0000000000000028       0x28 obj/default/hello_world_small.o
+ .debug_aranges
+                0x0000000000000050       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .debug_aranges
+                0x0000000000000070       0x18 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_aranges
+                0x0000000000000088       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_aranges
+                0x00000000000000a8       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_aranges
+                0x00000000000000c8       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_aranges
+                0x00000000000000e8       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .debug_aranges
+                0x0000000000000108       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_aranges
+                0x0000000000000128       0x20 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_aranges
+                0x0000000000000148       0x20 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_aranges
+                0x0000000000000168       0x18 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .debug_aranges
+                0x0000000000000180       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_aranges
+                0x00000000000001a0       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_aranges
+                0x00000000000001c0       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_aranges
+                0x00000000000001e0       0x18 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_aranges
+                0x00000000000001f8       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_aranges
+                0x0000000000000218       0x30 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_aranges
+                0x0000000000000248       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_aranges
+                0x0000000000000268       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_aranges
+                0x0000000000000288       0x20 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_aranges
+                0x00000000000002a8       0x38 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_aranges
+                0x00000000000002e0       0x28 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_aranges
+                0x0000000000000308       0x18 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x0000000000000000     0x27f2
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x0000000000000000       0x98 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .debug_info    0x0000000000000098      0x347 obj/default/hello_world_small.o
+ .debug_info    0x00000000000003df      0x30d ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .debug_info    0x00000000000006ec       0x88 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_info    0x0000000000000774      0x1c9 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_info    0x000000000000093d      0x18f ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_info    0x0000000000000acc      0x14d ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_info    0x0000000000000c19      0x12a ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .debug_info    0x0000000000000d43      0x48b ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_info    0x00000000000011ce      0x1ad ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_info    0x000000000000137b      0x28e ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_info    0x0000000000001609       0xe9 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .debug_info    0x00000000000016f2       0x92 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_info    0x0000000000001784      0x499 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_info    0x0000000000001c1d      0x1b3 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_info    0x0000000000001dd0       0xa6 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_info    0x0000000000001e76       0x92 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_info    0x0000000000001f08       0xa1 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_info    0x0000000000001fa9      0x1a4 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_info    0x000000000000214d      0x2bf ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_info    0x000000000000240c       0xb8 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_info    0x00000000000024c4       0xa7 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_info    0x000000000000256b      0x1fd ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_info    0x0000000000002768       0x8a c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+
+.debug_abbrev   0x0000000000000000     0x1348
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000       0x12 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .debug_abbrev  0x0000000000000012      0x1f3 obj/default/hello_world_small.o
+ .debug_abbrev  0x0000000000000205      0x1a5 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .debug_abbrev  0x00000000000003aa       0x40 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_abbrev  0x00000000000003ea       0xd8 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_abbrev  0x00000000000004c2       0xf5 ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_abbrev  0x00000000000005b7       0xd5 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_abbrev  0x000000000000068c       0xd2 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .debug_abbrev  0x000000000000075e      0x1b2 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_abbrev  0x0000000000000910       0xd5 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_abbrev  0x00000000000009e5      0x194 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_abbrev  0x0000000000000b79       0x83 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .debug_abbrev  0x0000000000000bfc       0x42 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_abbrev  0x0000000000000c3e       0xd9 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_abbrev  0x0000000000000d17      0x11c ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_abbrev  0x0000000000000e33       0x5a ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_abbrev  0x0000000000000e8d       0x42 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_abbrev  0x0000000000000ecf       0x12 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_abbrev  0x0000000000000ee1      0x138 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_abbrev  0x0000000000001019      0x198 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_abbrev  0x00000000000011b1       0x67 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_abbrev  0x0000000000001218       0x12 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_abbrev  0x000000000000122a       0xe7 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_abbrev  0x0000000000001311       0x37 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+
+.debug_line     0x0000000000000000     0x1142
+ *(.debug_line)
+ .debug_line    0x0000000000000000       0x66 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .debug_line    0x0000000000000066      0x127 obj/default/hello_world_small.o
+ .debug_line    0x000000000000018d       0xed ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .debug_line    0x000000000000027a       0x50 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_line    0x00000000000002ca       0xa4 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_line    0x000000000000036e       0xea ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_line    0x0000000000000458      0x112 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_line    0x000000000000056a       0x55 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .debug_line    0x00000000000005bf      0x17f ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_line    0x000000000000073e      0x104 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_line    0x0000000000000842      0x113 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_line    0x0000000000000955       0x8a ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+ .debug_line    0x00000000000009df       0x4e ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_line    0x0000000000000a2d       0xf6 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_line    0x0000000000000b23       0xd8 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_line    0x0000000000000bfb       0x51 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_line    0x0000000000000c4c       0x4e ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_line    0x0000000000000c9a       0x6b ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_line    0x0000000000000d05       0xc8 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_line    0x0000000000000dcd      0x118 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_line    0x0000000000000ee5       0x8c ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_line    0x0000000000000f71       0xb3 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_line    0x0000000000001024       0xbf ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_line    0x00000000000010e3       0x5f c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+
+.debug_frame    0x0000000000000000      0x390
+ *(.debug_frame)
+ .debug_frame   0x0000000000000000       0x88 obj/default/hello_world_small.o
+ .debug_frame   0x0000000000000088       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .debug_frame   0x00000000000000a8       0x30 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_frame   0x00000000000000d8       0x2c ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_frame   0x0000000000000104       0x54 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_frame   0x0000000000000158       0x30 ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .debug_frame   0x0000000000000188       0x48 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_frame   0x00000000000001d0       0x20 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_frame   0x00000000000001f0       0x40 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_frame   0x0000000000000230       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_frame   0x0000000000000250       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_frame   0x0000000000000270       0x2c ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_frame   0x000000000000029c       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_frame   0x00000000000002bc       0x34 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_frame   0x00000000000002f0       0x50 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_frame   0x0000000000000340       0x20 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_frame   0x0000000000000360       0x30 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+
+.debug_str      0x0000000000000000      0xfed
+ *(.debug_str)
+ .debug_str     0x0000000000000000      0x21c obj/default/hello_world_small.o
+                                        0x25a (size before relaxing)
+ .debug_str     0x000000000000021c      0x101 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+                                        0x232 (size before relaxing)
+ .debug_str     0x000000000000031d       0x17 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_vars.o)
+                                        0x164 (size before relaxing)
+ .debug_str     0x0000000000000334      0x113 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+                                        0x266 (size before relaxing)
+ .debug_str     0x0000000000000447       0x5e ../temp_test_3_bsp/\libhal_bsp.a(alt_main.o)
+                                        0x208 (size before relaxing)
+ .debug_str     0x00000000000004a5       0x59 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+                                        0x130 (size before relaxing)
+ .debug_str     0x00000000000004fe       0x5e ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+                                        0x1b5 (size before relaxing)
+ .debug_str     0x000000000000055c      0x182 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+                                        0x38d (size before relaxing)
+ .debug_str     0x00000000000006de       0x32 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+                                        0x260 (size before relaxing)
+ .debug_str     0x0000000000000710       0x6f ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+                                        0x2b0 (size before relaxing)
+ .debug_str     0x000000000000077f       0x27 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_vars.o)
+                                        0x1e3 (size before relaxing)
+ .debug_str     0x00000000000007a6       0x1f ../temp_test_3_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+                                        0x17f (size before relaxing)
+ .debug_str     0x00000000000007c5      0x125 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev.o)
+                                        0x32f (size before relaxing)
+ .debug_str     0x00000000000008ea       0x48 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+                                        0x1f6 (size before relaxing)
+ .debug_str     0x0000000000000932       0x14 ../temp_test_3_bsp/\libhal_bsp.a(alt_errno.o)
+                                        0x16f (size before relaxing)
+ .debug_str     0x0000000000000946       0x1f ../temp_test_3_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+                                        0x17f (size before relaxing)
+ .debug_str     0x0000000000000965       0x3a ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+                                        0x1e2 (size before relaxing)
+ .debug_str     0x000000000000099f       0x6f ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+                                        0x29d (size before relaxing)
+ .debug_str     0x0000000000000a0e       0x20 ../temp_test_3_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+                                        0x1af (size before relaxing)
+ .debug_str     0x0000000000000a2e      0x48b ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                                        0x5ca (size before relaxing)
+ .debug_str     0x0000000000000eb9      0x134 c:/intelfpga_lite/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/5.3.0/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libsmallc.a(lib_a-int_errno.o)
+                                        0x1d8 (size before relaxing)
+
+.debug_loc      0x0000000000000000      0x6f7
+ *(.debug_loc)
+ .debug_loc     0x0000000000000000       0x7b obj/default/hello_world_small.o
+ .debug_loc     0x000000000000007b       0xfa ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_register.o)
+ .debug_loc     0x0000000000000175      0x1de ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_loc     0x0000000000000353       0x2c ../temp_test_3_bsp/\libhal_bsp.a(alt_putchar.o)
+ .debug_loc     0x000000000000037f       0x21 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_loc     0x00000000000003a0       0x8b ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_loc     0x000000000000042b      0x102 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_loc     0x000000000000052d       0x7e ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_loc     0x00000000000005ab       0x72 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_loc     0x000000000000061d       0x75 ../temp_test_3_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_loc     0x0000000000000692       0x65 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_alt_sim_info
+                0x0000000000000000       0x10
+ *(.debug_alt_sim_info)
+ .debug_alt_sim_info
+                0x0000000000000000       0x10 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+                0x0000000000020000                __alt_data_end = 0x20000
+                0x0000000000020000                PROVIDE (__alt_stack_pointer, __alt_data_end)
+                [!provide]                        PROVIDE (__alt_stack_limit, __alt_stack_base)
+                [!provide]                        PROVIDE (__alt_heap_start, end)
+                [!provide]                        PROVIDE (__alt_heap_limit, 0x20000)
+OUTPUT(temp_test_3.elf elf32-littlenios2)
+
+.debug_ranges   0x0000000000000000      0x188
+ .debug_ranges  0x0000000000000000       0x20 ../temp_test_3_bsp//obj/HAL/src/crt0.o
+ .debug_ranges  0x0000000000000020       0x38 obj/default/hello_world_small.o
+ .debug_ranges  0x0000000000000058       0x48 ../temp_test_3_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_ranges  0x00000000000000a0       0x18 ../temp_test_3_bsp/\libhal_bsp.a(alt_printf.o)
+ .debug_ranges  0x00000000000000b8       0x18 ../temp_test_3_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_ranges  0x00000000000000d0       0x18 ../temp_test_3_bsp/\libhal_bsp.a(altera_avalon_timer_sc.o)
+ .debug_ranges  0x00000000000000e8       0x20 ../temp_test_3_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_ranges  0x0000000000000108       0x28 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_ranges  0x0000000000000130       0x10 ../temp_test_3_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_ranges  0x0000000000000140       0x30 ../temp_test_3_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_ranges  0x0000000000000170       0x18 ../temp_test_3_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
