@@ -4,15 +4,16 @@
 
 `timescale 1 ps / 1 ps
 module nios_accelerometer (
-		inout  wire       accelerometer_spi_external_interface_I2C_SDAT,      // accelerometer_spi_external_interface.I2C_SDAT
-		output wire       accelerometer_spi_external_interface_I2C_SCLK,      //                                     .I2C_SCLK
-		output wire       accelerometer_spi_external_interface_G_SENSOR_CS_N, //                                     .G_SENSOR_CS_N
-		input  wire       accelerometer_spi_external_interface_G_SENSOR_INT,  //                                     .G_SENSOR_INT
-		input  wire       clk_clk,                                            //                                  clk.clk
-		output wire       fir_in_x_external_connection_export,                //         fir_in_x_external_connection.export
-		input  wire       fir_out_x_external_connection_export,               //        fir_out_x_external_connection.export
-		output wire [9:0] led_external_connection_export,                     //              led_external_connection.export
-		input  wire       reset_reset_n                                       //                                reset.reset_n
+		inout  wire        accelerometer_spi_external_interface_I2C_SDAT,      // accelerometer_spi_external_interface.I2C_SDAT
+		output wire        accelerometer_spi_external_interface_I2C_SCLK,      //                                     .I2C_SCLK
+		output wire        accelerometer_spi_external_interface_G_SENSOR_CS_N, //                                     .G_SENSOR_CS_N
+		input  wire        accelerometer_spi_external_interface_G_SENSOR_INT,  //                                     .G_SENSOR_INT
+		input  wire        clk_clk,                                            //                                  clk.clk
+		output wire [31:0] fir_in_x_external_connection_export,                //         fir_in_x_external_connection.export
+		input  wire [31:0] fir_out_x_external_connection_export,               //        fir_out_x_external_connection.export
+		output wire [9:0]  led_external_connection_export,                     //              led_external_connection.export
+		input  wire        reset_reset_n,                                      //                                reset.reset_n
+		output wire        sample_tick_external_connection_export              //      sample_tick_external_connection.export
 	);
 
 	wire  [31:0] cpu_data_master_readdata;                                                            // mm_interconnect_0:cpu_data_master_readdata -> cpu:d_readdata
@@ -78,12 +79,17 @@ module nios_accelerometer (
 	wire   [1:0] mm_interconnect_0_fir_in_x_s1_address;                                               // mm_interconnect_0:fir_in_x_s1_address -> fir_in_x:address
 	wire         mm_interconnect_0_fir_in_x_s1_write;                                                 // mm_interconnect_0:fir_in_x_s1_write -> fir_in_x:write_n
 	wire  [31:0] mm_interconnect_0_fir_in_x_s1_writedata;                                             // mm_interconnect_0:fir_in_x_s1_writedata -> fir_in_x:writedata
+	wire         mm_interconnect_0_sample_tick_s1_chipselect;                                         // mm_interconnect_0:sample_tick_s1_chipselect -> sample_tick:chipselect
+	wire  [31:0] mm_interconnect_0_sample_tick_s1_readdata;                                           // sample_tick:readdata -> mm_interconnect_0:sample_tick_s1_readdata
+	wire   [1:0] mm_interconnect_0_sample_tick_s1_address;                                            // mm_interconnect_0:sample_tick_s1_address -> sample_tick:address
+	wire         mm_interconnect_0_sample_tick_s1_write;                                              // mm_interconnect_0:sample_tick_s1_write -> sample_tick:write_n
+	wire  [31:0] mm_interconnect_0_sample_tick_s1_writedata;                                          // mm_interconnect_0:sample_tick_s1_writedata -> sample_tick:writedata
 	wire         irq_mapper_receiver0_irq;                                                            // accelerometer_spi:irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                                            // jtag_uart:av_irq -> irq_mapper:receiver1_irq
 	wire         irq_mapper_receiver2_irq;                                                            // timer:irq -> irq_mapper:receiver2_irq
 	wire         irq_mapper_receiver3_irq;                                                            // timer_0:irq -> irq_mapper:receiver3_irq
 	wire  [31:0] cpu_irq_irq;                                                                         // irq_mapper:sender_irq -> cpu:irq
-	wire         rst_controller_reset_out_reset;                                                      // rst_controller:reset_out -> [accelerometer_spi:reset, cpu:reset_n, fir_in_x:reset_n, fir_out_x:reset_n, irq_mapper:reset, jtag_uart:rst_n, led:reset_n, mm_interconnect_0:cpu_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_translator:in_reset, timer:reset_n, timer_0:reset_n]
+	wire         rst_controller_reset_out_reset;                                                      // rst_controller:reset_out -> [accelerometer_spi:reset, cpu:reset_n, fir_in_x:reset_n, fir_out_x:reset_n, irq_mapper:reset, jtag_uart:rst_n, led:reset_n, mm_interconnect_0:cpu_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_translator:in_reset, sample_tick:reset_n, timer:reset_n, timer_0:reset_n]
 	wire         rst_controller_reset_out_reset_req;                                                  // rst_controller:reset_req -> [cpu:reset_req, onchip_memory:reset_req, rst_translator:reset_req_in]
 
 	nios_accelerometer_accelerometer_spi accelerometer_spi (
@@ -189,6 +195,17 @@ module nios_accelerometer (
 		.freeze     (1'b0)                                           // (terminated)
 	);
 
+	nios_accelerometer_sample_tick sample_tick (
+		.clk        (clk_clk),                                     //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),             //               reset.reset_n
+		.address    (mm_interconnect_0_sample_tick_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_sample_tick_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_sample_tick_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_sample_tick_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_sample_tick_s1_readdata),   //                    .readdata
+		.out_port   (sample_tick_external_connection_export)       // external_connection.export
+	);
+
 	nios_accelerometer_timer timer (
 		.clk        (clk_clk),                               //   clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),       // reset.reset_n
@@ -267,6 +284,11 @@ module nios_accelerometer (
 		.onchip_memory_s1_byteenable                                       (mm_interconnect_0_onchip_memory_s1_byteenable),                                       //                                                      .byteenable
 		.onchip_memory_s1_chipselect                                       (mm_interconnect_0_onchip_memory_s1_chipselect),                                       //                                                      .chipselect
 		.onchip_memory_s1_clken                                            (mm_interconnect_0_onchip_memory_s1_clken),                                            //                                                      .clken
+		.sample_tick_s1_address                                            (mm_interconnect_0_sample_tick_s1_address),                                            //                                        sample_tick_s1.address
+		.sample_tick_s1_write                                              (mm_interconnect_0_sample_tick_s1_write),                                              //                                                      .write
+		.sample_tick_s1_readdata                                           (mm_interconnect_0_sample_tick_s1_readdata),                                           //                                                      .readdata
+		.sample_tick_s1_writedata                                          (mm_interconnect_0_sample_tick_s1_writedata),                                          //                                                      .writedata
+		.sample_tick_s1_chipselect                                         (mm_interconnect_0_sample_tick_s1_chipselect),                                         //                                                      .chipselect
 		.timer_s1_address                                                  (mm_interconnect_0_timer_s1_address),                                                  //                                              timer_s1.address
 		.timer_s1_write                                                    (mm_interconnect_0_timer_s1_write),                                                    //                                                      .write
 		.timer_s1_readdata                                                 (mm_interconnect_0_timer_s1_readdata),                                                 //                                                      .readdata

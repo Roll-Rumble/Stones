@@ -95,11 +95,11 @@ int main()
   val_read = IORD_ALTERA_AVALON_PIO_DATA(FIR_IN_X_BASE);
   alt_printf("IORD_ALTERA_AVALON_PIO_DATA(FIR_IN_X_BASE): %x\n", val_read);
 
-  val_read = IOADDR_ALTERA_AVALON_PIO_DATA(FIR_OUT_X_BASE);
-  alt_printf("IOADDR_ALTERA_AVALON_PIO_DATA(FIR_OUT_X_BASE): %x\n", val_read);
-
-  val_read = IOADDR_ALTERA_AVALON_PIO_DATA(FIR_IN_X_BASE);
-  alt_printf("IOADDR_ALTERA_AVALON_PIO_DATA(FIR_IN_X_BASE): %x\n", val_read);
+//  val_read = IOADDR_ALTERA_AVALON_PIO_DATA(FIR_OUT_X_BASE);
+//  alt_printf("IOADDR_ALTERA_AVALON_PIO_DATA(FIR_OUT_X_BASE): %x\n", val_read);
+//
+//  val_read = IOADDR_ALTERA_AVALON_PIO_DATA(FIR_IN_X_BASE);
+//  alt_printf("IOADDR_ALTERA_AVALON_PIO_DATA(FIR_IN_X_BASE): %x\n", val_read);
 
 
 

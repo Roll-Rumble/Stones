@@ -70,8 +70,10 @@ module DE10_LITE_Golden_Top(
 //======================================================
 
 //Hardware FIR for x
-logic 							FIR_X_IN;
-logic							FIR_X_OUT;
+logic 				[31:0]		FIR_X_IN;
+logic				[31:0]		FIR_X_OUT;
+
+logic							SAMPLE_TICK;
 
 
 //=======================================================
@@ -80,8 +82,11 @@ logic							FIR_X_OUT;
 fir filter_x(
 	.clk													(MAX10_CLK1_50),
 	.value_in												(FIR_X_IN),
-	.value_out												(FIR_X_OUT)
+	.value_out												(FIR_X_OUT),
+	.sample_tick											(SAMPLE_TICK)
 );
+
+
 
 
 nios_accelerometer u0 (
@@ -93,7 +98,8 @@ nios_accelerometer u0 (
 		.accelerometer_spi_external_interface_G_SENSOR_CS_N (GSENSOR_CS_N), //                                     .G_SENSOR_CS_N
 		.accelerometer_spi_external_interface_G_SENSOR_INT  (GSENSOR_INT[1]),   //                                     .G_SENSOR_INT
 		.fir_in_x_external_connection_export                (FIR_X_IN),                //         fir_in_x_external_connection.export
-		.fir_out_x_external_connection_export               (FIR_X_OUT)                //        fir_out_x_external_connection.export
+		.fir_out_x_external_connection_export               (FIR_X_OUT),                //        fir_out_x_external_connection.export
+		.sample_tick_external_connection_export             (SAMPLE_TICK)              //      sample_tick_external_connection.export
 );
 
 

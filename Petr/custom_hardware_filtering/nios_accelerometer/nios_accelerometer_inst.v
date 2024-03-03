@@ -7,6 +7,7 @@
 		.fir_in_x_external_connection_export                (<connected-to-fir_in_x_external_connection_export>),                //         fir_in_x_external_connection.export
 		.fir_out_x_external_connection_export               (<connected-to-fir_out_x_external_connection_export>),               //        fir_out_x_external_connection.export
 		.led_external_connection_export                     (<connected-to-led_external_connection_export>),                     //              led_external_connection.export
-		.reset_reset_n                                      (<connected-to-reset_reset_n>)                                       //                                reset.reset_n
+		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                reset.reset_n
+		.sample_tick_external_connection_export             (<connected-to-sample_tick_external_connection_export>)              //      sample_tick_external_connection.export
 	);
 

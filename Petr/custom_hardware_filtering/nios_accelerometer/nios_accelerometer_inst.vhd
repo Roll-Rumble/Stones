@@ -1,14 +1,15 @@
 	component nios_accelerometer is
 		port (
-			accelerometer_spi_external_interface_I2C_SDAT      : inout std_logic                    := 'X'; -- I2C_SDAT
-			accelerometer_spi_external_interface_I2C_SCLK      : out   std_logic;                           -- I2C_SCLK
-			accelerometer_spi_external_interface_G_SENSOR_CS_N : out   std_logic;                           -- G_SENSOR_CS_N
-			accelerometer_spi_external_interface_G_SENSOR_INT  : in    std_logic                    := 'X'; -- G_SENSOR_INT
-			clk_clk                                            : in    std_logic                    := 'X'; -- clk
-			fir_in_x_external_connection_export                : out   std_logic;                           -- export
-			fir_out_x_external_connection_export               : in    std_logic                    := 'X'; -- export
-			led_external_connection_export                     : out   std_logic_vector(9 downto 0);        -- export
-			reset_reset_n                                      : in    std_logic                    := 'X'  -- reset_n
+			accelerometer_spi_external_interface_I2C_SDAT      : inout std_logic                     := 'X';             -- I2C_SDAT
+			accelerometer_spi_external_interface_I2C_SCLK      : out   std_logic;                                        -- I2C_SCLK
+			accelerometer_spi_external_interface_G_SENSOR_CS_N : out   std_logic;                                        -- G_SENSOR_CS_N
+			accelerometer_spi_external_interface_G_SENSOR_INT  : in    std_logic                     := 'X';             -- G_SENSOR_INT
+			clk_clk                                            : in    std_logic                     := 'X';             -- clk
+			fir_in_x_external_connection_export                : out   std_logic_vector(31 downto 0);                    -- export
+			fir_out_x_external_connection_export               : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
+			led_external_connection_export                     : out   std_logic_vector(9 downto 0);                     -- export
+			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
+			sample_tick_external_connection_export             : out   std_logic                                         -- export
 		);
 	end component nios_accelerometer;
 
@@ -22,6 +23,7 @@
 			fir_in_x_external_connection_export                => CONNECTED_TO_fir_in_x_external_connection_export,                --         fir_in_x_external_connection.export
 			fir_out_x_external_connection_export               => CONNECTED_TO_fir_out_x_external_connection_export,               --        fir_out_x_external_connection.export
 			led_external_connection_export                     => CONNECTED_TO_led_external_connection_export,                     --              led_external_connection.export
-			reset_reset_n                                      => CONNECTED_TO_reset_reset_n                                       --                                reset.reset_n
+			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                reset.reset_n
+			sample_tick_external_connection_export             => CONNECTED_TO_sample_tick_external_connection_export              --      sample_tick_external_connection.export
 		);
 
