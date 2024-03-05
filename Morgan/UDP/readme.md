@@ -39,6 +39,14 @@ Step 4: Add Inbound Rule for UDP
 **firewalld**:
 ```sudo systemctl stop firewalld```
 
+## Winnsock Compiling
+
+When Compiling the CPP client code file, you must add the following command so that the Winsock libary is included in the compiler
+```-lws2_32```
+
+for example:
+```g++ -o my_program client_UDP.cpp -lws2_32```
+
 ## Troubleshooting 
 
 
