@@ -2,17 +2,22 @@
 
 class Wall {
 private:
-    int length = 100;
-    int width = 100;
+    int length_ = 1;
+    int width_ = 1;
 	int location_x_ = 0; // location for a wall should be the top left corner
 	int location_y_ = 0; // this makes hitbox calcs simpler
 
 public:
-	float max_x = location_x_ + length;
-	float max_y = location_y_ + width;
+	float max_x = location_x_ + length_;
+	float max_y = location_y_ + width_;
 	float min_x = location_x_;
 	float min_y = location_y_;
-    Wall(int length, int width) : length(length), width(width) {}
+    Wall(int length, int width, int location_x, int location_y) : 
+	length_(length), 
+	width_(width), 
+	location_x_(location_x),
+	location_y_(location_y)   
+	{}
 
     // Add any additional member functions or variables here
 	bool Hitbox_detect(Ball *ball) {} // it may make more sense for the ball to have this function

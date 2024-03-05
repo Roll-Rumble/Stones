@@ -10,23 +10,41 @@ void Ball::Collision(Hitbox hitbox) // idea here is that the id tells the functi
 		} // this is obviously a very basic version
 	}
 
-		void Ball::Accelerate(int velocity_x_, int velocity_y_, int input_x, int input_y){
-		int index; // placeholder
-		int acceleration = 1; // placeholder
+void Ball::Accelerate(int input_x, int input_y)
+	{
+		float normal_x = input_x/256;
+		float normal_y = input_y/256;
+		float acceleration_x = 0;
+		float accelearation_y = 0;
+		float modifier;
+		acceleration_x += normal_x*modifier;
+		accelearation_y += normal_y*modifier; 
 		if(input_x < 0){
 			// negative acceleration
-			velocity_x_ -= acceleration;
+			velocity_x_ -= acceleration_x;
 		}
 		else if(input_x > 0){
 			// positive acceleration
+			velocity_x_ += acceleration_x;
 		}
 		if (input_y < 0){
 			// negative acceleration
+			velocity_y_ -= accelearation_y;
 		}
 		else if(input_y > 0){
 			// positive acceleration
+			velocity_y_ += accelearation_y;
 		}
 		else return; //acceleration is zero so no change needed
+	}
+
+void Ball::Update(int input_x, int input_y)
+	{	
+		if(mobile_ == 1){
+			Accelerate(input_x, input_y);
+			location_x_ += velocity_x_;
+			location_y_ += velocity_y_;
+		}
 	}
 
 	void Ball::Stop()
