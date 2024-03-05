@@ -50,7 +50,7 @@ std::pair<float, float> Controller::get_xy()
     static unsigned int str_buf_idx = 0;
 
 
-    
+
     //std::cout << "called" << std::endl;
     // std::cout << "Bytes available to read is " << jtagatlantic_bytes_available(handle) << "\n";
     bytes_available = jtagatlantic_bytes_available(handle);
@@ -60,7 +60,7 @@ std::pair<float, float> Controller::get_xy()
         //read_buffer[bytes_read] = '/0';     // Create null-terminating string from input
         //std::cout << "Read " << bytes_read << "bytes\n";
         //std::cout << "Read data: " << *read_buffer << "\n";
-        
+
         if (str_buf_idx > 0 && str_buffer[str_buf_idx - 1] == 'e') {
             str_buffer[str_buf_idx - 1] = '\0';
             std::cout << "GOT RESULT: " << str_buffer << "\n";
@@ -70,7 +70,7 @@ std::pair<float, float> Controller::get_xy()
         }
     }
 
-    return std::make_pair(static_cast<float>(x_val), static_cast<float>(y_val));
+    return std::make_pair(static_cast<int16_t>(x_val), static_cast<int16_t>(y_val));
 }
 
 std::pair<float, float> Controller::normalise_xy(float x, float y)

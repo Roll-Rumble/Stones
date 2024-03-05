@@ -12,7 +12,7 @@
 #include "client_UDP.cpp"
 
 
-void ReaderThread() {
+void NIOSReaderThread() {
     Controller niosII;
 
     WSAStartup();
@@ -26,11 +26,15 @@ void ReaderThread() {
     inet_pton(AF_INET, "35.178.225.231", &clientService.sin_addr); // Ensure the IP is correct
 
     while(true){
-        auto [x_in, y_in] = niosII.get_xy();
-        auto [x_norm, y_norm] = Controller::normalise_xy(x_in, y_in);
-
-        send_data(clientSocket,clientService);
+        std::pair<int16_t,int16_t> input_vals = niosII.get_xy();
+        send_data(clientSocket,clientService, input_vals);
     }
+}
+
+void ServerReaderThread() {
+    recvfrom()
+
+
 
 }
 
@@ -43,7 +47,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    
+
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if (!window)
@@ -57,7 +61,7 @@ int main(void)
 
     if (glewInit() != GLEW_OK)
         std::cerr << "can't init GLEW" << std::endl;
-    
+
     //Rectangle rect1(-0.5f, -0.5f, 1, 1);
     Circle circ1(-0.5f, -0.5f, 0.1f);
 
@@ -74,7 +78,7 @@ int main(void)
         auto [x_norm, y_norm] = Controller::normalise_xy(x_in, y_in);
 
         circ1.move(x_norm, y_norm);
-        
+
         //rect1.draw();
         circ1.draw();
 
