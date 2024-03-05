@@ -8,6 +8,10 @@ private:
 	int location_y_ = 0; // this makes hitbox calcs simpler
 
 public:
+	float max_x = location_x_ + length;
+	float max_y = location_y_ + width;
+	float min_x = location_x_;
+	float min_y = location_y_;
     Wall(int length, int width) : length(length), width(width) {}
 
     // Add any additional member functions or variables here
