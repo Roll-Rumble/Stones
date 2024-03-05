@@ -1,11 +1,10 @@
+#ifndef HITBOX_HPP
+#define HITBOX_HPP
+
 #include "Hitbox.hpp"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include <iostream>
-#include "controller_Con.cpp"
 
-#include <jtag_atlantic.h>
 #define CIRCLE_SEGS 100
 
 class Ball
@@ -46,8 +45,6 @@ public:
 	hitbox_4.x = location_x_;
 	hitbox_4.y = location_y_ - radius_;
 	hitbox_4.ID = 4;
-
-	glGenBuffers(1, &buffer_);
 	}
 	~Ball();
 
@@ -56,67 +53,20 @@ public:
  //			*				4
  //		*		*		3		1	// this is basic hitbox and id
  //			*				2
-	void Collision(Hitbox hitbox) // idea here is that the id tells the function which direction the collision has occurred 
-	{ 
-		
-	}
+	void Collision(Hitbox hitbox); // idea here is that the id tells the function which direction the collision has occurred
 
-	void Stop()
-	{
+	void Stop();
 
-	}
+	void Hold();
 
-	void Hold()
-	{
+	void Accelerate(int input_x, int input_y);
 
-	}
+	void Update(int input_x, int input_y);
 
-	void Accelerate(int input_x, int input_y)
-	{
-		
-	}
+	float Get_location_x();
 
-	void Update(int input_x, int input_y)
-	{	
-		
-	}
-
-	int Get_location_x()
-	{
-
-	}
-
-	int Get_location_y()
-	{
-
-	}
-
-	void draw()
-    {
-        float positions[CIRCLE_SEGS * 2];
-
-        float theta, x_off, y_off;
-
-        for (int i = 0; i < CIRCLE_SEGS; i++)
-        {
-            theta = 2.0f * 3.1415926f * float(i) / float(CIRCLE_SEGS);//get the current angle
-
-            x_off = radius_ * cosf(theta);//calculate the x component
-            y_off = radius_ * sinf(theta);//calculate the y component
-
-            positions[i * 2] = location_x_ + x_off;
-            positions[i * 2 + 1] = location_y_ + y_off;
-        }
-
-        glBindBuffer(GL_ARRAY_BUFFER, buffer_);
-        glBufferData(GL_ARRAY_BUFFER, CIRCLE_SEGS * 2 * sizeof(float), positions, GL_DYNAMIC_DRAW);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, 0);
-
-
-        glDrawArrays(GL_LINE_LOOP, 0, CIRCLE_SEGS);
-    }
+	float Get_location_y();
 };
 
 
+#endif

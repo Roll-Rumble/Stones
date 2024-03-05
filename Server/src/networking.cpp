@@ -2,18 +2,17 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <errno.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <unistd.h>
+
 #include <utility>
+#include <iostream>
 
-#define NUMBYTES 8
+#include "networking.hpp"
 
-#define pack754_32(f) (pack754((f), 32, 8))
-#define pack754_64(f) (pack754((f), 64, 11))
-#define unpack754_32(i) (unpack754((i), 32, 8))
-#define unpack754_64(i) (unpack754((i), 64, 11))
+
 
 uint64_t pack754(long double f, unsigned bits, unsigned expbits)
 {
@@ -102,9 +101,9 @@ std::pair<int16_t, int16_t> decode_input(unsigned char *buf)
     return std::make_pair(x, y);
 }
 
-void error(char *msg)
+void error(std::string msg)
 {
-	fprintf(stderr, "%s: %s\n", msg, strerror(errno));
+	std::cerr << msg << ": " << strerror(errno) << std::endl;
 	exit(1);
 }
 
@@ -132,6 +131,8 @@ int init_udp_conn(const char *addr, int port)
         sizeof(client_addr)) == -1) {
         error("can't connect");
     }
+
+    return sockfd;
 }
 
 
@@ -148,5 +149,58 @@ std::pair<int16_t, int16_t> recv_xy(int sockfd)
     unsigned char buf[4];
     recv(sockfd, buf, 4, 0);
     return decode_input(buf);
+}
+
+
+
+std::pair<std::string, short> wait_for_tcp() {
+    std::cout << "We're in TCP server..." << std::endl;
+
+    // Select server port
+    int server_port = 13000;
+
+    // Create welcome socket
+    int welcome_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (welcome_socket == -1) { // If socket creation fails, print error message and exit
+        std::cerr << "Socket creation failed" << std::endl;
+        throw "Socket creation failed";
+    }
+
+    // Bind server to local host at port server_port (12000)
+    sockaddr_in server_addr;
+    memset(&server_addr, 0, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_addr.s_addr = INADDR_ANY; // Accept connections from any IP address; INADDR_ANY allows to have multiple clients connected
+    server_addr.sin_port = htons(server_port); 
+
+    if (bind(welcome_socket, reinterpret_cast<sockaddr*>(&server_addr), sizeof(server_addr)) == -1) {
+        error("binding to socket failed");
+    }
+
+    listen(welcome_socket, 1);
+
+    // Message to indicate that server is running
+    std::cout << "Server running on port " << server_port << std::endl;
+
+    sockaddr_in client_addr; // Client address
+    socklen_t client_len = sizeof(client_addr);
+
+    int connection_socket = accept(welcome_socket, reinterpret_cast<sockaddr*>(&client_addr), &client_len); // Accept the connection
+
+    if (connection_socket == -1) {
+        error("can't accept connection");
+    }
+
+
+
+    
+	char client_ip[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN);
+	close(connection_socket);
+    close(welcome_socket);
+    short port = ntohs(client_addr.sin_port);
+
+	std::cout << std::string(client_ip) << std::endl;
+	return std::make_pair(std::string(client_ip), port);
 }
 

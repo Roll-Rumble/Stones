@@ -1,4 +1,7 @@
 
+#ifndef HITBOX_HPP
+#define HITBOX_HPP
+
 struct Hitbox {
 public:
 	int ID;
@@ -6,4 +9,6 @@ public:
 	int y;
 
 };
+
+#endif
 	
