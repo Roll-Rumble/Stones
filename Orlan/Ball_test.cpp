@@ -1,8 +1,8 @@
 #include "Ball_test.hpp"
 
-void Ball::Collision(int hitbox_ID) // idea here is that the id tells the function which direction the collision has occurred 
+void Ball::Collision(Hitbox hitbox) // idea here is that the id tells the function which direction the collision has occurred 
 	{ 
-		switch (hitbox_ID){
+		switch (hitbox.ID){
 			case 1 : velocity_x_ = -velocity_x_;
 			case 2 : velocity_y_ = -velocity_y_;
 			case 3 : velocity_x_ = -velocity_x_;
