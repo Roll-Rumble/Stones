@@ -90,9 +90,9 @@ int main() {
 
         /* hardware test */
 
-        write_to_fir(x_read, y_read); //send measured vals to hardware fir
-        read_from_fir(&x_hardware_filtered, &y_hardware_filtered);
-        printf("%x   %x\n", x_hardware_filtered, y_hardware_filtered);
+//        write_to_fir(x_read, y_read); //send measured vals to hardware fir
+//        read_from_fir(&x_hardware_filtered, &y_hardware_filtered);
+//        printf("%x   %x", x_hardware_filtered, y_hardware_filtered);
 
         /* software test */
 
@@ -104,18 +104,17 @@ int main() {
 		prev_y_vals.elems[prev_y_vals.start] = y_read;
         y_filtered = fixed_point_filter(&prev_y_vals);
 
-        printf("%x   %x\n", x_filtered, y_filtered);
+        printf("%x   %x", x_filtered, y_filtered);
 
 		/* end of software test */
 
-        printf("\n");
+//        printf("\n");
 
 
-
+        loop_timer += alt_timestamp(); // Get system time after finishing the process
         /* Timer processing functions hidden outside timing window to improve accuracy */
         loop_counter++;
         if (!(loop_counter % 1000)) {
-        	loop_timer = alt_timestamp(); // Get system time after finishing the process
             /* Print the number of ticks on the screen */
             printf("\n\nAverage loop processing time is %d ticks\n\n\n\n\n", (int) (loop_timer/1000));
             loop_counter = 0;
