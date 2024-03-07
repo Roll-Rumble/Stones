@@ -8,23 +8,33 @@
 
 // Reads input from the controller and sends it to server
 void read_and_send_input() {
-
     // Initialize controller object for reading input
-    Controller Nios2;
+    Controller nios2;
 
-    //
+    // Intiate use of winsock DLL
     WSAStartup();
 
-    SOCKET clientSocket;
-    SocketCreation(clientSocket);
+    // Initialize TCP object
+    // Send "init" (actual string doesn't matter) on TCP
+    // If connection successful, continue (otherwise probably break/error)
 
-    sockaddr_in clientService;
-    clientService.sin_family = AF_INET;
-    clientService.sin_port = htons(12000); // Ensure the port is correct
-    inet_pton(AF_INET, "35.178.225.231", &clientService.sin_addr); // Ensure the IP is correct
+    // Initialize UDP object
 
-
+    while (true) {
+        // Read controller
+        // Send data from controller over UDP
+    }
 }
 
 // Reads ball location from server and renders scene
-void read_and_display_frame();
+void read_and_display_frame() {
+    // Intiate use of winsock DLL
+    WSAStartup();
+
+    // Initialize UDP object
+
+    while (true) {
+        // Read data from UDP
+        // Render frame using data
+    }
+}
