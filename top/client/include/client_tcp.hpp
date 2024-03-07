@@ -12,12 +12,10 @@ public:
     TCP_Client(int port, std::string server_ip);
     ~TCP_Client() {}
 
-    void send(char buffer[SEND_BUF_SIZE]);
+    void send_data(char buffer[SEND_BUF_SIZE]);
     void receive(char buffer[RECEIVE_BUF_SIZE]);
 
 private:
-    int port_;
-    std::string server_ip_;
     SOCKET socket_;
 };
 

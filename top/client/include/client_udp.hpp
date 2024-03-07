@@ -1,27 +1,23 @@
 #ifndef CLIENT_UDP_HPP
 #define CLIENT_UDP_HPP
 
-#include <cstdint>
-#include <iostream>
+#include <string>
+#include <utility>
 #include <winsock2.h>
-#include <ws2tcpip.h>
 
 #define UDP_SEND_BUF_SIZE 1024
 #define UDP_RECEIVE_BUF_SIZE 1024
 
 class UDP_Client {
-    public:
-        UDP_Client(int port, std::string server_ip);
-        ~UDP_Client(){};
+public:
+    UDP_Client(int port, std::string server_ip);
+    ~UDP_Client(){};
 
-        void send(char buffer[UDP_SEND_BUF_SIZE]);
-        void receive(char buffer[UDP_RECEIVE_BUF_SIZE]);
+    void send_xy(int16_t x, int16_t y);
+    std::pair<float, float> receive_xy();
 
-    private:
-        int port_;
-        std::string server_ip_;
-        SOCKET socket_;
-        sockaddr_in client_service_;
+private:
+    SOCKET socket_;
 };
 
 #endif
