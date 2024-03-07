@@ -1,4 +1,4 @@
-#include "Ball_test.hpp"
+#include "Ball.hpp"
 
 void Ball::Collision(Hitbox hitbox) // idea here is that the id tells the function which direction the collision has occurred 
 	{ 
@@ -58,12 +58,12 @@ void Ball::Update(int input_x, int input_y)
 		mobile_ = 0;
 	}
 
-	int Ball::Get_location_x()
+	float Ball::Get_location_x()
 	{
 		return location_x_;
 	}
 
-	int Ball::Get_location_y()
+	float Ball::Get_location_y()
 	{
 		return location_y_;
 	}

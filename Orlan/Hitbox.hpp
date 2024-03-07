@@ -2,8 +2,8 @@
 struct Hitbox {
 public:
 	int ID;
-	int x;
-	int y;
+	float x;
+	float y;
 
 };
 	

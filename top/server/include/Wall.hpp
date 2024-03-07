@@ -1,4 +1,7 @@
-#include "Ball_test.hpp"
+#ifndef WALL_HPP
+#define WALL_HPP
+
+#include "Ball.hpp"
 
 class Wall {
 private:
@@ -12,6 +15,7 @@ public:
 	float max_y = location_y_ + width_;
 	float min_x = location_x_;
 	float min_y = location_y_;
+
     Wall(int length, int width, int location_x, int location_y) : 
 	length_(length), 
 	width_(width), 
@@ -19,8 +23,10 @@ public:
 	location_y_(location_y)   
 	{}
 
+	~Wall() {}
+
     // Add any additional member functions or variables here
-	bool Hitbox_detect(Ball *ball) {} // it may make more sense for the ball to have this function
+	bool Hitbox_detect(Ball *ball); // it may make more sense for the ball to have this function
 };
 
 
@@ -38,3 +44,4 @@ public:
 
 
 */
+#endif
