@@ -39,7 +39,7 @@ short Controller::getZVal()
 }
 
 
-std::pair<float, float> Controller::get_xy()
+std::pair<int16_t,int16_t> Controller::get_xy()
 {
     unsigned int bytes_read;
     unsigned int bytes_available;

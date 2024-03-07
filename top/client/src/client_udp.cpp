@@ -6,18 +6,28 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-UDP_Client::UDP_Client(int port, std::string server_ip) {
+UDP_Client::UDP_Client() {
     start_WSA();
     create_socket(socket_);
 
     SOCKADDR_IN client_addr;
     client_addr.sin_family = AF_INET;
-    client_addr.sin_port = htons(port); // Ensure the port is correct
-    inet_pton(AF_INET, server_ip.c_str(), &client_addr.sin_addr); // Ensure the IP is correct
+    client_addr.sin_port = htons(SERVER_UDP_PORT); // Ensure the port is correct
+    inet_pton(AF_INET, SERVER_IP, &client_addr.sin_addr); // Ensure the IP is correct
+
+    SOCKADDR_IN local_addr;
+    local_addr.sin_family = AF_INET;
+    local_addr.sin_port = htons(SERVER_UDP_PORT);
+    inet_pton(AF_INET, "0.0.0.0", &local_addr.sin_addr);
 
     if (connect(socket_, (SOCKADDR *)&client_addr, sizeof(client_addr)) == SOCKET_ERROR) {
         WSACleanup();
         throw NetworkException("can't connect to UDP socket");
+    }
+
+    if (bind(socket_, (SOCKADDR *)&local_addr, sizeof(local_addr)) == SOCKET_ERROR) {
+        WSACleanup();
+        throw NetworkException("error binding UDP socket");
     }
 }
 
@@ -30,6 +40,7 @@ void UDP_Client::send_xy(int16_t x, int16_t y) {
     unsigned char buffer[4];
     pack::encode_input(buffer, x, y);
 
+    std::lock_guard<std::mutex> guard(socket_mutex_);
     int sbyteCount = send(socket_, (char *) buffer, sizeof(buffer), 0);
     if (sbyteCount == SOCKET_ERROR) {
         WSACleanup();
@@ -44,6 +55,7 @@ std::pair<float, float> UDP_Client::receive_xy() {
 
     unsigned char buffer[8];
 
+    std::lock_guard<std::mutex> guard(socket_mutex_);
     // Receive data from the client
     bytes_received = recv(socket_, (char *) buffer, sizeof(buffer), 0);
     if (bytes_received == SOCKET_ERROR) { // Error receiving data or client closed connection

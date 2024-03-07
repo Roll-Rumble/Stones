@@ -8,14 +8,14 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-TCP_Client::TCP_Client(int port, std::string server_ip) {
+TCP_Client::TCP_Client() {
     start_WSA();
     create_socket(socket_);
 
     sockaddr_in clientService;
     clientService.sin_family = AF_INET;
-    clientService.sin_addr.s_addr = inet_addr(server_ip.c_str());
-    clientService.sin_port = htons(port);
+    clientService.sin_addr.s_addr = inet_addr(SERVER_IP);
+    clientService.sin_port = htons(SERVER_TCP_PORT);
 
     if (connect(socket_, (SOCKADDR*) &clientService, sizeof(clientService)) == SOCKET_ERROR) {
         WSACleanup();
