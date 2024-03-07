@@ -1,5 +1,5 @@
-#ifndef HITBOX_HPP
-#define HITBOX_HPP
+#ifndef BALL_HPP
+#define BALL_HPP
 
 #include "Hitbox.hpp"
 
@@ -46,7 +46,7 @@ public:
 	hitbox_4.y = location_y_ - radius_;
 	hitbox_4.ID = 4;
 	}
-	~Ball();
+	~Ball() {}
 
 	
 

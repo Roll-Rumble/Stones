@@ -1,4 +1,4 @@
-#include "Ball_test.hpp"
+#include "Ball.hpp"
 
 void Ball::Collision(Hitbox hitbox) // idea here is that the id tells the function which direction the collision has occurred 
 	{ 

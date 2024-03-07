@@ -1,8 +1,8 @@
 #ifndef COLLISION_DETECT_HPP
 #define COLLISION_DETECT_HPP
 
-#include "Ball_test.hpp"
-#include "Wall_test.hpp"
+#include "Ball.hpp"
+#include "Wall.hpp"
 
 int_fast8_t Collision_detect(Ball ball, Wall wall){
 	int_fast8_t decision = 0;
