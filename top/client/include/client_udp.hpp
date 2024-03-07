@@ -17,7 +17,7 @@
 class UDP_Client {
 public:
     UDP_Client();
-    ~UDP_Client(){};
+    ~UDP_Client();
 
     void send_xy(int16_t x, int16_t y);
     std::pair<float, float> receive_xy();
