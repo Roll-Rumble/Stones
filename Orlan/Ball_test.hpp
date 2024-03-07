@@ -20,7 +20,7 @@ private:
 	
 	
 	bool mobile_ = 0;
-	int radius_ = 5; // make this set by constructor
+	float radius_ = 5; 
 
 	unsigned int buffer_;	// this is for the graphics
 	
@@ -71,8 +71,13 @@ public:
 
 	}
 
-	void Accelerate(int velocity_x_, int velocity_y_, int input_x, int input_y)
+	void Accelerate(int input_x, int input_y)
 	{
+		
+	}
+
+	void Update(int input_x, int input_y)
+	{	
 		
 	}
 
@@ -85,8 +90,6 @@ public:
 	{
 
 	}
-
-	
 
 	void draw()
     {
