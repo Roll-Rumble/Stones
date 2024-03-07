@@ -4,10 +4,12 @@
 int main() {
 
     // Initialize controller reader + server send thread
-    std::thread read_controller_thread
+    std::thread read_controller_thread(read_and_send_input);
 
     // Initialize server read + render thread
+    std::thread read_server_thread(read_and_display_frame);
 
+    // Wait for threads to finish (they won't)
 
 
 }
