@@ -15,7 +15,7 @@
 class TCP_Client {
 public:
     TCP_Client();
-    ~TCP_Client() {}
+    ~TCP_Client();
 
     void send_data(char buffer[SEND_BUF_SIZE]);
     void receive(char buffer[RECEIVE_BUF_SIZE]);
