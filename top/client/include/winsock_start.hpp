@@ -3,8 +3,8 @@
 
 #include <winsock2.h>
 
-void WSAStartup();
+void start_WSA();
 
-void SocketCreation(SOCKET &clientSocket);
+void create_socket(SOCKET &clientSocket);
 
 #endif

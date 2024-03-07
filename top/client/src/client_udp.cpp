@@ -7,8 +7,8 @@
 #include <ws2tcpip.h>
 
 UDP_Client::UDP_Client(int port, std::string server_ip) {
-    WSAStartup();
-    SocketCreation(socket_);
+    start_WSA();
+    create_socket(socket_);
 
     SOCKADDR_IN client_addr;
     client_addr.sin_family = AF_INET;
@@ -16,6 +16,7 @@ UDP_Client::UDP_Client(int port, std::string server_ip) {
     inet_pton(AF_INET, server_ip.c_str(), &client_addr.sin_addr); // Ensure the IP is correct
 
     if (connect(socket_, (SOCKADDR *)&client_addr, sizeof(client_addr)) == SOCKET_ERROR) {
+        WSACleanup();
         throw NetworkException("can't connect to UDP socket");
     }
 }
@@ -31,6 +32,7 @@ void UDP_Client::send_xy(int16_t x, int16_t y) {
 
     int sbyteCount = send(socket_, (char *) buffer, sizeof(buffer), 0);
     if (sbyteCount == SOCKET_ERROR) {
+        WSACleanup();
         throw NetworkException("error sending UDP data");
     }
 }
@@ -45,6 +47,7 @@ std::pair<float, float> UDP_Client::receive_xy() {
     // Receive data from the client
     bytes_received = recv(socket_, (char *) buffer, sizeof(buffer), 0);
     if (bytes_received == SOCKET_ERROR) { // Error receiving data or client closed connection
+        WSACleanup();
         throw NetworkException("error receiving UDP data");
     }
 

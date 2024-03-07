@@ -9,8 +9,8 @@
 #include <ws2tcpip.h>
 
 TCP_Client::TCP_Client(int port, std::string server_ip) {
-    WSAStartup();
-    SocketCreation(socket_);
+    start_WSA();
+    create_socket(socket_);
 
     sockaddr_in clientService;
     clientService.sin_family = AF_INET;
@@ -31,6 +31,7 @@ TCP_Client::~TCP_Client() {
 void TCP_Client::send_data(char buffer[SEND_BUF_SIZE]) {
     int sbyteCount = send(socket_, buffer, strlen(buffer), 0);
     if(sbyteCount == SOCKET_ERROR) {
+        WSACleanup();
         throw NetworkException("erroring sending data using TCP");
     }
 }
@@ -39,6 +40,7 @@ void TCP_Client::receive(char buffer[RECEIVE_BUF_SIZE]) {
     // Receive data from the client
     int bytes_received = recv(socket_, buffer, sizeof(buffer) - 1, 0);
     if (bytes_received <= 0) { // Error receiving data or client closed connection
+        WSACleanup();
         throw NetworkException("error receiving data using TCP");
     }
 }
