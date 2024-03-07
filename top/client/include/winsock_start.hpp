@@ -2,7 +2,6 @@
 #define WINSOCK_START_HPP
 
 #include <winsock2.h>
-#include <ws2tcpip.h>
 
 void WSAStartup();
 
