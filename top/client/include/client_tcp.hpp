@@ -4,12 +4,17 @@
 #include <string>
 #include <winsock2.h>
 
+
+// TODO: MOVE THIS TO NETUTIL
+#define SERVER_TCP_PORT 13000
+
+
 #define SEND_BUF_SIZE
 #define RECEIVE_BUF_SIZE
 
 class TCP_Client {
 public:
-    TCP_Client(int port, std::string server_ip);
+    TCP_Client();
     ~TCP_Client() {}
 
     void send_data(char buffer[SEND_BUF_SIZE]);

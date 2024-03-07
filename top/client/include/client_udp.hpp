@@ -1,16 +1,22 @@
 #ifndef CLIENT_UDP_HPP
 #define CLIENT_UDP_HPP
 
+#include <cstdint>
+#include <mutex>
 #include <string>
 #include <utility>
 #include <winsock2.h>
+
+// TODO: Move this later to netutils!!
+#define CLIENT_UDP_PORT 11000
+#define SERVER_UDP_PORT 12000
 
 #define UDP_SEND_BUF_SIZE 1024
 #define UDP_RECEIVE_BUF_SIZE 1024
 
 class UDP_Client {
 public:
-    UDP_Client(int port, std::string server_ip);
+    UDP_Client();
     ~UDP_Client(){};
 
     void send_xy(int16_t x, int16_t y);
@@ -18,6 +24,7 @@ public:
 
 private:
     SOCKET socket_;
+    std::mutex socket_mutex_;
 };
 
 #endif

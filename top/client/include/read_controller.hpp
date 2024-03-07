@@ -19,7 +19,7 @@ public:
 	short getYVal();
 	short getZVal();
 
-	std::pair<float, float> get_xy();
+	std::pair<int16_t,int16_t> get_xy();
 
 	static std::pair<float, float> normalise_xy(float x, float y);
 
