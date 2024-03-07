@@ -1,17 +1,29 @@
+#ifndef CLIENT_UDP_HPP
+#define CLIENT_UDP_HPP
+
 #include <cstdint>
 #include <iostream>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <arpa/inet.h>
 
-#ifndef CLIENT_UDP_HPP
-#define CLIENT_UDP_HPP
+#define UDP_SEND_BUF_SIZE 1024
+#define UDP_RECEIVE_BUF_SIZE 1024
 
+class UDP_Client {
+    public:
+        UDP_Client(int port, std::string server_ip) :
+                   port_(port), server_ip_(server_ip) {}
+        ~UDP_Client() {}
 
-void UDP_send(SOCKET clientSocket,sockaddr_in clientService, char buffer[1024]);
+        void send(char buffer[UDP_SEND_BUF_SIZE]);
+        void receive(char buffer[UDP_RECEIVE_BUF_SIZE]);
 
-void UDP_receive(int PORT, const char* EC2_IP_ADDRESS, char buffer[1024]);
-
-void UDP_setup();
+    private:
+        int port_;
+        std::string server_ip_;
+        SOCKET socket_;
+        sockaddr_in client_service_;
+};
 
 #endif

@@ -4,21 +4,24 @@
 #include <string>
 #include <winsock2.h>
 
+#define SEND_BUF_SIZE
+#define RECEIVE_BUF_SIZE
+
 class TCP_Client {
 public:
     TCP_Client(int port, std::string server_ip) :
                port(port), server_ip(server_ip) {}
     ~TCP_Client() {}
 
-    SOCKET connect(std::string EC2_IP, int port, SOCKET &clientSocket);
-    void send(SOCKET clientSocket, char buffer[200]);
-    void receive(char buffer[1024]);
-    void disconnect(SOCKET clientSocket);
+    void connect();
+    void send(char buffer[SEND_BUF_SIZE]);
+    void receive(char buffer[RECEIVE_BUF_SIZE]);
+    void disconnect();
 
 private:
-    int port;
-    std::string server_ip;
-    SOCKET socket;
+    int port_;
+    std::string server_ip_;
+    SOCKET socket_;
 };
 
 #endif
