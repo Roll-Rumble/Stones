@@ -12,13 +12,6 @@
 
 std::pair<std::string, short> wait_for_tcp();
 
-class NetworkException : public std::runtime_error
-{
-public:
-    NetworkException(const std::string &msg)
-    : std::runtime_error(msg + ": " + strerror(errno))
-    {}
-};
 
 class UDPServ
 {

@@ -1,4 +1,6 @@
-#include "packing.hpp"
+
+#include "netutils.hpp"
+namespace pack {
 
 uint64_t pack754(long double f, unsigned bits, unsigned expbits)
 {
@@ -81,6 +83,15 @@ void encode_pos(unsigned char *buf, float x, float y)
     packu32(buf + 4, y_enc);
 }
 
+
+std::pair<float, float> decode_pos(unsigned char *buf)
+{
+    uint32_t x_int = unpacku32(buf);
+    uint32_t y_int = unpacku32(buf + sizeof(uint32_t));
+
+    return std::make_pair(unpack754_32(x_int), unpack754_32(y_int));
+}
+
 std::pair<int16_t, int16_t> decode_input(unsigned char *buf)
 {
     int16_t x, y;
@@ -88,3 +99,12 @@ std::pair<int16_t, int16_t> decode_input(unsigned char *buf)
     y = ((int16_t)buf[2] << 8) | ((int16_t)buf[3]);
     return std::make_pair(x, y);
 }
+
+
+void encode_input(unsigned char *buf, int16_t x, int16_t y)
+{
+    uint32_t out = ((uint32_t)x << 16) + (uint32_t)y;
+    packu32(buf, out);
+}
+
+} // namespace pack

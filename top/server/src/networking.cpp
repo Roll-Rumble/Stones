@@ -10,7 +10,7 @@
 #include <utility>
 #include <iostream>
 
-#include "packing.hpp"
+#include "netutils.hpp"
 #include "networking.hpp"
 
 
@@ -49,7 +49,7 @@ UDPServ::~UDPServ()
 void UDPServ::send_xy(float x, float y)
 {
     unsigned char buf[NUM_OUT_BYTES];
-    encode_pos(buf, x, y);
+    pack::encode_pos(buf, x, y);
 
     send(sockfd, buf, NUM_OUT_BYTES, 0);
 }
@@ -58,7 +58,7 @@ std::pair<int16_t, int16_t> UDPServ::recv_xy()
 {
     unsigned char buf[4];
     recv(sockfd, buf, 4, 0);
-    return decode_input(buf);
+    return pack::decode_input(buf);
 }
 
 
