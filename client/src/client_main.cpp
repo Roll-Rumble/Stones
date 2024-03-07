@@ -10,6 +10,7 @@ int main() {
     std::thread read_server_thread(read_and_display_frame);
 
     // Wait for threads to finish (they won't)
-
+    read_controller_thread.join();
+    read_server_thread.join();
 
 }
