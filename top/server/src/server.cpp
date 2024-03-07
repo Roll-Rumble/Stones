@@ -7,7 +7,7 @@
 int main()
 {
 	auto [addr, port] = wait_for_tcp();
-	UDPServ udp_serv(addr, port);
+	UDPServ udp_serv(addr);
 	// int wall_num =1;
 	Ball ball(0, 0, 0.1);
 	// std::vector<Wall> walls;

@@ -15,7 +15,7 @@
 
 
 // returns socket file descriptor
-UDPServ::UDPServ(std::string &addr, int port)
+UDPServ::UDPServ(std::string &addr)
 {
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd == -1) {
@@ -31,8 +31,18 @@ UDPServ::UDPServ(std::string &addr, int port)
     struct sockaddr_in client_addr;
     memset(&client_addr, 0, sizeof(client_addr));
     client_addr.sin_family = AF_INET;
-    client_addr.sin_port = (in_port_t)htons(port);
+    client_addr.sin_port = (in_port_t)htons(SEND_PORT);
     client_addr.sin_addr.s_addr = inet_addr(addr.c_str());
+
+    struct sockaddr_in local_addr;
+    memset(&client_addr, 0, sizeof(local_addr));
+    client_addr.sin_family = AF_INET;
+    client_addr.sin_port = (in_port_t)htons(LISTEN_PORT);
+    client_addr.sin_addr.s_addr = inet_addr("0.0.0.0");
+
+    if (bind(sockfd, (struct sockaddr *)&local_addr, sizeof(local_addr)) == -1) {
+        throw NetworkException("can't bind socket");
+    }
 
     if (connect(sockfd, (struct sockaddr *) &client_addr,
         sizeof(client_addr)) == -1) {
