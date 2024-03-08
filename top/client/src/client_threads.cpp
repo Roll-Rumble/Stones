@@ -4,6 +4,7 @@
 #include "client_udp.hpp"
 #include "read_controller.hpp"
 #include <cstdint>
+#include <chrono>
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -21,11 +22,11 @@ void read_and_send_input(UDP_Client &udpClient) {
     std::cerr << "Controller thread: started TCP client\n";
 
     while (true) {
-        std::cerr << "Controller thread: reading from NIOS II\n";
+        // std::cerr << "Controller thread: reading from NIOS II\n";
         // Read accelerometer data from Nios II
         std::pair<int16_t,int16_t> xy_accel_data = nios2.get_xy();
 
-        std::cerr<< "Controller thread: sending data over UDP\n";
+        // std::cerr<< "Controller thread: sending data over UDP\n";
         // Send data from controller over UDP
         udpClient.send_xy(xy_accel_data.first, xy_accel_data.second);
         std::cerr << "Controller thread: data sent over UDP\n";
