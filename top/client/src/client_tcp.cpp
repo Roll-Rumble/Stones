@@ -10,7 +10,14 @@
 
 TCP_Client::TCP_Client() {
     start_WSA();
-    create_socket(socket_);
+
+    // Create TCP socket
+    socket_ = INVALID_SOCKET;
+    socket_ = socket(AF_INET, SOCK_STREAM, 0);
+    if (socket_ == INVALID_SOCKET) {
+        WSACleanup();
+        throw NetworkException("error creating socket");
+    }
 
     sockaddr_in clientService;
     clientService.sin_family = AF_INET;

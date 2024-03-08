@@ -9,7 +9,13 @@
 
 UDP_Client::UDP_Client() {
     start_WSA();
-    create_socket(socket_);
+
+    socket_ = INVALID_SOCKET;
+    socket_ = socket(AF_INET, SOCK_DGRAM, 0);
+    if (socket_ == SOCKET_ERROR) {
+        WSACleanup();
+        throw NetworkException("Error creating UDP socket");
+    }
 
     SOCKADDR_IN client_addr;
     client_addr.sin_family = AF_INET;

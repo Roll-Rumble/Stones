@@ -13,12 +13,3 @@ void start_WSA() {
         throw NetworkException("winsock dll not found");
     }
 }
-
-void create_socket(SOCKET &clientSocket) { // Pass clientSocket by reference
-    clientSocket = INVALID_SOCKET;
-    clientSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if(clientSocket == INVALID_SOCKET){
-        WSACleanup();
-        throw NetworkException("error creating socket");
-    }
-}

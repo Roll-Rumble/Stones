@@ -5,7 +5,7 @@ The code uses winsock for the client side and unix for the server side
 
 ## EC2 Instance Criteria
 
-### Allowing UDP on the EC2 instance 
+### Allowing UDP on the EC2 instance
 
 Step 1: Locate EC2
 
@@ -47,7 +47,7 @@ When Compiling the CPP client code file, you must add the following command so t
 for example:
 ```g++ -o my_program client_UDP.cpp -lws2_32```
 
-## Troubleshooting 
+## Troubleshooting
 
 
 ### Address already in use
@@ -63,7 +63,7 @@ run this on the ec2 to listen for UDP packets
 
 ```nc -u -l 12000```
 
-### testing server code 
+### testing server code
 
 run the shell scrpit provided in windows power shell. this will send a packet over udp
 
@@ -71,4 +71,3 @@ run the shell scrpit provided in windows power shell. this will send a packet ov
 $sendbytes = [System.Text.Encoding]::ASCII.GetBytes("test message")
 $echo.Send($sendbytes, $sendbytes.Length)
 $echo.Close()```
-
