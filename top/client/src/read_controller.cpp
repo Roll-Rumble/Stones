@@ -1,15 +1,13 @@
 #include "read_controller.hpp"
 
 #include <jtag_atlantic.h>
-#include <cassert>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
 #include <iostream>
 #include <string>
 
-Controller::Controller() : x_val {0}, y_val {0}, z_val {0}
-{
+Controller::Controller() : x_val (0), y_val (0) {
     handle = jtagatlantic_open(NULL, -1, -1, "jtag_read");
     int err;
     if (err = jtagatlantic_cable_warning(handle)) {
@@ -18,26 +16,17 @@ Controller::Controller() : x_val {0}, y_val {0}, z_val {0}
     }
 }
 
-Controller::~Controller()
-{
+Controller::~Controller() {
     jtagatlantic_close(handle);
 }
 
-short Controller::getXVal()
-{
+short Controller::getXVal() {
 	return x_val;
 }
 
-short Controller::getYVal()
-{
+short Controller::getYVal() {
 	return y_val;
 }
-
-short Controller::getZVal()
-{
-	return z_val;
-}
-
 
 std::pair<int16_t,int16_t> Controller::get_xy()
 {
