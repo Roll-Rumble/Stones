@@ -18,7 +18,7 @@ private:
 	float velocity_y_ = 0.0f; // 0 index is x and 1 speed index is y speed
 	
 	
-	bool mobile_ = 0;
+	bool mobile_ = true;
 	float radius_ = 5; 
 
 	unsigned int buffer_;	// this is for the graphics
@@ -31,7 +31,8 @@ public:
 	Hitbox hitbox_4;
 	Hitbox hitbox_[4] = {hitbox_1, hitbox_2, hitbox_3, hitbox_4};
 
-	Ball(float x, float y, float r) : location_x_(x), location_y_(y), radius_(r)
+	Ball(float x, float y, float r) :
+	location_x_(x), location_y_(y), radius_(r), mobile_(true)
 	{
 	hitbox_1.x = location_x_ + radius_;
 	hitbox_1.y = location_y_;
