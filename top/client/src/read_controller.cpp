@@ -60,11 +60,7 @@ std::pair<int16_t,int16_t> Controller::get_xy()
             y_val <<= 8;
             y_val += str_buffer[3];
 
-            str_buffer[str_buf_idx - 1] = '\0';
-            std::cout << "GOT RESULT: " << str_buffer << "\n";
-            str_buf_idx = 0;
-            sscanf(str_buffer, "X: %hd, Y: %hd, Z: %hd", &x_val, &y_val, &z_val);
-            memset(str_buffer, '\0', STR_BUFFER_SIZE);
+            std::cout << "Successfully read result\n";
         }
     }
 
