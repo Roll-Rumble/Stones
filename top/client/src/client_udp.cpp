@@ -3,6 +3,7 @@
 #include "netutils.hpp"
 #include "winsock_start.hpp"
 #include <cstdint>
+#include <iostream>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
@@ -20,14 +21,15 @@ UDP_Client::UDP_Client() {
     local_addr.sin_port = htons(SERVER_UDP_PORT);
     inet_pton(AF_INET, "0.0.0.0", &local_addr.sin_addr);
 
+    if (bind(socket_, (SOCKADDR *)&local_addr, sizeof(local_addr)) == SOCKET_ERROR) {
+        std::cerr << "UDP error code: " << WSAGetLastError() << "\n";
+        WSACleanup();
+        throw NetworkException("error binding UDP socket: error code ");
+    }
+
     if (connect(socket_, (SOCKADDR *)&client_addr, sizeof(client_addr)) == SOCKET_ERROR) {
         WSACleanup();
         throw NetworkException("can't connect to UDP socket");
-    }
-
-    if (bind(socket_, (SOCKADDR *)&local_addr, sizeof(local_addr)) == SOCKET_ERROR) {
-        WSACleanup();
-        throw NetworkException("error binding UDP socket");
     }
 }
 
