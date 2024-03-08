@@ -48,7 +48,18 @@ std::pair<int16_t,int16_t> Controller::get_xy()
         //std::cout << "Read " << bytes_read << "bytes\n";
         //std::cout << "Read data: " << *read_buffer << "\n";
 
-        if (str_buf_idx > 1 && str_buffer[str // str_buffer[str_buf_idx - 1] == 0) {
+        if (str_buf_idx > 1 && str_buffer[str_buf_idx - 2] == 128
+                            && str_buffer[str_buf_idx - 1] == 0) {
+            // Read x_val from buffer
+            x_val = str_buffer[0];
+            x_val <<= 8;
+            x_val += str_buffer[1];
+
+            // Read y_val from buffer
+            y_val = str_buffer[2];
+            y_val <<= 8;
+            y_val += str_buffer[3];
+
             str_buffer[str_buf_idx - 1] = '\0';
             std::cout << "GOT RESULT: " << str_buffer << "\n";
             str_buf_idx = 0;
