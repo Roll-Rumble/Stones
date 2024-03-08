@@ -33,6 +33,7 @@ if(CMAKE_HOST_SYSTEM MATCHES Windows)
 	add_library(GLFW STATIC IMPORTED)
 	add_library(GLEW STATIC IMPORTED)
 	add_library(OpenGL STATIC IMPORTED)
+	add_library(WinSock STATIC IMPORTED)
 
 	target_compile_definitions(GLEW INTERFACE "GLEW_STATIC")
 
@@ -53,7 +54,10 @@ if(CMAKE_HOST_SYSTEM MATCHES Windows)
 	set_target_properties(OpenGL PROPERTIES IMPORTED_LOCATION
 	"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64/OpenGL32.Lib")
 
-	target_link_libraries(client netutils jtag_atlantic jtag_client GLFW GLEW OpenGL)
+	set_target_properties(WinSock PROPERTIES IMPORTED_LOCATION
+	"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64/WS2_32.Lib")
+
+	target_link_libraries(client netutils jtag_atlantic jtag_client GLFW GLEW OpenGL WinSock)
 endif()
 
 if (CMAKE_HOST_SYSTEM MATCHES Linux)
