@@ -1,35 +1,29 @@
 #ifndef READ_CONTROLLER_HPP
 #define READ_CONTROLLER_HPP
 
+#include <cstdint>
 #include <jtag_atlantic.h>
-#include <utility>
 
-#define STR_BUFFER_SIZE 50
-#define READ_BUFFER_SIZE 1
+#define READ_BUFFER_SIZE 6
 
-#define INPUT_THRESHOLD 20
-#define OUTLIER_THRESHOLD 256
+struct XY_Pair {
+	int16_t x;
+	int16_t y;
+};
 
 class Controller {
 public:
 	Controller();
 	~Controller();
 
-	short getXVal();
-	short getYVal();
-	short getZVal();
-
-	std::pair<int16_t,int16_t> get_xy();
-
-	static std::pair<float, float> normalise_xy(float x, float y);
+	// Returns xy_accel_ value held by object
+	XY_Pair get_xy_accel();
+	// Reads controller and writes to xy_accel_ value held by object
+	void read_xy_accel();
 
 private:
-	//void readJTAG();
-
-	short x_val;
-	short y_val;
-	short z_val;
-	JTAGATLANTIC* handle;
+	XY_Pair accel_;
+	JTAGATLANTIC* handle_;
 };
 
 #endif

@@ -3,32 +3,33 @@
 
 #include <stdio.h>
 
-
 int main() {
-
     // Instantiate accelerometer object for taking readings
     alt_up_accelerometer_spi_dev *acc_dev;
     acc_dev = alt_up_accelerometer_spi_open_dev("/dev/accelerometer_spi");
 
-    // alt_timestamp_start();
+    alt_32 x_read;
+    alt_32 y_read;
+    unsigned char buffer[6];
 
-    // alt_u32 accel_readings[3];     // [0] for x, [1] for y, [2] for z
-    // char start_char = 0b10111111;   // Not possible value for two of these to be in a row
-    // char *x0 = &accel_readings[0];
-    // char *x1 = &accel_readings[0] + 1;
-    // char *y0 = &accel_readings[1];
-    // char *y1 = &accel_readings[1] + 1;
-    // char *z0 = &accel_readings[2];
-    // char *z1 = &accel_readings[2] + 1;
+    // Set final two chars of each msg to -65536 (unique terminator)
+    buffer[4] = 128;
+    buffer[5] = 0;
 
     // Take readings and print result on UART
     while (1) {
-        alt_32 x_read, y_read, z_read;
         alt_up_accelerometer_spi_read_x_axis(acc_dev, &x_read);
         alt_up_accelerometer_spi_read_y_axis(acc_dev, &y_read);
-        alt_up_accelerometer_spi_read_z_axis(acc_dev, &z_read);
 
-        printf("X: %i, Y: %i, Z: %ie", x_read, y_read, z_read);
+        buffer[0] = (x_read >> 8) & 0xff;   // MSB of x
+        buffer[1] = x_read & 0xff;          // LSB of x
+        buffer[2] = (y_read >> 8) & 0xff;   // MSB of y
+        buffer[3] = y_read & 0xff;          // LSB of y
+        // buffer[5] and buffer[6] constant terminator values
+
+        // Output accel vals as bytes
+        printf("%c%c%c%c%c%c", buffer[0], buffer[1], buffer[2],
+               buffer[3], buffer[4], buffer[5]);
 
         // Magic constant to slow transmission down for now
         // Custom PC implementation unable to keep up with max data
@@ -37,9 +38,5 @@ int main() {
             // Waste some time!
             alt_up_accelerometer_spi_read_x_axis(acc_dev, &x_read);
         }
-
-        //printf("X: %ld, Y: %ld, Z: %ld\n", x_read, y_read, z_read);
-        // printf("XYZ123");
     }
-
 }
