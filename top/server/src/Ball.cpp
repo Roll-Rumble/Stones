@@ -15,32 +15,17 @@ void Ball::Accelerate(int input_x, int input_y)
 		float normal_x = input_x/256;
 		float normal_y = input_y/256;
 		float acceleration_x = 0;
-		float accelearation_y = 0;
-		float modifier;
-		acceleration_x += normal_x*modifier;
-		accelearation_y += normal_y*modifier; 
-		if(input_x < 0){
-			// negative acceleration
-			velocity_x_ -= acceleration_x;
-		}
-		else if(input_x > 0){
-			// positive acceleration
-			velocity_x_ += acceleration_x;
-		}
-		if (input_y < 0){
-			// negative acceleration
-			velocity_y_ -= accelearation_y;
-		}
-		else if(input_y > 0){
-			// positive acceleration
-			velocity_y_ += accelearation_y;
-		}
-		else return; //acceleration is zero so no change needed
+		float acceleration_y = 0;
+		float modifier = 1.0;
+		acceleration_x += normal_x * modifier;
+		acceleration_y += normal_y * modifier; 
+		velocity_x_ += acceleration_x;
+		velocity_y_ += acceleration_y;
 	}
 
 void Ball::Update(int input_x, int input_y)
 	{	
-		if(mobile_ == 1){
+		if (mobile_ == true){
 			Accelerate(input_x, input_y);
 			location_x_ += velocity_x_;
 			location_y_ += velocity_y_;

@@ -6,8 +6,10 @@
 
 int main()
 {
+	std::cout << "starting server..." << std::endl;
 	auto [addr, port] = wait_for_tcp();
-	UDPServ udp_serv(addr, port);
+	std::cout << "TCP handshake successfull" << std::endl;
+	UDPServ udp_serv(addr);
 	// int wall_num =1;
 	Ball ball(0, 0, 0.1);
 	// std::vector<Wall> walls;
@@ -17,7 +19,7 @@ int main()
 	while (true) {
 		auto [input_x, input_y] = udp_serv.recv_xy();
 
-
+		std::cout << "x_in: " << input_x << " y_in: " << input_y << std::endl;
 		ball.Update(input_x, input_y);
 
 		
