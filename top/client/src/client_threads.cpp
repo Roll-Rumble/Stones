@@ -23,7 +23,7 @@ void read_and_send_input(UDP_Client &udpClient) {
 
     while (true) {
         // Read accelerometer data from Nios II
-        nios2.read_xy_accel();
+        nios2.read_inputs();
         XY_Pair xy_accel_data = nios2.get_xy_accel();
 
         // std::cerr<< "Controller thread: sending data over UDP\n";
