@@ -70,6 +70,7 @@ int main() {
 			x_msb = (x_hardware_filtered >> 8) & 0x000000FF;
 			y_lsb = y_hardware_filtered & 0x000000FF;
 			y_msb = (y_hardware_filtered >> 8) & 0x000000FF;
+			buttons = ~buttons;
 			buttons = button_input & 0b11;
 
 			printf("%c%c%c%c%c%c%c", x_msb, x_lsb, y_msb, y_lsb, buttons, end_token_1, end_token_2);
