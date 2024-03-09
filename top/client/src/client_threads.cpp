@@ -22,13 +22,13 @@ void read_and_send_input(UDP_Client &udpClient) {
     std::cerr << "Controller thread: started TCP client\n";
 
     while (true) {
-        // std::cerr << "Controller thread: reading from NIOS II\n";
         // Read accelerometer data from Nios II
-        std::pair<int16_t,int16_t> xy_accel_data = nios2.get_xy();
+        nios2.read_xy_accel();
+        XY_Pair xy_accel_data = nios2.get_xy_accel();
 
         // std::cerr<< "Controller thread: sending data over UDP\n";
         // Send data from controller over UDP
-        udpClient.send_xy(xy_accel_data.first, xy_accel_data.second);
+        udpClient.send_xy(xy_accel_data.x, xy_accel_data.y);
         std::cerr << "Controller thread: data sent over UDP\n";
     }
 }
