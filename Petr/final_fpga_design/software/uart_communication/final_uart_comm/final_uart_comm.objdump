@@ -35,19 +35,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   8 .debug_aranges 00000470  00000000  00000000  00002578  2**3
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_info   000059ce  00000000  00000000  000029e8  2**0
+  9 .debug_info   000059cf  00000000  00000000  000029e8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_abbrev 0000207c  00000000  00000000  000083b6  2**0
+ 10 .debug_abbrev 0000207c  00000000  00000000  000083b7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_line   000022aa  00000000  00000000  0000a432  2**0
+ 11 .debug_line   000022aa  00000000  00000000  0000a433  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_frame  000005f0  00000000  00000000  0000c6dc  2**2
+ 12 .debug_frame  000005f0  00000000  00000000  0000c6e0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00001abc  00000000  00000000  0000cccc  2**0
+ 13 .debug_str    00001abc  00000000  00000000  0000ccd0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_loc    0000192b  00000000  00000000  0000e788  2**0
+ 14 .debug_loc    0000192b  00000000  00000000  0000e78c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_alt_sim_info 00000010  00000000  00000000  000100b4  2**2
+ 15 .debug_alt_sim_info 00000010  00000000  00000000  000100b8  2**2
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_ranges 00000308  00000000  00000000  000100c8  2**3
                   CONTENTS, READONLY, DEBUGGING
@@ -732,7 +732,7 @@ int main() {
     acc_dev = alt_up_accelerometer_spi_open_dev("/dev/accelerometer_spi");
    1028c:	0010f0c0 	call	10f0c <alt_up_accelerometer_spi_open_dev>
    10290:	1021883a 	mov	r16,r2
-	char end_token_1 = 0xFF;
+	char end_token_1 = -128;
 	char end_token_2 = 0;
 
     while (1) {
@@ -754,7 +754,6 @@ int main() {
    102b4:	d9000504 	addi	r4,sp,20
    102b8:	00102500 	call	10250 <bound>
 
-
     	write_to_fir(x_read, y_read); //send measured values to hardware fir
    102bc:	d9400517 	ldw	r5,20(sp)
    102c0:	d9000617 	ldw	r4,24(sp)
@@ -763,12 +762,12 @@ int main() {
         y_lsb = y_hardware_filtered & 0x000000FF;
 		y_msb = (y_hardware_filtered >> 8) & 0x000000FF;
 
-        printf("%c%c%c%c%c%c\n", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
+        printf("%c%c%c%c%c%c", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
    102c4:	0440fa04 	movi	r17,1000
+
         /* make sure both are within -255 to 255 */
         bound(&x_read);
         bound(&y_read);
-
 
     	write_to_fir(x_read, y_read); //send measured values to hardware fir
    102c8:	00102180 	call	10218 <write_to_fir>
@@ -785,10 +784,10 @@ int main() {
         y_lsb = y_hardware_filtered & 0x000000FF;
 		y_msb = (y_hardware_filtered >> 8) & 0x000000FF;
 
-        printf("%c%c%c%c%c%c\n", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
-   102e0:	00ffffc4 	movi	r3,-1
+        printf("%c%c%c%c%c%c", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
+   102e0:	00ffe004 	movi	r3,-128
+        bound(&x_read);
         bound(&y_read);
-
 
     	write_to_fir(x_read, y_read); //send measured values to hardware fir
 		read_from_fir(&x_hardware_filtered, &y_hardware_filtered); //fir processes values
@@ -801,7 +800,7 @@ int main() {
    102e8:	d8800317 	ldw	r2,12(sp)
 		y_msb = (y_hardware_filtered >> 8) & 0x000000FF;
 
-        printf("%c%c%c%c%c%c\n", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
+        printf("%c%c%c%c%c%c", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
    102ec:	300bd23a 	srai	r5,r6,8
    102f0:	31803fcc 	andi	r6,r6,255
    102f4:	100fd23a 	srai	r7,r2,8
@@ -832,7 +831,7 @@ int main() {
    10340:	8009883a 	mov	r4,r16
    10344:	8c7fffc4 	addi	r17,r17,-1
    10348:	0010f640 	call	10f64 <alt_up_accelerometer_spi_read_x_axis>
-        printf("%c%c%c%c%c%c\n", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
+        printf("%c%c%c%c%c%c", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
 
         // Magic constant to slow transmission down for now
         // Custom PC implementation unable to keep up with max data

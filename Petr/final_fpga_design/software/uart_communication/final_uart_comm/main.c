@@ -37,7 +37,7 @@ int main() {
     /* variables used for printing on UART */
     char x_msb, x_lsb;
 	char y_msb, y_lsb;
-	char end_token_1 = 0xFF;
+	char end_token_1 = -128;
 	char end_token_2 = 0;
 
     while (1) {
@@ -49,7 +49,6 @@ int main() {
         bound(&x_read);
         bound(&y_read);
 
-
     	write_to_fir(x_read, y_read); //send measured values to hardware fir
 		read_from_fir(&x_hardware_filtered, &y_hardware_filtered); //fir processes values
         x_read &= 0x0000FFFF;
@@ -59,7 +58,7 @@ int main() {
         y_lsb = y_hardware_filtered & 0x000000FF;
 		y_msb = (y_hardware_filtered >> 8) & 0x000000FF;
 
-        printf("%c%c%c%c%c%c\n", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
+        printf("%c%c%c%c%c%c", x_msb, x_lsb, y_msb, y_lsb, end_token_1, end_token_2);
 
         // Magic constant to slow transmission down for now
         // Custom PC implementation unable to keep up with max data
