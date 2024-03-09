@@ -110,7 +110,9 @@ nios_accelerometer u0 (
 		.fir_out_x_external_connection_export               (FIR_X_OUT),                //        fir_out_x_external_connection.export
 		.sample_tick_external_connection_export             (SAMPLE_TICK),              //      sample_tick_external_connection.export
 		.fir_in_y_external_connection_export                (FIR_Y_IN),                //         fir_in_y_external_connection.export
-		.fir_out_y_external_connection_export               (FIR_Y_OUT)                //        fir_out_y_external_connection.export
+		.fir_out_y_external_connection_export               (FIR_Y_OUT),                //        fir_out_y_external_connection.export
+		.button_external_connection_export                  (KEY[1:0])                   //           button_external_connection.export
+
 );
 
 
