@@ -1,13 +1,16 @@
-#include <aws/core/Aws.h>
-#include <aws/dynamodb/DynamoDBClient.h>
-#include <aws/dynamodb/model/AttributeDefinition.h>
-#include <aws/dynamodb/model/CreateTableRequest.h>
-#include <aws/dynamodb/model/KeySchemaElement.h>
-#include <aws/dynamodb/model/ProvisionedThroughput.h>
-#include <aws/dynamodb/model/ScalarAttributeType.h>
+#include "Aws.h"
+#include "DynamoDBClient.h"
+#include "AttributeDefinition.h"
+#include "CreateTableRequest.h"
+#include "KeySchemaElement.h"
+#include "ProvisionedThroughput.h"
+#include "ScalarAttributeType.h"
 #include <iostream>
 #include <time.h>
 
+/*
+g++ create_table.cpp -o create_table.o -I /Users/orlanforshaw/Documents/Ballz/Stones/build/aws-sdk-cpp-main/src/aws-cpp-sdk-core/include/aws/core -I /Users/orlanforshaw/Documents/Ballz/Stones/build/aws-sdk-cpp-main/generated/src/aws-cpp-sdk-dynamodb/include/aws/dynamodb -I /Users/orlanforshaw/Documents/Ballz/Stones/build/aws-sdk-cpp-main/generated/src/aws-cpp-sdk-dynamodb/include/aws/dynamodb/model
+*/
 
 #define REGION "eu-west-2" // set region for London
 #define READ_CAPACITY_UNITS 1000
