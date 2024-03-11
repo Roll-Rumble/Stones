@@ -1,3 +1,0 @@
-C:/dev/JTAG_UART_test/out/build/x64-debug/CMakeFiles/JTAG_UART_test.dir
-C:/dev/JTAG_UART_test/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/dev/JTAG_UART_test/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
