@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include "top/game_objects/include/game_util.hpp"
 
 class Logger{
 
@@ -15,7 +16,7 @@ public:
 		file_.close();
 	};
 	int Put(std::vector<std::pair<std::string, std::string> > input, int &FrameID);
-	static std::vector<std::vector<std::pair< int, int> > > Parse(int FrameID, int GameID);
+	static std::vector<std::vector< XYPairInt16 > > Parse(int FrameID, int GameID);
 	void Close(){
 		file_ << std::endl << "]}";
 		file_.close();

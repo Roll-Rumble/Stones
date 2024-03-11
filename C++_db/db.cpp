@@ -44,9 +44,10 @@ int Logger::Put(std::vector<std::pair<std::string, std::string> > input, int &Fr
 	return 1;
 }
 
-std::vector<std::vector<std::pair< int, int> > > Logger::Parse( int FrameID, int GameID) {
-	std::vector<std::vector<std::pair<int, int> > > output;
-	std::vector<std::pair<int, int> > temp;
+std::vector<std::vector<XYPairInt16> > Logger::Parse( int FrameID, int GameID) {
+	std::vector<std::vector<XYPairInt16> > output;
+	std::vector<XYPairInt16 > temp;
+	XYPairInt16 pair;
 	std::string filename = "Storage" + std::to_string(GameID) + ".json";
 	std::ifstream file(filename);
 	std::string line;
@@ -75,9 +76,10 @@ std::vector<std::vector<std::pair< int, int> > > Logger::Parse( int FrameID, int
 						x = line.substr(comma1 + 1, comma2 - comma1 - 1);
 						y = line.substr(comma2 + 1, line.find("]") - comma2 - 1);
 					//}
-
+					pair.x = stoi(x);
+					pair.y = stoi(y);
 					//std::cout << "test" << std::endl;
-					temp.push_back(std::make_pair(stoi(x), stoi(y)));
+					temp.push_back(pair);
 					//std::cout << "test2" << std::endl;
 					line = line.substr(line.find("]") + 2);
 				}
