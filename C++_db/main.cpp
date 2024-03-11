@@ -35,7 +35,7 @@ int main() {
 	int FrameID = 0;
 	Logger log(GAMEID);
 	std::vector <std::pair<std::string, std::string> > input;
-	std::vector<std::vector <std::pair<std::string, std::string> > > output;
+	std::vector<std::vector <std::pair<int,int> > > output;
 	input.push_back( std::make_pair("0", "0"));
 	input.push_back( std::make_pair("0", "0"));
 	//std::cout << test.substr(test.find(":") + 1, 1);
