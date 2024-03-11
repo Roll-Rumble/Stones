@@ -1,15 +1,11 @@
 #ifndef READ_CONTROLLER_HPP
 #define READ_CONTROLLER_HPP
 
+#include "game_util.hpp"
 #include <cstdint>
 #include <jtag_atlantic.h>
 
 #define CONTROLLER_BUF_SIZE 7
-
-struct XY_Pair {
-	int16_t x;
-	int16_t y;
-};
 
 class Controller {
 public:
@@ -17,7 +13,7 @@ public:
 	~Controller();
 
 	// Returns xy_accel_ value held by object
-	XY_Pair get_xy_accel() const;
+	XYPairInt16 get_xy_accel() const;
 
 	// Return true when buttons are pressed
 	bool top_button_pressed();
@@ -27,7 +23,7 @@ public:
 	void read_inputs();
 
 private:
-	XY_Pair accel_;
+	XYPairInt16 accel_;
 	bool top_button_;		// High when pressed
 	bool bottom_button_;	// High when pressed
 	JTAGATLANTIC* handle_;
