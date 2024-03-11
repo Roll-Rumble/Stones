@@ -39,10 +39,7 @@ int replayScreen::select() {
     Controller controller;
     std::cout << "Select an option; press Bottom to go down and press Top to enter into the selected button"<< std::endl;
     
-    // std::cin >> sel;
-    // std::cout << "You selected: " << sel << std::endl;
-    
-    while (!top_pressed){ //bottom goes down list and top enters current selection
+    while (!top_pressed){
         top_pressed = controller.top_button_pressed();
         bottom_pressed = controller.bottom_button_pressed();
 
@@ -59,6 +56,8 @@ int replayScreen::select() {
             std::cout << "Invalid selection" << std::endl;
         }
     }
+
+    std::cout << "You selected: " << sel << std::endl;
 
     if(sel == 0) {
         items[0]->select(); // select the replay1 button
