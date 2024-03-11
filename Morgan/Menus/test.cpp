@@ -32,7 +32,8 @@ int main() {
         selectedReplay = myReplayScreen.select();
 
         // if not exit, render the replay
-        if (selectedReplay != -1) { // might need to wait for reply
+        if (selectedReplay != 2) { // might need to wait for reply
+        
             // query the database for replays
             myReplayScreen.query_replay(selectedReplay);
             // receive replays from the database
