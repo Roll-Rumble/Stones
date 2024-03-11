@@ -16,7 +16,7 @@ Controller::~Controller() {
     jtagatlantic_close(handle_);
 }
 
-XY_Pair Controller::get_xy_accel() const {
+XYPairInt16 Controller::get_xy_accel() const {
     return accel_;
 }
 
