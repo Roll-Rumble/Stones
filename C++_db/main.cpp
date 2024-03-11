@@ -1,7 +1,8 @@
 #include "db.hpp"
 #include <string>
+#define GAMEID 0
 
-int main(){
+/*int main(){ // old tester
 	Logger log("Storage.txt");
 
 
@@ -28,4 +29,37 @@ int main(){
 	std::cout << output[0].first << " " << output[0].second << std::endl;
 	std::cout << output[1].first << " " << output[1].second << std::endl;
 
+}*/
+
+int main() {
+	int FrameID = 0;
+	Logger log(GAMEID);
+	std::vector <std::pair<std::string, std::string> > input;
+	std::vector<std::vector <std::pair<std::string, std::string> > > output;
+	input.push_back( std::make_pair("0", "0"));
+	input.push_back( std::make_pair("0", "0"));
+	//std::cout << test.substr(test.find(":") + 1, 1);
+	log.Put(input, FrameID);
+	for(int i =1; i < 100; i++ ){
+		input[0].first = std::to_string(i);
+		input[1].second = std::to_string(i);
+		log.Put(input, i);
+	}
+	log.Close();
+
+	output = log.Parse(65,GAMEID);
+	std::cout << output[0][0].first << " " << output[0][0].second << std::endl;
+	std::cout << output[1][1].first << " " << output[1][1].second << std::endl;
+	std::fstream file("Storage0.txt", std::ios::app);
+	for(int i = 0; i < output.size(); i++){
+		file << "Frame " << i << std::endl;
+		for(int j = 0; j < output[i].size(); j++){
+			file << output[i][j].first << " " << output[i][j].second << std::endl;
+		}
+		file << std::endl;
+	}
+	//output = log.Get(3,GAMEID);
+	//std::cout << output[0].first << " " << output[0].second << std::endl;
+	//std::cout << output[1].first << " " << output[1].second << std::endl;
+	//log.Open("Storage0.json");
 }

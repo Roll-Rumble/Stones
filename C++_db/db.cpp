@@ -18,12 +18,24 @@ int Logger::Put(std::vector<std::pair<std::string, std::string> > input, int &Fr
 	if (file_.is_open()) {
 		
 		if (FrameID == 0) {
-		file_ << "BallNo:" << input.size() << std::endl;
+		
+		file_ << "{" << std::endl;
+		file_ << " \"BallNo\":" << input.size() << "," <<std::endl << " \"data\": [" << std::endl;
 		}
-		file_ << "FrameID:" << FrameID << std::endl;
+
+		//file_ << "FrameID:" << FrameID << std::endl;
+		if (FrameID != 0) {
+			file_ <<"," << std::endl;
+		}
+		file_ << "[ ";
+		  
 		for (int i = 0; i < input.size(); i++){
-			file_ << i+1 << ":" << input[i].first << ":" << input[i].second << std::endl;
+			file_ << "[" << i << "," << input[i].first << "," << input[i].second << "]";
+			if (i != input.size() - 1) {
+				file_ << ", ";
+			}
 		}
+		file_ << "]";
 		//file_.close();
 		//std::cout << "Put is successful" << std::endl;
 		return 0;	
@@ -32,32 +44,48 @@ int Logger::Put(std::vector<std::pair<std::string, std::string> > input, int &Fr
 	return 1;
 }
 
-std::vector<std::pair< std::string, std::string> > Logger::Get( int FrameID) {
-	std::vector<std::pair<std::string, std::string> > output;
-	
-	std::ifstream file("Storage.txt");
+std::vector<std::vector<std::pair< std::string, std::string> > > Logger::Parse( int FrameID, int GameID) {
+	std::vector<std::vector<std::pair<std::string, std::string> > > output;
+	std::vector<std::pair<std::string, std::string> > temp;
+	std::string filename = "Storage" + std::to_string(GameID) + ".json";
+	std::ifstream file(filename);
 	std::string line;
-	std::string Frame = "FrameID:" + std::to_string(FrameID);
+	//std::string Frame =std::to_string(FrameID);
 	std::string x;
 	std::string y;
-	int colon1;
-	int colon2;
+	int start;
+	int comma1;
+	int comma2;
 	bool found = false;
 	if (file.is_open()) {
 		std::getline(file, line);
+		std::getline(file, line);
 		int BallNo = stoi(line.substr(line.find(":") +1));
-		while (std::getline(file, line)) {
-
-			if (line.find(Frame) != std::string::npos) {
+		std::getline(file, line);
+		int index = 0;
+		std::getline(file, line);
+		while (line[line.length() -1] != '}') {
+			start = line.find("[ [");
+			if ( start != std::string::npos) {
 				for (int i = 0; i < BallNo; i++) {
-					std::getline(file, line);
-					colon1 = line.find(":") + 1;
-					colon2 = line.find(":", colon1 );
+					
+					//if(line.substr(start + 3, 1) == std::to_string(i)){
+						comma1 = line.find(",", start + 3);
+						comma2 = line.find(",", comma1 + 1);
+						x = line.substr(comma1 + 1, comma2 - comma1 - 1);
+						y = line.substr(comma2 + 1, line.find("]") - comma2 - 1);
+					//}
 
-					x = line.substr(colon1 ,colon2 - colon1); 
-					y = line.substr(colon2 + 1);
-					output.push_back(std::make_pair(x, y));
+					//std::cout << "test" << std::endl;
+					temp.push_back(std::make_pair(x, y));
+					//std::cout << "test2" << std::endl;
+					line = line.substr(line.find("]") + 2);
 				}
+				std::getline(file, line);
+				
+				output.push_back(temp);
+				temp.clear();
+				//std::cout << "output generated" << std::endl;
 			}
 		}
 		file.close();
