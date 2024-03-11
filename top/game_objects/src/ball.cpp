@@ -25,9 +25,17 @@ const XYPairFloat Ball::get_velocity() {
     return velocity_;
 }
 
+const float Ball::get_radius() {
+	return radius_;
+}
+
 void Ball::update_velocity() {
     velocity_.x += accel_.x/FPS;
     velocity_.y += accel_.y/FPS;
+}
+
+void Ball::set_velocity(XYPairFloat velocity) {
+	velocity_ = velocity;
 }
 
 void Ball::update_position() {
@@ -109,5 +117,52 @@ void Ball::resolve_ball_collision(Ball &ball1, Ball &ball2) {
 
     XYPairFloat ball2_position = ball2.get_position();
     XYPairFloat ball2_velocity = ball2.get_velocity();
+
+	float distance = sqrt(pow(ball1_position.x - ball2_position.x, 2) + pow(ball1_position.y - ball2_position.y, 2));
+	/*float dist_x;
+	float dist_y;
+	float impulse_x;
+	float impulse_y;
+
+	bool x1_bigger = 1;
+	bool y1_bigger = 1;*/
+	//float magnitude = sqrt(pow(ball1_position.x, 2) + pow(ball1_position.y, 2)) * sqrt(pow(ball2_position.x, 2) + pow(ball2_position.y, 2));
+	if (distance < 2*ball1.get_radius()) { // we have a collision
+		/*if ( ball1_position.x > ball2_position.x){
+			dist_x = ball1_position.x - ball2_position.x;
+		}
+		else{
+			dist_x = ball2_position.x - ball1_position.x;
+			x1_bigger = 0;
+		}
+		if ( ball1_position.y > ball2_position.y){
+			dist_y = ball1_position.y - ball2_position.y;
+		}
+		else{
+			dist_y = ball2_position.y - ball1_position.y;
+			y1_bigger = 0;
+		}
+		float magnitude = sqrt(pow(dist_x, 2) + pow(dist_y, 2));
+		float cos_theta = (ball1_position.x * ball2_position.x + ball1_position.y * ball2_position.y)/magnitude;
+
+		
+		impulse_x = */
+
+		float C1_C2x = ball1_position.x - ball2_position.x;
+		float V1_V2x = ball1_velocity.x - ball2_velocity.x;
+		float C1_C2y = ball1_position.y - ball2_position.y;
+		float V1_V2y = ball1_velocity.y - ball2_velocity.y;
+		//float 
+		float dot_product = C1_C2x * V1_V2x + C1_C2y * V1_V2y;
+		float magnitude_2 = pow(C1_C2x, 2) + pow(C1_C2y, 2);
+		float ball1_velocity_x = ball1_velocity.x - (dot_product/magnitude_2) * C1_C2x;
+		float ball1_velocity_y = ball1_velocity.y - (dot_product/magnitude_2) * C1_C2y;
+		float ball2_velocity_x = ball2_velocity.x + (dot_product/magnitude_2) * C1_C2x;
+		float ball2_velocity_y = ball2_velocity.y + (dot_product/magnitude_2) * C1_C2y;
+		XYPairFloat ball1_velocity = {ball1_velocity_x, ball1_velocity_y};
+		XYPairFloat ball2_velocity = {ball2_velocity_x, ball2_velocity_y};
+		ball1.set_velocity(ball1_velocity);
+		ball2.set_velocity(ball2_velocity);
+	}
 
 }
