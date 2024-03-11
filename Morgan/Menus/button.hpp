@@ -3,6 +3,7 @@
 
 #include "menu_item.hpp"
 #include <string>
+#include "../../top/client/include/read_controller.hpp"
 
 class Button : public menuItem {
 

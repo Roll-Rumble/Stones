@@ -3,6 +3,7 @@
 
 #include "menu_item.hpp"
 #include "button.hpp"
+#include "../../top/client/include/read_controller.hpp"
 
 
 class replayScreen : public menuItem {

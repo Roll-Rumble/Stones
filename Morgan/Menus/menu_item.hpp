@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include "../../top/client/src/read_controller.cpp"
 
 class menuItem { // home screen, play and replay buttons, replay screen, exit replay screen, list of replays are all menu items
 

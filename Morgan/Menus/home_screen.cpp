@@ -23,18 +23,29 @@ void homeScreen::draw() const {
 }
 
 int homeScreen::select() {
-    int sel;
-    std::cout << "Select an option: " << std::endl << "1. Play" << std::endl << "2. Replay" << std::endl;
-    std::cin >> sel;
-    std::cout << "You selected: " << sel << std::endl;
-    if(sel == 1) {
+    // int sel;
+    
+    bool top_pressed = false;
+    bool bottom_pressed = false;
+    Controller controller;
+    std::cout << "Select an option: " << std::endl << "Pres Top to Play" << std::endl << "Press Bottom to go to Replays" << std::endl;
+
+    top_pressed = controller.top_button_pressed();
+    bottom_pressed = controller.bottom_button_pressed();
+
+    // std::cin >> sel;
+    // std::cout << "You selected: " << sel << std::endl;
+
+    if(top_pressed && !bottom_pressed) {
         items[0]->select(); // select the play button
-    } else if(sel == 2) {
+        return 1;
+    } else if(bottom_pressed && !top_pressed) {
         items[1]->select(); // select the replay button
+        return 2;
     } else {
         std::cout << "Invalid selection" << std::endl;
+        return 0;
     }
-    return sel;
 }
 
 

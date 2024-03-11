@@ -9,7 +9,7 @@
 #define height 600.0f
 
 int main() {
-    int selected;
+    int selectedMenu;
     // Create a home screen object
     homeScreen myHomeScreen(0.0f, 0.0f, width, height, red, green, blue, "Home");
 
@@ -17,17 +17,32 @@ int main() {
     myHomeScreen.draw(); 
 
     // Select an option from the home screen
-    selected = myHomeScreen.select();
+    selectedMenu = myHomeScreen.select();
 
-    if(selected == 2) {
-        // Create a replay screen object
+    if(selectedMenu == 2) {
+        int selectedReplay = 0; // game id or -1 for exit
+
+        // Instantiate a replay screen object
         replayScreen myReplayScreen(0.0f, 0.0f, width, height, red, green, blue, "Replay");
 
         // Display the replay screen
         myReplayScreen.draw();
 
         // Select an option from the replay screen
-        myReplayScreen.select();
+        selectedReplay = myReplayScreen.select();
+
+        // if not exit, render the replay
+        if (selectedReplay != -1) { // might need to wait for reply
+            // query the database for replays
+            myReplayScreen.query_replay(selectedReplay);
+            // receive replays from the database
+            std::vector<std::vector<std::pair<int, int>>> replays = myReplayScreen.recv_replays();
+            // draw the replays
+            myReplayScreen.draw_replay(replays); // rendering
+        }
+        else {
+            std::cout << "Exiting" << std::endl;
+        }
     }
 
     return 0;

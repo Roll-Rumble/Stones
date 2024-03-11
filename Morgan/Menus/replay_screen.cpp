@@ -32,21 +32,44 @@ void replayScreen::draw() const {
 }
 
 int replayScreen::select() {
-    int sel;
-    std::cout << "Select an option: " << std::endl << "1. Replay 1" << std::endl << "2. Replay 2" << std::endl << "3. Exit" << std::endl;
-    std::cin >> sel;
-    std::cout << "You selected: " << sel << std::endl;
+    int sel = 0;
+    
+    bool top_pressed = false;
+    bool bottom_pressed = false;
+    Controller controller;
+    std::cout << "Select an option: " << std::endl << "1. Replay 1" << std::endl << "2. Replay 2" << std::endl << "-1. Exit" << std::endl;
+    
+    // std::cin >> sel;
+    // std::cout << "You selected: " << sel << std::endl;
+    
+    while (!top_pressed){    //bottom goes down list and top enters current selection
+        top_pressed = controller.top_button_pressed();
+        bottom_pressed = controller.bottom_button_pressed();
+
+        if (bottom_pressed && !top_pressed){
+            sel ++;
+        }
+        else if (top_pressed && !bottom_pressed){
+            break;
+        }
+        else {
+            std::cout << "Invalid selection" << std::endl;
+        }
+    }
+
     if(sel == 1) {
         items[0]->select(); // select the replay1 button
     } else if(sel == 2) {
         items[1]->select(); // select the replay2 button
-    } else if(sel == 3) {
+    } else if(sel == -1) {
         std::cout << "Exiting replay screen" << std::endl;
         items[2]->select(); // select the exit button
     } else {
         std::cout << "Invalid selection" << std::endl;
     }
-    return 0;
+    return sel;
+    //also output on terminal
+    //output all menu option
 }
 
 void query_replay(int game_id) { // query the database for replays
@@ -61,7 +84,9 @@ std::vector<std::vector<std::pair<int, int>>> recvReplays() { // receive replays
     return replays;
 }
 
-void draw_replay(const std::vector<std::vector<std::pair<int, int>>>& replays) { // draw the replays
+void draw_replay(const std::vector<std::vector<std::pair<int, int>>>& replays) { // draw the replay
     std::cout << "Drawing replays" << std::endl;
     // need to implement this, rendering of the replays
+
+    // later might want to add a pause/unpause or exit button
 }
