@@ -20,7 +20,7 @@ int main() {
     selectedMenu = myHomeScreen.select();
 
     if(selectedMenu == 2) {
-        int selectedReplay = 0; // game id or -1 for exit
+        int selectedReplay = 0; // game id (for now just 0 or 1) or 2 for exit
 
         // Instantiate a replay screen object
         replayScreen myReplayScreen(0.0f, 0.0f, width, height, red, green, blue, "Replay");
@@ -33,7 +33,7 @@ int main() {
 
         // if not exit, render the replay
         if (selectedReplay != 2) { // might need to wait for reply
-        
+
             // query the database for replays
             myReplayScreen.query_replay(selectedReplay);
             // receive replays from the database
