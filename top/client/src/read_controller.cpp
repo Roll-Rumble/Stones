@@ -46,6 +46,7 @@ void Controller::read_inputs() {
 
     // Continue attempting to read from JTAG until values found
     while (true) {
+        jtagatlantic_flush(handle_);
         bytes_available = jtagatlantic_bytes_available(handle_);
         //std::cout << "bytes available is " << bytes_available << "\n";
         if (bytes_available) {
@@ -74,5 +75,11 @@ void Controller::read_inputs() {
         }
 
         buffer_idx %= CONTROLLER_BUF_SIZE;
+    }
+}
+
+void Controller::read_loop() {
+    while (true) {
+        read_inputs();
     }
 }

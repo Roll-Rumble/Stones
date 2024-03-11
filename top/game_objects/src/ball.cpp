@@ -6,6 +6,7 @@
 
 #include "game_util.hpp"
 #include "map.hpp"
+#include <cmath>
 
 Ball::Ball(const Map &map) : velocity_{0}, accel_{0}, radius_ {RADIUS}
 {
@@ -19,16 +20,22 @@ void Ball::set_position(XYPairFloat position)
     position_ = position;
 }
 
-void Ball::set_acceleration(XYPairFloat accel)
-{
-    accel_ = accel;
+// void Ball::set_acceleration(XYPairFloat accel)
+// {
+//     std::cout << "x-accel is " << accel.x << ", ";
+//     std::cout << "y-accel is " << accel.y << "\n";
+//     accel_ = accel;
+// }
+
+void Ball::set_velocity(XYPairFloat velocity) {
+    velocity_ = velocity;
 }
 
-void Ball::update_velocity()
-{
-    velocity_.x += accel_.x/FPS;
-    velocity_.y += accel_.y/FPS;
-}
+// void Ball::update_velocity()
+// {
+//     velocity_.x += accel_.x/FPS;
+//     velocity_.y += accel_.y/FPS;
+// }
 
 void Ball::update_position()
 {
@@ -91,17 +98,38 @@ void Ball::resolve_wall_collisions(const Map& map)
     //     exit(1);
     // }
 
+
+    // if (map.is_wall({position_.x + radius_, position_.y})) {
+    //     velocity_.x *= -1 * BALL_WALL_E;
+    // }
+    // if (map.is_wall({position_.x - radius_, position_.y})) {
+    //     velocity_.x *= -1 * BALL_WALL_E;
+    // }
+    // if (map.is_wall({position_.x, position_.y + radius_})) {
+    //     velocity_.y *= -1 * BALL_WALL_E;
+    // }
+    // if (map.is_wall({position_.x, position_.y - radius_})) {
+    //     velocity_.y *= -1 * BALL_WALL_E;
+    // }
+
+    // Solve x collision
     if (map.is_wall({position_.x + radius_, position_.y})) {
-        velocity_.x *= -1;
+        position_.x = map.tile_centre({position_.x + radius_, position_.y}).x - TILE_WIDTH;
+        std::cout << "collision\n";
     }
-    if (map.is_wall({position_.x - radius_, position_.y})) {
-        velocity_.x *= -1;
+    else if (map.is_wall({position_.x - radius_, position_.y})) {
+        position_.x = map.tile_centre({position_.x - radius_, position_.y}).x + TILE_WIDTH;
+        std::cout << "collision\n";
     }
+
+    // Solve y collision
     if (map.is_wall({position_.x, position_.y + radius_})) {
-        velocity_.y *= -1;
+        position_.y = map.tile_centre({position_.x, position_.y + radius_}).y - TILE_HEIGHT;
+        std::cout << "collision\n";
     }
-    if (map.is_wall({position_.x, position_.y - radius_})) {
-        velocity_.y *= -1;
+    else if (map.is_wall({position_.x, position_.y - radius_})) {
+        position_.y = map.tile_centre({position_.x, position_.y - radius_}).y + TILE_HEIGHT;
+        std::cout << "collision\n";
     }
 }
 
@@ -142,7 +170,7 @@ void Ball::draw(const Shader &shader) const
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 
-    
+
 
 
 }

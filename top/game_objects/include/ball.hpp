@@ -16,9 +16,11 @@ public:
     Ball(const Map &map);
     ~Ball() {}
 
-    // Setters for position and acceleration
+    // Setters for position and velocity
     void set_position(XYPairFloat position);
-    void set_acceleration(XYPairFloat accel);
+    void set_velocity(XYPairFloat velocity);
+
+    // void set_acceleration(XYPairFloat accel);
 
     // Uses current acceleration to update velocity
     void update_velocity();

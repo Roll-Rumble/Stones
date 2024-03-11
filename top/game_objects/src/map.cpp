@@ -1,23 +1,33 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <cmath>
-
-#include "shader.hpp"
 #include "map.hpp"
 
 #include "game_util.hpp"
+#include "shader.hpp"
+#include <cmath>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 
 Map::Map()
 {
     glGenBuffers(1, &buffer_);
 }
-bool Map::is_wall(XYPairFloat coordinates) const {
+
+bool Map::is_wall(XYPairFloat coordinates) const
+{
     int tile_x_idx = static_cast<int>(coordinates.x / TILE_WIDTH);
-    int tile_y_idx = static_cast<int>(MAP_HEIGHT - 1 - (coordinates.y / TILE_HEIGHT));
+    int tile_y_idx = static_cast<int>(MAP_HEIGHT - (coordinates.y / TILE_HEIGHT));
     return map_[tile_y_idx][tile_x_idx] == Tile::W;
 }
 
-TileQuadrant Map::get_tile_quadrant(XYPairFloat coordinates) const {
+XYPairFloat Map::tile_centre(XYPairFloat coordinates) const
+{
+    int centre_x = static_cast<int>(coordinates.x / TILE_WIDTH)*TILE_WIDTH + TILE_WIDTH/2;
+    int centre_y = static_cast<int>(coordinates.y / TILE_HEIGHT)*TILE_HEIGHT + TILE_HEIGHT/2;
+    return {static_cast<float>(centre_x), static_cast<float>(centre_y)};
+}
+
+TileQuadrant Map::get_tile_quadrant(XYPairFloat coordinates) const
+{
     // Calculate pixel position in tile relative to bottom left of tile
     float tile_x_pos = remainder(coordinates.x, TILE_WIDTH);
     float tile_y_pos = remainder(coordinates.y, TILE_HEIGHT);
@@ -41,7 +51,8 @@ TileQuadrant Map::get_tile_quadrant(XYPairFloat coordinates) const {
     return quadrant;
 }
 
-XYPairFloat Map::get_start_position() const {
+XYPairFloat Map::get_start_position() const
+{
     // Convert tile coordinates to pixel coordinates
     int start_pos_x = start_position_.x*TILE_WIDTH + TILE_WIDTH/2;
     int start_pos_y = SCREEN_HEIGHT - (start_position_.y*TILE_HEIGHT + TILE_HEIGHT/2);
