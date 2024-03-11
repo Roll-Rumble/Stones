@@ -16,12 +16,20 @@ public:
     void set_position(XYPairFloat position);
     void set_acceleration(XYPairFloat accel);
 
+    // Getters for position and velocity
+    const XYPairFloat get_position();
+    const XYPairFloat get_velocity();
+
     // Uses current acceleration to update velocity
     void update_velocity();
     // Uses current velocity to update position
     void update_position();
     // Uses current position to resolve collisions and update velocity
     void resolve_wall_collisions(const Map &map);
+
+    // Use current position and velocity to resolve collision with other ball
+    static void resolve_ball_collision(Ball &ball1, Ball &ball2);
+
 
     /* Order of function calls in frame calculation:
      * 1. set_accleration

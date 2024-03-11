@@ -16,6 +16,15 @@ void Ball::set_acceleration(XYPairFloat accel) {
     accel_ = accel;
 }
 
+const XYPairFloat Ball::get_position() {
+    return position_;
+}
+
+
+const XYPairFloat Ball::get_velocity() {
+    return velocity_;
+}
+
 void Ball::update_velocity() {
     velocity_.x += accel_.x/FPS;
     velocity_.y += accel_.y/FPS;
@@ -92,4 +101,13 @@ void Ball::resolve_wall_collisions(const Map& map) {
     if (map.is_wall({position_.x, position_.y - radius_})) {
         velocity_.y *= -1;
     }
+}
+
+void Ball::resolve_ball_collision(Ball &ball1, Ball &ball2) {
+    XYPairFloat ball1_position = ball1.get_position();
+    XYPairFloat ball1_velocity = ball1.get_velocity();
+
+    XYPairFloat ball2_position = ball2.get_position();
+    XYPairFloat ball2_velocity = ball2.get_velocity();
+
 }
