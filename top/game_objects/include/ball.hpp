@@ -1,11 +1,15 @@
 #ifndef BALL_HPP
 #define BALL_HPP
 
+#include "shader.hpp"
 #include "game_util.hpp"
-#include "Map.hpp"
+#include "map.hpp"
+
+#define CIRCLE_SEGS 100
 
 // Radius of balls in pixels
-#define RADIUS 25f
+#define RADIUS 25.0f
+#define PI 3.1415926f
 
 class Ball {
 public:
@@ -29,8 +33,12 @@ public:
     // Uses current position to resolve collisions and update velocity
     void resolve_wall_collisions(const Map &map);
 
+
     // Use current position and velocity to resolve collision with other ball
     static void resolve_ball_collision(Ball &ball1, Ball &ball2);
+
+
+    void draw(const Shader &shader) const;
 
 
     /* Order of function calls in frame calculation:
@@ -41,10 +49,12 @@ public:
      */
 
 private:
+    unsigned int buffer_;
     float radius_;          // Measured in pixels
     XYPairFloat position_;  // Pixel coordintes of centre of ball
     XYPairFloat velocity_;  // Measured in pixels/s
     XYPairFloat accel_;     // Measured in pixels/s^2
+    XYPairFloat get_circle_pos(float angle) const;
 };
 
 #endif

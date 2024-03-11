@@ -2,6 +2,7 @@
 #define MAP_HPP
 
 #include "game_util.hpp"
+#include "shader.hpp"
 #include <array>
 
 #define MAP_WIDTH 32    // Measured in tiles
@@ -27,6 +28,9 @@ enum class TileQuadrant {
 
 class Map {
 public:
+    Map();
+    ~Map() {}
+
     // Returns tile type at given coordinates
     bool is_wall(XYPairFloat coordinates) const;
 
@@ -36,7 +40,11 @@ public:
     // Returns start position for centre of ball as float pixel coordinates
     XYPairFloat get_start_position() const;
 
+
+    void draw(const Shader &shader) const;
+
 private:
+    unsigned int buffer_;
     // Zero-indexed tile relative to top left of map
     XYPairInt16 start_position_ = {2,2};
 
