@@ -37,17 +37,20 @@ int replayScreen::select() {
     bool top_pressed = false;
     bool bottom_pressed = false;
     Controller controller;
-    std::cout << "Select an option: " << std::endl << "1. Replay 1" << std::endl << "2. Replay 2" << std::endl << "-1. Exit" << std::endl;
+    std::cout << "Select an option; press Bottom to go down and press Top to enter into the selected button"<< std::endl;
     
     // std::cin >> sel;
     // std::cout << "You selected: " << sel << std::endl;
     
-    while (!top_pressed){    //bottom goes down list and top enters current selection
+    while (!top_pressed){ //bottom goes down list and top enters current selection
         top_pressed = controller.top_button_pressed();
         bottom_pressed = controller.bottom_button_pressed();
 
         if (bottom_pressed && !top_pressed){
             sel ++;
+            if (sel > 2){
+                sel = 0;
+            }
         }
         else if (top_pressed && !bottom_pressed){
             break;
@@ -57,11 +60,11 @@ int replayScreen::select() {
         }
     }
 
-    if(sel == 1) {
+    if(sel == 0) {
         items[0]->select(); // select the replay1 button
-    } else if(sel == 2) {
+    } else if(sel == 1) {
         items[1]->select(); // select the replay2 button
-    } else if(sel == -1) {
+    } else if(sel == 2) {
         std::cout << "Exiting replay screen" << std::endl;
         items[2]->select(); // select the exit button
     } else {
