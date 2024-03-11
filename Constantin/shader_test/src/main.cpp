@@ -2,8 +2,10 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <chrono>
 
-#include "objects.hpp"
+#include "ball.hpp"
+#include "map.hpp"
 #include "shader.hpp"
 
 int main(void)
@@ -30,28 +32,28 @@ int main(void)
         std::cerr << "can't init GLEW" << std::endl;
     
     //Rectangle rect1(-0.5f, -0.5f, 1, 1);
-    Circle circ1(100, 100, 50);
-    Rectangle rect(1000, 1000, 100, 100);
+    Map map;
+    Ball ball(map);
 
     Shader shader("color_shader_vs.txt", "color_shader_fs.txt");
     shader.Use(1.0, 0.0, 0.0, 1.0);
-
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    if (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
         
         //rect1.draw();
-        circ1.draw();
-        rect.draw();
+        map.draw(shader);
+        ball.draw(shader);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
+        while (true);
     }
 
     glfwTerminate();

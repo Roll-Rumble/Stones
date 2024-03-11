@@ -13,8 +13,6 @@
 enum class TileType {W, F};
 
 
-float convert_x(int x);
-float convert_y(int y);
 
 class Rectangle
 {

@@ -12,7 +12,7 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_vs.txt" "$
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_fs.txt" "${CMAKE_CURRENT_BINARY_DIR}/color_shader_fs.txt" COPYONLY)
  
 # Add source to this project's executable.
-add_executable (shader_test "src/main.cpp"  "src/objects.cpp" "src/shader.cpp")
+add_executable (shader_test "src/main.cpp"  "src/game_util.cpp" "src/ball.cpp" "src/map.cpp" "src/shader.cpp")
 
 
 target_include_directories(shader_test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include"
