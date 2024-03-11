@@ -7,6 +7,7 @@
 
 
 class replayScreen : public menuItem {
+    
 public:
     replayScreen(float x, float y, float width, float height, float r, float g, float b, const std::string& screen_name);
     void draw() const override;
