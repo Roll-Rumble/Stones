@@ -87,9 +87,9 @@ void Ball::resolve_wall_collisions(const Map& map) {
         velocity_.x *= -1;
     }
     if (map.is_wall({position_.x, position_.y + radius_})) {
-        velocity_.x *= -1;
+        velocity_.y *= -1;
     }
     if (map.is_wall({position_.x, position_.y - radius_})) {
-        velocity_.x *= -1;
+        velocity_.y *= -1;
     }
 }
