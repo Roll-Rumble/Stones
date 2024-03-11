@@ -19,6 +19,6 @@ struct XYPairFloat {
     float y;
 };
 
-XYPairFloat normalize_acceleration(XYPairInt16 input_accel);
+XYPairFloat normalize_accel(XYPairInt16 input_accel);
 
 #endif
