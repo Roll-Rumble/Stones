@@ -44,7 +44,7 @@ int Logger::Put(std::vector<std::pair<std::string, std::string> > input, int &Fr
 	return 1;
 }
 
-std::vector<std::vector<XYPairInt16> > Logger::Parse( int FrameID, int GameID) {
+std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 	std::vector<std::vector<XYPairInt16> > output;
 	std::vector<XYPairInt16 > temp;
 	XYPairInt16 pair;
