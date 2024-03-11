@@ -6,8 +6,9 @@ menuItem::menuItem(float x, float y, float width, float height, float r, float g
 };
 
 void menuItem::draw() const {
-    // draw the menu item from Constantin
+    // draw the menu item
     std::cout << "Drawing menu item" << std::endl;
+    // need to add a function to highlight or draw around the selected menu item
 }
 
 int menuItem::select(){

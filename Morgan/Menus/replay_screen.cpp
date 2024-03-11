@@ -14,7 +14,7 @@ replayScreen::replayScreen(float x, float y, float width, float height, float r,
     float startYReplay1 = y + (height / 4); // position for the replay1 button
     float startYReplay2 = y + (3 * height / 4); // position for the replay2 button
 
-    float startYExit = y + (5 * height / 4); // position for the exit button
+    float startYExit = y + (5 * height / 4); // position for the exit button, need to redo calculation for position, maybe do 2 columns instead of only 1
     
     auto replay1Button = std::make_unique<Button>(startX, startYReplay1, buttonWidth, buttonHeight, 0.0f, 0.0f, 0.5f, "Replay 1");  //create new replay button blue
     auto replay2Button = std::make_unique<Button>(startX, startYReplay2, buttonWidth, buttonHeight, 0.0f, 0.0f, 0.5f, "Replay 2"); // create new replay button blue
@@ -33,7 +33,7 @@ void replayScreen::draw() const {
 
 int replayScreen::select() {
     int sel = 0;
-    
+
     bool top_pressed = false;
     bool bottom_pressed = false;
     Controller controller;
