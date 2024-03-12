@@ -9,7 +9,7 @@
 //name of file_ is gameID
 //Ball Id : x : y
 
-int Logger::Put(std::vector<std::pair<std::string, std::string> > input, int &FrameID) {
+int Logger::Put(std::vector<std::pair<std::string, std::string> > input) {
 	
 	//std::ofstream file_("Storage.txt", std::ios::app); // later use game id
 
@@ -17,14 +17,14 @@ int Logger::Put(std::vector<std::pair<std::string, std::string> > input, int &Fr
 	
 	if (file_.is_open()) {
 		
-		if (FrameID == 0) {
+		if (frame_ID_ == 0) {
 		
 		file_ << "{" << std::endl;
 		file_ << " \"BallNo\":" << input.size() << "," <<std::endl << " \"data\": [" << std::endl;
 		}
 
 		//file_ << "FrameID:" << FrameID << std::endl;
-		if (FrameID != 0) {
+		if (frame_ID_++ != 0) {
 			file_ <<"," << std::endl;
 		}
 		file_ << "[ ";

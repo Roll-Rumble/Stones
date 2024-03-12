@@ -20,7 +20,7 @@ public:
 		file_ << std::endl << "]}";
 		file_.close();
 	};
-	int Put(std::vector<std::pair<std::string, std::string> > input, int &FrameID);
+	int Put(std::vector<std::pair<std::string, std::string> > input);
 	std::vector<std::vector< XYPairInt16 > > Parse(int GameID);
 	void Close(){
 		file_ << std::endl << "]}";
@@ -41,6 +41,7 @@ private:
 	int latest_game_;
 	int gameID_;
 	int game_length_;
+	int frame_ID_;
 	
 
 };
