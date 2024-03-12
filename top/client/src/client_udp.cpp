@@ -3,6 +3,7 @@
 #include "netutils.hpp"
 #include "winsock_start.hpp"
 #include <cstdint>
+#include <cstdio>
 #include <iostream>
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -13,10 +14,10 @@ UDPClient::UDPClient() {
     try {
         ADDRINFOA *client_addr_info = net::addr_info(
             "0.0.0.0", CLIENT_UDP_RECV_PORT, SOCK_DGRAM);
-        
+
         ADDRINFOA *server_addr_info = net::addr_info(
             SERVER_IP, SERVER_UDP_PORT, SOCK_DGRAM);
-        
+
         send_socket_ = socket(client_addr_info->ai_family,
             client_addr_info->ai_socktype, client_addr_info->ai_protocol);
         if (send_socket_ == -1) {
@@ -29,7 +30,7 @@ UDPClient::UDPClient() {
                 throw NetworkException("can't set UDP socket to be reusable");
         }
 
-
+        std::cout << "client_addr_info is " << inet_ntoa(((SOCKADDR_IN *)server_addr_info->ai_addr)->sin_addr) << "\n";
         if (bind(send_socket_, client_addr_info->ai_addr,
             client_addr_info->ai_addrlen) == -1) {
             throw NetworkException("can't bind socket");
@@ -45,18 +46,10 @@ UDPClient::UDPClient() {
         WSACleanup();
         throw e;
     }
-    // Send socket init
-    send_socket_ = INVALID_SOCKET;
-    send_socket_ = socket(AF_INET, SOCK_DGRAM, 0);
-    if (send_socket_ == SOCKET_ERROR) {
-        WSACleanup();
-        throw NetworkException("Error creating UDP send socket");
-    }
 }
 
 UDPClient::~UDPClient() {
     closesocket(send_socket_);
-    closesocket(recv_socket_);
     WSACleanup();
 }
 
@@ -65,8 +58,16 @@ void UDPClient::send_xy(int16_t x, int16_t y) {
     pack::encode_input(buffer, x, y);
 
     try {
-        net::send_buf(socket_, buffer, sizeof(buffer));
+        net::send_buf(send_socket_, buffer, sizeof(buffer));
     } catch (std::exception &e) {
+        std::cout << "exception: " << e.what() << "\n";
+        wchar_t* s = NULL;
+        FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, WSAGetLastError(),
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPWSTR)&s, 0, NULL);
+        fprintf(stderr, "%S\n", s);
+        LocalFree(s);
         WSACleanup();
         throw e;
     }
@@ -75,13 +76,14 @@ void UDPClient::send_xy(int16_t x, int16_t y) {
 std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
     unsigned char buffer[8];
     try {
-        if (net::recv_buf(socket_, buffer, sizeof(buffer))) {
+        if (net::recv_buf(send_socket_, buffer, sizeof(buffer))) {
             return pack::decode_pos(buffer);
         } else {
             return def;
         }
-        
+
     } catch (std::exception &e) {
+        std::cout << "exception: " << e.what() << "\n";
         WSACleanup();
         throw e;
     }

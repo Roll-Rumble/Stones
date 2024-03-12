@@ -45,16 +45,16 @@ TCPClient::~TCPClient() {
     WSACleanup();
 }
 
-void TCPClient::send_data(char buffer[SEND_BUF_SIZE]) {
+void TCPClient::send_data(unsigned char buffer[SEND_BUF_SIZE]) {
     try {
-        net::send_buf(socket_, buffer, RECEIVE_BUF_SIZE);
+        net::send_buf(socket_, buffer, SEND_BUF_SIZE);
     } catch (std::exception &e) {
         WSACleanup();
         throw e;
     }
 }
 
-void TCPClient::receive(char buffer[RECEIVE_BUF_SIZE]) {
+void TCPClient::receive(unsigned char buffer[RECEIVE_BUF_SIZE]) {
     try {
         memset(buffer, 0, RECEIVE_BUF_SIZE);
         net::recv_buf(socket_, buffer, RECEIVE_BUF_SIZE);

@@ -6,8 +6,6 @@
 #include <string>
 #include <stdexcept>
 #include <cstring>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 
 #ifdef SERVER_COMPILE
 #include <sys/socket.h>
@@ -24,6 +22,8 @@ typedef addrinfo ADDRINFOA;
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <ws2def.h>
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
 #endif
 
 
