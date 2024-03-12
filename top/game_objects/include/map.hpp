@@ -34,6 +34,9 @@ public:
     // Returns tile type at given coordinates
     bool is_wall(XYPairFloat coordinates) const;
 
+    // Returns coordinates of centre of tile input coordinates are in
+    XYPairFloat tile_centre(XYPairFloat coordinates) const;
+
     // Returns which quadrant of a tile coordinates are in
     TileQuadrant get_tile_quadrant(XYPairFloat coordinates) const;
 
