@@ -7,6 +7,25 @@
 #include <stdexcept>
 #include <cstring>
 
+#ifdef SERVER_COMPILE
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+typedef sockaddr_in SOCKADDR_IN;
+typedef sockaddr_in6 SOCKADDR_IN6;
+typedef sockaddr SOCKADDR;
+typedef sockaddr_storage SOCKADDR_STORAGE;
+typedef addrinfo ADDRINFOA;
+#endif
+
+#ifdef CLIENT_COMPILE
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <ws2def.h>
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#endif
+
 
 namespace pack {
 #define pack754_32(f) (pack754((f), 32, 8))
@@ -33,8 +52,20 @@ class NetworkException : public std::runtime_error
 {
 public:
     NetworkException(const std::string &msg)
-    : std::runtime_error(msg + ": " + strerror(errno))
+    : std::runtime_error(msg)
     {}
 };
+
+namespace net {
+std::pair<std::string, int> get_addr_and_port(SOCKADDR_STORAGE *sock_a);
+
+ADDRINFOA *addr_info(const std::string &addr, int port, int sock_type);
+
+
+void send_buf(int sock, unsigned char *buf, ssize_t len);
+bool recv_buf(int sock, unsigned char *buf, ssize_t len);
+
+int recvtimeout(int s, char *buf, int len, int timeout);
+} // namespace net
 
 #endif

@@ -1,3 +1,4 @@
+#ifdef CLIENT_COMPILE
 #ifndef SHADER_H
 #define SHADER_H
 
@@ -22,3 +23,4 @@ private:
 };
 
 #endif // !SHADER_H
+#endif

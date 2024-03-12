@@ -1,3 +1,4 @@
+#include <iostream>
 
 #include "netutils.hpp"
 namespace pack {
@@ -108,3 +109,100 @@ void encode_input(unsigned char *buf, int16_t x, int16_t y)
 }
 
 } // namespace pack
+
+namespace net {
+std::pair<std::string, int> get_addr_and_port(SOCKADDR_STORAGE *sock_a)
+{
+    char *client_ip;
+    short port;
+    if (sock_a->ss_family == AF_INET) {
+        client_ip = (char *)malloc(INET_ADDRSTRLEN * sizeof(char));
+        SOCKADDR_IN *addr = (SOCKADDR_IN *)sock_a;
+        
+        inet_ntop(AF_INET, &(addr->sin_addr), client_ip, INET_ADDRSTRLEN);
+	
+        port = ntohs(addr->sin_port);
+    } else {
+        SOCKADDR_IN6 *addr = (SOCKADDR_IN6 *)sock_a;
+        client_ip = (char *)malloc(INET6_ADDRSTRLEN * sizeof(char));
+
+        inet_ntop(AF_INET6, &(addr->sin6_addr), client_ip, INET6_ADDRSTRLEN);
+        port = ntohs(addr->sin6_port);
+    }
+    std::pair<std::string, int> out = std::make_pair(
+        std::string(client_ip), port);
+    free(client_ip);
+    return out;
+}
+
+ADDRINFOA *addr_info(const std::string &addr, int port, int sock_type)
+{
+    int status;
+    ADDRINFOA hints;
+    ADDRINFOA *out;
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = sock_type;
+    hints.ai_flags = AI_PASSIVE;
+
+    if ((status = getaddrinfo(addr.c_str(), std::to_string(port).c_str(),
+        &hints, &out)) != 0) {
+        throw NetworkException("can't obtain address structure");
+    }
+    return out;
+}
+
+void send_buf(int sock, unsigned char *buf, ssize_t len)
+{
+    if (send(sock, (char *)buf, len, 0) == -1) {
+        throw NetworkException("can't send data");
+    }
+}
+
+bool recv_buf(int sock, unsigned char *buf, ssize_t len)
+{
+    ssize_t received = recvtimeout(sock, (char *)buf, len, 0);
+    if (received == -2) {
+        return false;
+    }
+    if (received == -1) {
+        throw NetworkException("can't receive");
+    }
+    ssize_t recv_len = received;
+    while (received < len) {
+        received = recvtimeout(sock, (char *)buf + recv_len, len - recv_len, 0);
+        if (received == -2) {
+            return false;
+        }
+        if (received == -1) {
+            throw NetworkException("can't receive");
+        }
+        recv_len += received;
+    }
+    return true;
+}
+
+int recvtimeout(int s, char *buf, int len, int timeout)
+{
+    fd_set fds;
+    int n;
+    struct timeval tv;
+
+    // set up the file descriptor set
+    FD_ZERO(&fds);
+    FD_SET(s, &fds);
+
+    // set up the struct timeval for the timeout
+    tv.tv_sec = timeout;
+    tv.tv_usec = 0;
+
+    // wait until timeout or data received
+    n = select(s+1, &fds, NULL, NULL, &tv);
+    if (n == 0) return -2; // timeout!
+    if (n == -1) return -1; // error
+
+    // data must be here, so do a normal recv()
+    return recv(s, buf, len, 0);
+}
+} // namespace net
