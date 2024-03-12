@@ -118,9 +118,9 @@ std::pair<std::string, int> get_addr_and_port(SOCKADDR_STORAGE *sock_a)
     if (sock_a->ss_family == AF_INET) {
         client_ip = (char *)malloc(INET_ADDRSTRLEN * sizeof(char));
         SOCKADDR_IN *addr = (SOCKADDR_IN *)sock_a;
-        
+
         inet_ntop(AF_INET, &(addr->sin_addr), client_ip, INET_ADDRSTRLEN);
-	
+
         port = ntohs(addr->sin_port);
     } else {
         SOCKADDR_IN6 *addr = (SOCKADDR_IN6 *)sock_a;
@@ -171,7 +171,7 @@ bool recv_buf(int sock, unsigned char *buf, ssize_t len)
     }
     ssize_t recv_len = received;
     while (received < len) {
-        received = recvtimeout(sock, (char *)buf + recv_len, len - recv_len, 0);
+        received = recvtimeout(sock, (char *)buf + recv_len, len - recv_len, 1000);
         if (received == -2) {
             return false;
         }
@@ -194,8 +194,8 @@ int recvtimeout(int s, char *buf, int len, int timeout)
     FD_SET(s, &fds);
 
     // set up the struct timeval for the timeout
-    tv.tv_sec = timeout;
-    tv.tv_usec = 0;
+    tv.tv_sec = 0;
+    tv.tv_usec = timeout;
 
     // wait until timeout or data received
     n = select(s+1, &fds, NULL, NULL, &tv);

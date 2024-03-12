@@ -60,7 +60,7 @@ void Ball::resolve_wall_collisions(const Map& map)
 {
     // If ball is far inside a block reverse its direction
     // and do no further calculations
-    if (map.is_wall(position_)) {
+  /*  if (map.is_wall(position_)) {
         velocity_.x *= -1;
         velocity_.y *= -1;
         return;
@@ -69,98 +69,98 @@ void Ball::resolve_wall_collisions(const Map& map)
     TileQuadrant quadrant = map.get_tile_quadrant(position_);
 	XYPairFloat wall_centre;
 	XYPairFloat corner;
-	float distance;
+	float distance;*/
 
 
-	// implemented fully now TODO
-    switch (quadrant) {
-    case TileQuadrant::TOP_LEFT:
-        if (map.is_wall({position_.x - radius_, position_.y})) {
-            velocity_.x *= -1;
-        }
-        if (map.is_wall({position_.x, position_.y + radius_})) {
-            velocity_.y *= -1;
-        }
-		XYPairFloat temp = {position_.x - TILE_WIDTH, position_.y + TILE_HEIGHT}; 
-		
-		if (map.is_wall(temp)){
-			wall_centre = map.tile_centre(temp);
-			corner = {wall_centre.x + TILE_WIDTH/2, wall_centre.y - TILE_HEIGHT/2};
-			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
-			position_.x = (position_.x - corner.x) * (radius_ - distance)/distance;
-			position_.y = (corner.y - position_.y) * (radius_ - distance)/distance;	 
-		}
-		break;
+	//// implemented fully now TODO
+ //   switch (quadrant) {
+ //   case TileQuadrant::TOP_LEFT:
+ //       if (map.is_wall({position_.x - radius_, position_.y})) {
+ //           velocity_.x *= -1;
+ //       }
+ //       if (map.is_wall({position_.x, position_.y + radius_})) {
+ //           velocity_.y *= -1;
+ //       }
+	//	XYPairFloat temp = {position_.x - TILE_WIDTH, position_.y + TILE_HEIGHT}; 
+	//	
+	//	if (map.is_wall(temp)){
+	//		wall_centre = map.tile_centre(temp);
+	//		corner = {wall_centre.x + TILE_WIDTH/2, wall_centre.y - TILE_HEIGHT/2};
+	//		distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+	//		position_.x = (position_.x - corner.x) * (radius_ - distance)/distance;
+	//		position_.y = (corner.y - position_.y) * (radius_ - distance)/distance;	 
+	//	}
+	//	break;
 
-    case TileQuadrant::TOP_RIGHT:
-        if (map.is_wall({position_.x + radius_, position_.y})) {
-            velocity_.x *= -1;
-        }
-        if (map.is_wall({position_.x, position_.y + radius_})) {
-            velocity_.y *= -1;
-        }
-		XYPairFloat temp2 = {position_.x + TILE_WIDTH, position_.y + TILE_HEIGHT};
-		if (map.is_wall(temp2)){
-			wall_centre = map.tile_centre(temp2);
-			corner = {wall_centre.x - TILE_WIDTH/2, wall_centre.y - TILE_HEIGHT/2};
-			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
-			position_.x = (corner.x - position_.x) * (radius_ - distance)/distance;
-			position_.y = (corner.y - position_.y) * (radius_ - distance)/distance;
-		}
-        break;
+ //   case TileQuadrant::TOP_RIGHT:
+ //       if (map.is_wall({position_.x + radius_, position_.y})) {
+ //           velocity_.x *= -1;
+ //       }
+ //       if (map.is_wall({position_.x, position_.y + radius_})) {
+ //           velocity_.y *= -1;
+ //       }
+	//	XYPairFloat temp2 = {position_.x + TILE_WIDTH, position_.y + TILE_HEIGHT};
+	//	if (map.is_wall(temp2)){
+	//		wall_centre = map.tile_centre(temp2);
+	//		corner = {wall_centre.x - TILE_WIDTH/2, wall_centre.y - TILE_HEIGHT/2};
+	//		distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+	//		position_.x = (corner.x - position_.x) * (radius_ - distance)/distance;
+	//		position_.y = (corner.y - position_.y) * (radius_ - distance)/distance;
+	//	}
+ //       break;
 
-    case TileQuadrant::BOTTOM_LEFT:
-        if (map.is_wall({position_.x - radius_, position_.y})) {
-            velocity_.x *= -1;
-        }
-        if (map.is_wall({position_.x, position_.y - radius_})) {
-            velocity_.y *= -1;
-        }
-		XYPairFloat temp3 = {position_.x - TILE_WIDTH, position_.y - TILE_HEIGHT};
-		if (map.is_wall(temp3)){
-			wall_centre = map.tile_centre(temp3);
-			corner = {wall_centre.x + TILE_WIDTH/2, wall_centre.y + TILE_HEIGHT/2};
-			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
-			position_.x = (position_.x - corner.x) * (radius_ - distance)/distance;
-			position_.y = (position_.y - corner.y) * (radius_ - distance)/distance;
-		}
-        break;
+ //   case TileQuadrant::BOTTOM_LEFT:
+ //       if (map.is_wall({position_.x - radius_, position_.y})) {
+ //           velocity_.x *= -1;
+ //       }
+ //       if (map.is_wall({position_.x, position_.y - radius_})) {
+ //           velocity_.y *= -1;
+ //       }
+	//	XYPairFloat temp3 = {position_.x - TILE_WIDTH, position_.y - TILE_HEIGHT};
+	//	if (map.is_wall(temp3)){
+	//		wall_centre = map.tile_centre(temp3);
+	//		corner = {wall_centre.x + TILE_WIDTH/2, wall_centre.y + TILE_HEIGHT/2};
+	//		distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+	//		position_.x = (position_.x - corner.x) * (radius_ - distance)/distance;
+	//		position_.y = (position_.y - corner.y) * (radius_ - distance)/distance;
+	//	}
+ //       break;
 
-    case TileQuadrant::BOTTOM_RIGHT:
-        if (map.is_wall({position_.x + radius_, position_.y})) {
-            velocity_.x *= -1;
-        }
-        if (map.is_wall({position_.x, position_.y - radius_})) {
-            velocity_.y *= -1;
-        }
-		XYPairFloat temp4 = {position_.x + TILE_WIDTH, position_.y - TILE_HEIGHT};
-		if (map.is_wall(temp4)){
-			wall_centre = map.tile_centre(temp4);
-			corner = {wall_centre.x - TILE_WIDTH/2, wall_centre.y + TILE_HEIGHT/2};
-			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
-			position_.x = (corner.x - position_.x) * (radius_ - distance)/distance;
-			position_.y = (position_.y - corner.y) * (radius_ - distance)/distance;
-		}
-        break;
+ //   case TileQuadrant::BOTTOM_RIGHT:
+ //       if (map.is_wall({position_.x + radius_, position_.y})) {
+ //           velocity_.x *= -1;
+ //       }
+ //       if (map.is_wall({position_.x, position_.y - radius_})) {
+ //           velocity_.y *= -1;
+ //       }
+	//	XYPairFloat temp4 = {position_.x + TILE_WIDTH, position_.y - TILE_HEIGHT};
+	//	if (map.is_wall(temp4)){
+	//		wall_centre = map.tile_centre(temp4);
+	//		corner = {wall_centre.x - TILE_WIDTH/2, wall_centre.y + TILE_HEIGHT/2};
+	//		distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+	//		position_.x = (corner.x - position_.x) * (radius_ - distance)/distance;
+	//		position_.y = (position_.y - corner.y) * (radius_ - distance)/distance;
+	//	}
+ //       break;
 
-    default:
-        std::cerr << "Unrecognised tile quadrant\n";
-        exit(1);
-    }
+ //   default:
+ //       std::cerr << "Unrecognised tile quadrant\n";
+ //       exit(1);
+ //   }
 
 
-    if (map.is_wall({position_.x + radius_, position_.y})) {
-        velocity_.x *= -1 * BALL_WALL_E;
-    }
-    if (map.is_wall({position_.x - radius_, position_.y})) {
-        velocity_.x *= -1 * BALL_WALL_E;
-    }
-    if (map.is_wall({position_.x, position_.y + radius_})) {
-        velocity_.y *= -1 * BALL_WALL_E;
-    }
-    if (map.is_wall({position_.x, position_.y - radius_})) {
-        velocity_.y *= -1 * BALL_WALL_E;
-    }
+    //if (map.is_wall({position_.x + radius_, position_.y})) {
+    //    velocity_.x *= -1 * BALL_WALL_E;
+    //}
+    //if (map.is_wall({position_.x - radius_, position_.y})) {
+    //    velocity_.x *= -1 * BALL_WALL_E;
+    //}
+    //if (map.is_wall({position_.x, position_.y + radius_})) {
+    //    velocity_.y *= -1 * BALL_WALL_E;
+    //}
+    //if (map.is_wall({position_.x, position_.y - radius_})) {
+    //    velocity_.y *= -1 * BALL_WALL_E;
+    //}
 
 
 	// comment this out later
