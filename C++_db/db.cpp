@@ -92,6 +92,7 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 		}
 		file.close();
 		//std::cout << "Get is successful" << std::endl;
+		game_length_ = output.size();
 		return output;
 	}
 	//std::cout << "Get is unsuccessful" << std::endl;
