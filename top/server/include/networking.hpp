@@ -32,7 +32,7 @@ public:
     UDPServ(std::string &addr);
     ~UDPServ();
 
-    std::pair<int16_t, int16_t> recv_xy();
+    std::pair<int16_t, int16_t> recv_xy(std::pair<int16_t, int16_t> def);
     void send_xy(float x, float y);
 private:
     int sockfd_;
