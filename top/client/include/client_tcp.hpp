@@ -3,6 +3,7 @@
 
 #include <string>
 #include <winsock2.h>
+#include <vector>
 
 
 // TODO: MOVE THIS TO NETUTIL
@@ -19,7 +20,8 @@ public:
 
     void send_data(unsigned char buffer[SEND_BUF_SIZE]);
     void receive(unsigned char buffer[RECEIVE_BUF_SIZE]);
-
+    int Get_num_games();
+    std::vector< std::vector<XYPairInt16> > Get_replay_data(uint32_t GameID);
 private:
     SOCKET socket_;
 };
