@@ -55,10 +55,6 @@ void Ball::update_position()
     position_.y += velocity_.y/FPS;
 }
 
-std::pair<uint16_t, uint16_t> Ball::get_position()
-{
-    return std::make_pair(static_cast<uint16_t>(position_.x), static_cast<uint16_t>(position_.y));
-}
 
 void Ball::resolve_wall_collisions(const Map& map)
 {
