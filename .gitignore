@@ -1,6 +1,7 @@
 .vscode/
 .vs
-out/
-/build
-/sdk
-/stuff_we_need
+build
+sdk
+stuff_we_need
+out
+.ds_store

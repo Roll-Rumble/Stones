@@ -6,8 +6,7 @@
 #include <GLFW/glfw3.h>
 
 #include "shader.hpp"
-#include "objects.hpp"
-
+#include "game_util.hpp"
 
 
 Shader::Shader(const std::string& vertex_shader_fname, const std::string& fragment_shader_fname)
@@ -51,8 +50,8 @@ void Shader::Use(float r, float g, float b, float a) const
 	glUseProgram(shader_prog_);
 	glUniform4f(vertexColorLocation, r, g, b, a);
 	float scale_trans_mat[16] = {
-		2.0/WINDOW_WIDTH, 0.0, 0.0, 0.0,
-		0.0, 2.0/WINDOW_HEIGHT, 0.0, 0.0,
+		2.0/SCREEN_WIDTH, 0.0, 0.0, 0.0,
+		0.0, 2.0/SCREEN_HEIGHT, 0.0, 0.0,
 		0.0, 0.0, 1.0, 0.0,
 		0.0, 0.0, 0.0, 1.0,
 	};

@@ -4,10 +4,12 @@
 #include "game_util.hpp"
 #include "map.hpp"
 #include "read_controller.hpp"
+#include <chrono>
 #include <cstdint>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <thread>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
@@ -17,13 +19,12 @@ int main() {
     // Initialize controller object for reading input
     Controller nios2;
 
+    std::thread controller_read_thread(&Controller::read_loop, &nios2);
     // // Initialize network communication sockets
     // TCP_Client tcpClient;
     // UDP_Client udpClient;
 
     // Initialize game objects
-    Map map;
-    Ball ball(map);
 
     // Create window for rendering
     GLFWwindow* window;
@@ -39,11 +40,18 @@ int main() {
         exit(1);
     }
 
+
+
     // Make the window's context current
     glfwMakeContextCurrent(window);
 
     if (glewInit() != GLEW_OK)
         exit(1);
+
+    Shader shader("color_shader_vs.txt", "color_shader_fs.txt");
+    Map map;
+    Ball ball(map);
+
 
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
@@ -52,8 +60,8 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Read accelerometer data from Nios II
-        nios2.read_inputs();
         XYPairInt16 xy_accel_data = nios2.get_xy_accel();
+        std::cout << "x: " << xy_accel_data.x << ", y: " << xy_accel_data.y << "\n";
 
         // // std::cerr<< "Controller thread: sending data over UDP\n";
         // // Send data from controller over UDP
@@ -68,15 +76,18 @@ int main() {
         // std::cerr << "Render thread: data received: " << xy_pos.first << ", "
         //           << xy_pos.second << "\n";
 
+        // std::cout << "input x is " << xy_accel_data.x << ", ";
+        // std::cout << "input y is " << xy_accel_data.y << "\n";
+
         // Compute ball physics
-        ball.set_acceleration(normalize_accel(xy_accel_data));
-        ball.update_velocity();
+        ball.set_velocity(normalize_accel(xy_accel_data));
+        // ball.update_velocity();
         ball.update_position();
         ball.resolve_wall_collisions(map);
 
         // Render frame
-        ball.draw();
-        map.draw();
+        map.draw(shader);
+        ball.draw(shader);
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
@@ -86,4 +97,7 @@ int main() {
     }
 
     glfwTerminate();
+
+    // This will stop the program from ever terminating right now
+    controller_read_thread.join();
 }

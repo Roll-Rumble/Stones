@@ -7,7 +7,9 @@
 #define SCREEN_WIDTH 1920   // X-width in pixels
 #define SCREEN_HEIGHT 1080  // Y-height in pixels
 
-#define ACCEL_NORMALIZE_CONSTANT 25.5f
+#define ACCEL_NORMALIZE_CONSTANT 50.0f
+// Coefficient of restitution for ball-wall collisions
+#define BALL_WALL_E 0.5
 
 struct XYPairInt16 {
     int16_t x;

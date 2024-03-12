@@ -16,9 +16,16 @@ public:
     Ball(const Map &map);
     ~Ball() {}
 
-    // Setters for position and acceleration
+    // Setters for position and velocity
     void set_position(XYPairFloat position);
-    void set_acceleration(XYPairFloat accel);
+    void set_velocity(XYPairFloat velocity);
+
+    // void set_acceleration(XYPairFloat accel);
+
+    // Getters for position and velocity and radius
+    const XYPairFloat get_position();
+    const XYPairFloat get_velocity();
+	const float get_radius();
 
     // Uses current acceleration to update velocity
     void update_velocity();
@@ -27,7 +34,13 @@ public:
     // Uses current position to resolve collisions and update velocity
     void resolve_wall_collisions(const Map &map);
 
+
+    // Use current position and velocity to resolve collision with other ball
+    static void resolve_ball_collision(Ball &ball1, Ball &ball2);
+
+
     void draw(const Shader &shader) const;
+
 
     /* Order of function calls in frame calculation:
      * 1. set_accleration
