@@ -55,6 +55,10 @@ void Controller::read_inputs() {
 
             if (buffer_idx > 1 && buffer[buffer_idx - 2] == -128
                                && buffer[buffer_idx - 1] == 0   ) {
+                if (buffer_idx != CONTROLLER_BUF_SIZE) {
+                    break;
+                }
+
                 // Read x_val from buffer
                 accel_.x = buffer[0];
                 accel_.x <<= 8;
