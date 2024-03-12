@@ -29,16 +29,14 @@ public:
 	void Open(const std::string &file){
 		file_.open(file, std::ios::app);
 	};
-	int GetLatestGame(){
-		return latest_game_;
-	};
-	int Getlatestgame(){
+	uint32_t GetLatestGame(){
 		return latest_game_;
 	};
 	
+	
 private:
 	std::ofstream file_;
-	int latest_game_;
+	uint32_t latest_game_;
 	int gameID_;
 	int game_length_;
 	int frame_ID_;

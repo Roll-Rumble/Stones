@@ -8,7 +8,9 @@ replayScreen::replayScreen(float x, float y, float width, float height, float r,
     float buttonHeight = 50.0f; // example height for a button
     float startX = (width - buttonWidth) / 2; // center horizontally
 
-    int nb_games; // number of games stored in db 
+    ReplayClientSide replayClientSide;
+    int nb_games = replayClientSide.get_num_games(); // get the number of games from the server
+    // TODO: IMPLEMENT CORRECT NUMBER OF BUTTONS
 
     // for loop for number of games button
     float startYReplay1 = y + (height / 4); // position for the replay1 button
@@ -37,6 +39,10 @@ int replayScreen::select() {
     bool top_pressed = false;
     bool bottom_pressed = false;
     Controller controller;
+
+    ReplayClientSide replayClientSide;
+    int nb_games = replayClientSide.get_num_games();
+
     std::cout << "Select an option; press Bottom to go down and press Top to enter into the selected button" << std::endl;
 
     while (!top_pressed) {
@@ -46,8 +52,8 @@ int replayScreen::select() {
 
         if ((bottom_pressed && !bottom_pressed_prev) && !top_pressed) {
             sel++;
-            std::cout << sel%3 << std::endl;
-            if (sel > 2) {
+            std::cout << sel%(nb_games+1) << std::endl;
+            if (sel > nb_games + 1) {
                 sel = 0;
             }
         }
@@ -61,6 +67,9 @@ int replayScreen::select() {
     }
 
     std::cout << "You selected: " << sel << std::endl;
+    std::vector< std::vector<XYPairInt16> > replay_data;
+    replay_data = replayClientSide.get_replay_data(sel); // get the replay data from the server
+    draw_replay(replay_data); // draw the replay data
 
     if(sel == 0) {
         items[0]->select(); // select the replay1 button
@@ -73,27 +82,5 @@ int replayScreen::select() {
         std::cout << "Invalid selection" << std::endl;
     }
     return sel;
-    //also output on terminal
-    //output all menu option
 }
 
-//void query_replay(int game_id) { // query the database for replays
-//    std::cout << "Querying replays" << std::endl;
-//}
-//
-// 
-//std::vector<std::vector<std::pair<int, int>>> recvReplays() { // receive replays from the database
-//    std::cout << "Receiving replays" << std::endl;
-//    std::vector<std::vector<std::pair<int, int>>> replays;
-//    // need to implement this
-//    
-//    return replays;
-//}
-//
-// 
-//void draw_replay(const std::vector<std::vector<std::pair<int, int>>>& replays) { // draw the replay
-//    std::cout << "Drawing replays" << std::endl;
-//    // need to implement this, rendering of the replays
-//
-//    // later might want to add a pause/unpause or exit button
-//}
