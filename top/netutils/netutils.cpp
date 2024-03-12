@@ -162,7 +162,7 @@ void send_buf(int sock, unsigned char *buf, ssize_t len)
 
 bool recv_buf(int sock, unsigned char *buf, ssize_t len)
 {
-    ssize_t received = recvtimeout(sock, (char *)buf, len, 0);
+    ssize_t received = recvtimeout(sock, (char *)buf, len, 1000);
     if (received == -2) {
         return false;
     }
