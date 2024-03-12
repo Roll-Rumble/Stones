@@ -21,8 +21,8 @@ int main() {
 
     std::thread controller_read_thread(&Controller::read_loop, &nios2);
     // // Initialize network communication sockets
-    // TCP_Client tcpClient;
-    // UDP_Client udpClient;
+    // TCPClient tcpClient;
+    // UDPClient udpClient;
 
     // Initialize game objects
 

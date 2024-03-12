@@ -13,10 +13,10 @@
 #define UDP_SEND_BUF_SIZE 1024
 #define UDP_RECEIVE_BUF_SIZE 1024
 
-class UDP_Client {
+class UDPClient {
 public:
-    UDP_Client();
-    ~UDP_Client();
+    UDPClient();
+    ~UDPClient();
 
     void send_xy(int16_t x, int16_t y);
     std::pair<float, float> receive_xy();

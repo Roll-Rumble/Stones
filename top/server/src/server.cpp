@@ -1,32 +1,28 @@
 #include "networking.hpp"
-#include "Ball.hpp"
-#include "Wall.hpp"
-#include "Collision_detect.hpp"
+#include "ball.hpp"
+#include "map.hpp"
 
 
 int main()
 {
-	std::cout << "starting server..." << std::endl;
-	auto [addr, port] = wait_for_tcp();
-	std::cout << "TCP handshake successfull" << std::endl;
-	UDPServ udp_serv(addr);
-	// int wall_num =1;
-	Ball ball(0, 0, 0.1);
-	// std::vector<Wall> walls;
-	// Wall wall1(-1, -1, 1, 1);
-	// walls.push_back(wall1);
+	TCPServ tcp_serv;
+	Map map;
+	std::vector<std::string> client_addrs = tcp_serv.get_connections(1);
+	std::vector<UDPServ> udp_handlers;
+	std::vector<Ball> balls;
+	for (std::string &addr : client_addrs) {
+		udp_handlers.emplace_back(addr);
+		balls.emplace_back(map);
+	}
 
 	while (true) {
-		auto [input_x, input_y] = udp_serv.recv_xy();
-
-		std::cout << "x_in: " << input_x << " y_in: " << input_y << std::endl;
-		ball.Update(input_x, input_y);
-
-		
-		udp_serv.send_xy(ball.Get_location_x(), ball.Get_location_y());
-
-		//int_fast8_t decision = Collision_detect(ball, wall1);
-		//std::cout << decision << std::endl;
+		for (int i = 0; i < udp_handlers.size(); i++) {
+			auto [input_x, input_y] = udp_handlers[i].recv_xy();
+			balls[i].update_position();
+			auto [x, y] = balls[i].get_position();
+			udp_handlers[i].send_xy(static_cast<float>(x),
+				static_cast<float>(y));
+		}
 	}
 	return 0;
 }

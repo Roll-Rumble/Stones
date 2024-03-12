@@ -1,3 +1,4 @@
+#ifdef CLIENT_COMPILE
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -126,3 +127,4 @@ unsigned int Shader::CompileShader(const std::string& shader, unsigned int type)
 
 	return id;
 }
+#endif

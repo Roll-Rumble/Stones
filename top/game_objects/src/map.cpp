@@ -1,15 +1,21 @@
+#ifdef CLIENT_COMPILE
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#endif
+#include <cmath>
+
+#include "shader.hpp"
 #include "map.hpp"
 
 #include "game_util.hpp"
 #include "shader.hpp"
-#include <cmath>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 
 Map::Map()
 {
+    #ifdef CLIENT_COMPILE
     glGenBuffers(1, &buffer_);
+    #endif
 }
 
 bool Map::is_wall(XYPairFloat coordinates) const
@@ -60,6 +66,7 @@ XYPairFloat Map::get_start_position() const
     return {static_cast<float>(start_pos_x), static_cast<float>(start_pos_y)};
 }
 
+#ifdef CLIENT_COMPILE
 void Map::draw(const Shader &shader) const
 {
     for (int row = 0; row < map_.size(); row++) {
@@ -96,3 +103,4 @@ void Map::draw(const Shader &shader) const
         }
     }
 }
+#endif

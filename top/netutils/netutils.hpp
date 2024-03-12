@@ -6,6 +6,25 @@
 #include <string>
 #include <stdexcept>
 #include <cstring>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+
+#ifdef SERVER_COMPILE
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+typedef sockaddr_in SOCKADDR_IN;
+typedef sockaddr_in6 SOCKADDR_IN6;
+typedef sockaddr SOCKADDR;
+typedef sockaddr_storage SOCKADDR_STORAGE;
+typedef addrinfo ADDRINFOA;
+#endif
+
+#ifdef CLIENT_COMPILE
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <ws2def.h>
+#endif
 
 
 namespace pack {
@@ -33,8 +52,18 @@ class NetworkException : public std::runtime_error
 {
 public:
     NetworkException(const std::string &msg)
-    : std::runtime_error(msg + ": " + strerror(errno))
+    : std::runtime_error(msg)
     {}
 };
+
+namespace net {
+std::pair<std::string, int> get_addr_and_port(SOCKADDR_STORAGE *sock_a);
+
+ADDRINFOA *addr_info(std::string addr, int port, int sock_type);
+
+
+void send_buf(int sock, unsigned char *buf, ssize_t len);
+void recv_buf(int sock, unsigned char *buf, ssize_t len);
+} // namespace net
 
 #endif

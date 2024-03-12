@@ -12,10 +12,10 @@
 #define SEND_BUF_SIZE
 #define RECEIVE_BUF_SIZE
 
-class TCP_Client {
+class TCPClient {
 public:
-    TCP_Client();
-    ~TCP_Client();
+    TCPClient();
+    ~TCPClient();
 
     void send_data(char buffer[SEND_BUF_SIZE]);
     void receive(char buffer[RECEIVE_BUF_SIZE]);

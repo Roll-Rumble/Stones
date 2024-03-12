@@ -108,3 +108,68 @@ void encode_input(unsigned char *buf, int16_t x, int16_t y)
 }
 
 } // namespace pack
+
+namespace net {
+std::pair<std::string, int> get_addr_and_port(SOCKADDR_STORAGE *sock_a)
+{
+    char *client_ip;
+    short port;
+    if (sock_a->ss_family == AF_INET) {
+        client_ip = (char *)malloc(INET_ADDRSTRLEN * sizeof(char));
+        SOCKADDR_IN addr;
+        memset(&addr, 0, sizeof(addr));
+        
+        inet_ntop(AF_INET, &(addr.sin_addr), client_ip, INET_ADDRSTRLEN);
+	
+        port = ntohs(addr.sin_port);
+    } else {
+        client_ip = (char *)malloc(INET6_ADDRSTRLEN * sizeof(char));
+        SOCKADDR_IN6 addr;
+        inet_ntop(AF_INET6, &(addr.sin6_addr), client_ip, INET6_ADDRSTRLEN);
+        port = ntohs(addr.sin6_port);
+    }
+    std::pair<std::string, int> out = std::make_pair(
+        std::string(client_ip), port);
+    free(client_ip);
+    return out;
+}
+
+ADDRINFOA *addr_info(std::string addr, int port, int sock_type)
+{
+    int status;
+    ADDRINFOA hints;
+    ADDRINFOA *out;
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = sock_type;
+    hints.ai_flags = AI_PASSIVE;
+
+    if ((status = getaddrinfo(addr.c_str(), std::to_string(port).c_str(),
+        &hints, &out)) != 0) {
+        throw NetworkException("can't obtain address structure");
+    }
+    return out;
+}
+
+void send_buf(int sock, unsigned char *buf, ssize_t len)
+{
+    if (send(sock, (char *)buf, len, 0) == -1) {
+        throw NetworkException("can't send data");
+    }
+}
+void recv_buf(int sock, unsigned char *buf, ssize_t len)
+{
+    ssize_t received = recv(sock, (char *)buf, len, 0);
+    if (received == -1) {
+        throw NetworkException("can't receive");
+    }
+    while (received < len) {
+        len -= received;
+        received = recv(sock, (char *)buf, len, 0);
+        if (received == -1) {
+            throw NetworkException("can't receive");
+        }
+    }
+}
+} // namespace net

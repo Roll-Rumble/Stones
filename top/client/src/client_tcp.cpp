@@ -8,46 +8,57 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-TCP_Client::TCP_Client() {
+TCPClient::TCPClient() {
     start_WSA();
 
-    // Create TCP socket
-    socket_ = INVALID_SOCKET;
-    socket_ = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket_ == INVALID_SOCKET) {
-        WSACleanup();
-        throw NetworkException("error creating socket");
-    }
+    try {
+        ADDRINFOA *client_addr_info = net::addr_info(
+            SERVER_IP, SERVER_TCP_PORT, SOCK_STREAM);
+        
+        socket_ = socket(client_addr_info->ai_family,
+            client_addr_info->ai_socktype, client_addr_info->ai_protocol);
+        if (socket_ == SOCKET_ERROR) {
+            throw NetworkException("can't create socket");
+        }
 
-    sockaddr_in clientService;
-    clientService.sin_family = AF_INET;
-    clientService.sin_addr.s_addr = inet_addr(SERVER_IP);
-    clientService.sin_port = htons(SERVER_TCP_PORT);
+        int reuse = 1;
+        if (setsockopt(socket_, SOL_SOCKET, SO_REUSEADDR,
+            (char *)&reuse, sizeof(int)) == SOCKET_ERROR) {
+                throw NetworkException("can't set UDP socket to be reusable");
+        }
 
-    if (connect(socket_, (SOCKADDR*) &clientService, sizeof(clientService)) == SOCKET_ERROR) {
+
+        if (connect(socket_, client_addr_info->ai_addr,
+            client_addr_info->ai_addrlen) == SOCKET_ERROR) {
+            throw NetworkException("can't connect socket");
+        }
+
+        freeaddrinfo(client_addr_info);
+    } catch (std::exception &e) {
         WSACleanup();
-        throw NetworkException("error connecting using TCP");
+        throw e;
     }
 }
 
-TCP_Client::~TCP_Client() {
+TCPClient::~TCPClient() {
     closesocket(socket_);
     WSACleanup();
 }
 
-void TCP_Client::send_data(char buffer[SEND_BUF_SIZE]) {
-    int sbyteCount = send(socket_, buffer, strlen(buffer), 0);
-    if(sbyteCount == SOCKET_ERROR) {
+void TCPClient::send_data(char buffer[SEND_BUF_SIZE]) {
+    try {
+        net::send_buf(socket_, buffer, RECEIVE_BUF_SIZE);
+    } catch (std::exception &e) {
         WSACleanup();
-        throw NetworkException("erroring sending data using TCP");
+        throw e;
     }
 }
 
-void TCP_Client::receive(char buffer[RECEIVE_BUF_SIZE]) {
-    // Receive data from the client
-    int bytes_received = recv(socket_, buffer, sizeof(buffer) - 1, 0);
-    if (bytes_received <= 0) { // Error receiving data or client closed connection
+void TCPClient::receive(char buffer[RECEIVE_BUF_SIZE]) {
+    try {
+        net::recv_buf(socket_, buffer, RECEIVE_BUF_SIZE);
+    } catch (std::exception &e) {
         WSACleanup();
-        throw NetworkException("error receiving data using TCP");
+        throw e;
     }
 }
