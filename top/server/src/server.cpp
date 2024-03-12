@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "networking.hpp"
 #include "ball.hpp"
 #include "map.hpp"
@@ -14,7 +16,6 @@ int main()
 		udp_handlers.emplace_back(addr);
 		balls.emplace_back(map);
 	}
-
 	while (true) {
 		for (int i = 0; i < udp_handlers.size(); i++) {
 			auto [input_x, input_y] = udp_handlers[i].recv_xy();

@@ -72,17 +72,19 @@ void UDPClient::send_xy(int16_t x, int16_t y) {
     }
 }
 
-std::pair<float, float> UDPClient::receive_xy() {
+std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
     unsigned char buffer[8];
-
     try {
-        net::recv_buf(socket_, buffer, sizeof(buffer));
+        if (net::recv_buf(socket_, buffer, sizeof(buffer))) {
+            return pack::decode_pos(buffer);
+        } else {
+            return def;
+        }
+        
     } catch (std::exception &e) {
         WSACleanup();
         throw e;
     }
-
-    return pack::decode_pos(buffer);
 }
 
 // void UDPClient::send(char buffer[UDP_SEND_BUF_SIZE]) {

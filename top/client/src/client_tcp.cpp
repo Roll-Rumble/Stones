@@ -56,6 +56,7 @@ void TCPClient::send_data(char buffer[SEND_BUF_SIZE]) {
 
 void TCPClient::receive(char buffer[RECEIVE_BUF_SIZE]) {
     try {
+        memset(buffer, 0, RECEIVE_BUF_SIZE);
         net::recv_buf(socket_, buffer, RECEIVE_BUF_SIZE);
     } catch (std::exception &e) {
         WSACleanup();

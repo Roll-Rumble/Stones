@@ -75,7 +75,7 @@ std::vector<std::string> TCPServ::get_connections(int num_clients)
 UDPServ::UDPServ(std::string &addr)
 {
     ADDRINFOA *client_addr_info = net::addr_info(
-        addr.c_str(), SEND_PORT, SOCK_DGRAM);
+        addr, SEND_PORT, SOCK_DGRAM);
     
     ADDRINFOA *server_addr_info = net::addr_info(
         "0.0.0.0", LISTEN_PORT, SOCK_DGRAM);
@@ -120,11 +120,15 @@ void UDPServ::send_xy(float x, float y)
     net::send_buf(sockfd_, buf, NUM_OUT_BYTES);
 }
 
-std::pair<int16_t, int16_t> UDPServ::recv_xy()
+std::pair<int16_t, int16_t> UDPServ::recv_xy(std::pair<int16_t, int16_t> def)
 {
     unsigned char buf[4];
-    net::recv_buf(sockfd_, buf, 4);
-    return pack::decode_input(buf);
+    if (net::recv_buf(sockfd_, buf, 4)) {
+        net::recv_buf(sockfd_, buf, 4);
+        return pack::decode_input(buf);
+    } else {
+        return def;
+    }
 }
 
 

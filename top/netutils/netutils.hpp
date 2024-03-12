@@ -59,11 +59,13 @@ public:
 namespace net {
 std::pair<std::string, int> get_addr_and_port(SOCKADDR_STORAGE *sock_a);
 
-ADDRINFOA *addr_info(std::string addr, int port, int sock_type);
+ADDRINFOA *addr_info(const std::string &addr, int port, int sock_type);
 
 
 void send_buf(int sock, unsigned char *buf, ssize_t len);
 void recv_buf(int sock, unsigned char *buf, ssize_t len);
+
+int recvtimeout(int s, char *buf, int len, int timeout);
 } // namespace net
 
 #endif
