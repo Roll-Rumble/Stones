@@ -18,10 +18,15 @@ int main()
 	while (true) {
 		for (int i = 0; i < udp_handlers.size(); i++) {
 			auto [input_x, input_y] = udp_handlers[i].recv_xy();
+			balls[i].set_velocity(
+				normalize_accel({
+					.x=input_x,
+					.y=input_y,
+				}));
 			balls[i].update_position();
-			auto [x, y] = balls[i].get_position();
-			udp_handlers[i].send_xy(static_cast<float>(x),
-				static_cast<float>(y));
+			balls[i].resolve_wall_collisions(map);
+			XYPairFloat pos = balls[i].get_position();
+			udp_handlers[i].send_xy(pos.x, pos.y);
 		}
 	}
 	return 0;
