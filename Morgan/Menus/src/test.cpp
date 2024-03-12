@@ -14,12 +14,12 @@ int main() {
     homeScreen myHomeScreen(0.0f, 0.0f, width, height, red, green, blue, "Home");
 
     // Display the home screen
-    myHomeScreen.draw(); 
+    myHomeScreen.draw();
 
     // Select an option from the home screen
     selectedMenu = myHomeScreen.select();
 
-    if(selectedMenu == 2) {
+    if (selectedMenu == 2) {
         int selectedReplay = 0; // game id (for now just 0 or 1) or 2 for exit
 
         // Instantiate a replay screen object
@@ -35,16 +35,16 @@ int main() {
         if (selectedReplay != 2) { // might need to wait for reply
 
             // query the database for replays
-            myReplayScreen.query_replay(selectedReplay);
+            // myReplayScreen.query_replay(selectedReplay);
             // receive replays from the database
-            std::vector<std::vector<std::pair<int, int>>> replays = myReplayScreen.recv_replays();
+            // std::vector<std::vector<std::pair<int, int>>> replays = myReplayScreen.recv_replays();
             // draw the replays
-            myReplayScreen.draw_replay(replays); // rendering
+            // myReplayScreen.draw_replay(replays); // rendering
         }
         else {
             std::cout << "Exiting" << std::endl;
         }
-    }
 
+    }
     return 0;
 }

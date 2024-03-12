@@ -54,6 +54,7 @@ void Controller::read_inputs() {
 
             if (buffer_idx > 1 && buffer[buffer_idx - 2] == -128
                                && buffer[buffer_idx - 1] == 0   ) {
+                std::cout << "enter" << std::endl;
                 // Read x_val from buffer
                 accel_.x = buffer[0];
                 accel_.x <<= 8;
