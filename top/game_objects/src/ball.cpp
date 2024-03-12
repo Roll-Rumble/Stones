@@ -99,6 +99,7 @@ void Ball::resolve_wall_collisions(const Map& map)
 			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
 			position_.x = (corner.x - position_.x) * (radius_ - distance)/distance;
 			position_.y = (corner.y - position_.y) * (radius_ - distance)/distance;
+		}
         break;
 
     case TileQuadrant::BOTTOM_LEFT:
@@ -108,6 +109,14 @@ void Ball::resolve_wall_collisions(const Map& map)
         if (map.is_wall({position_.x, position_.y - radius_})) {
             velocity_.y *= -1;
         }
+		XYPairFloat temp3 = {position_.x - TILE_WIDTH, position_.y - TILE_HEIGHT};
+		if (map.is_wall(temp3)){
+			wall_centre = map.tile_centre(temp3);
+			corner = {wall_centre.x + TILE_WIDTH/2, wall_centre.y + TILE_HEIGHT/2};
+			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+			position_.x = (position_.x - corner.x) * (radius_ - distance)/distance;
+			position_.y = (position_.y - corner.y) * (radius_ - distance)/distance;
+		}
         break;
 
     case TileQuadrant::BOTTOM_RIGHT:
@@ -117,6 +126,14 @@ void Ball::resolve_wall_collisions(const Map& map)
         if (map.is_wall({position_.x, position_.y - radius_})) {
             velocity_.y *= -1;
         }
+		XYPairFloat temp4 = {position_.x + TILE_WIDTH, position_.y - TILE_HEIGHT};
+		if (map.is_wall(temp4)){
+			wall_centre = map.tile_centre(temp4);
+			corner = {wall_centre.x - TILE_WIDTH/2, wall_centre.y + TILE_HEIGHT/2};
+			distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+			position_.x = (corner.x - position_.x) * (radius_ - distance)/distance;
+			position_.y = (position_.y - corner.y) * (radius_ - distance)/distance;
+		}
         break;
 
     default:
