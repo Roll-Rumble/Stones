@@ -120,21 +120,21 @@ void Ball::resolve_wall_collisions(const Map& map)
 
     // Solve x collision
     if (map.is_wall({position_.x + radius_, position_.y})) {
-        position_.x = map.tile_centre({position_.x + radius_, position_.y}).x - TILE_WIDTH;
+        position_.x = map.tile_centre({position_.x + radius_, position_.y}).x - TILE_WIDTH/2 - radius_;
         std::cout << "collision\n";
     }
     else if (map.is_wall({position_.x - radius_, position_.y})) {
-        position_.x = map.tile_centre({position_.x - radius_, position_.y}).x + TILE_WIDTH;
+        position_.x = map.tile_centre({position_.x - radius_, position_.y}).x + TILE_WIDTH/2 + radius_;
         std::cout << "collision\n";
     }
 
     // Solve y collision
     if (map.is_wall({position_.x, position_.y + radius_})) {
-        position_.y = map.tile_centre({position_.x, position_.y + radius_}).y - TILE_HEIGHT;
+        position_.y = map.tile_centre({position_.x, position_.y + radius_}).y - TILE_HEIGHT/2 - radius_;
         std::cout << "collision\n";
     }
     else if (map.is_wall({position_.x, position_.y - radius_})) {
-        position_.y = map.tile_centre({position_.x, position_.y - radius_}).y + TILE_HEIGHT;
+        position_.y = map.tile_centre({position_.x, position_.y - radius_}).y + TILE_HEIGHT/2 + radius_;
         std::cout << "collision\n";
     }
 }
@@ -174,14 +174,14 @@ void Ball::resolve_ball_collision(Ball &ball1, Ball &ball2) {
 		float magnitude = sqrt(pow(dist_x, 2) + pow(dist_y, 2));
 		float cos_theta = (ball1_position.x * ball2_position.x + ball1_position.y * ball2_position.y)/magnitude;
 
-		
+
 		impulse_x = */
 
 		float C1_C2x = ball1_position.x - ball2_position.x;
 		float V1_V2x = ball1_velocity.x - ball2_velocity.x;
 		float C1_C2y = ball1_position.y - ball2_position.y;
 		float V1_V2y = ball1_velocity.y - ball2_velocity.y;
-		//float 
+		//float
 		float dot_product = C1_C2x * V1_V2x + C1_C2y * V1_V2y;
 		float magnitude_2 = pow(C1_C2x, 2) + pow(C1_C2y, 2);
 		float ball1_velocity_x = ball1_velocity.x - (dot_product/magnitude_2) * C1_C2x;

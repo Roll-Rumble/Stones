@@ -61,6 +61,7 @@ int main() {
 
         // Read accelerometer data from Nios II
         XYPairInt16 xy_accel_data = nios2.get_xy_accel();
+        std::cout << "x: " << xy_accel_data.x << ", y: " << xy_accel_data.y << "\n";
 
         // // std::cerr<< "Controller thread: sending data over UDP\n";
         // // Send data from controller over UDP

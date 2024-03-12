@@ -27,7 +27,6 @@ public:
     const XYPairFloat get_velocity();
 	const float get_radius();
 
-	void set_velocity(XYPairFloat velocity);
     // Uses current acceleration to update velocity
     void update_velocity();
     // Uses current velocity to update position
