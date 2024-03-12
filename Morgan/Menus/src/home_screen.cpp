@@ -26,22 +26,27 @@ int homeScreen::select() {
     bool top_pressed = false;
     bool bottom_pressed = false;
     Controller controller;
-    std::cout << "Select an option: " << std::endl << "Pres Top to Play" << std::endl << "Press Bottom to go to Replays" << std::endl;
+    std::cout << "Select an option: " << std::endl << "Press Top to Play" << std::endl << "Press Bottom to go to Replays" << std::endl;
 
-    top_pressed = controller.top_button_pressed();
-    bottom_pressed = controller.bottom_button_pressed();
+    while (true) {
+        controller.read_inputs();
+        top_pressed = controller.top_button_pressed();
+        bottom_pressed = controller.bottom_button_pressed();
 
-    if(top_pressed && !bottom_pressed) {
-        items[0]->select(); // select the play button
-        std::cout << "You selected: Play" << std::endl;
-        return 1;
-    } else if(bottom_pressed && !top_pressed) {
-        items[1]->select(); // select the replay button
-        std::cout << "You selected: Replay" << std::endl;
-        return 2;
-    } else {
-        std::cout << "Invalid selection" << std::endl;
-        return 0;
+        if (top_pressed && !bottom_pressed) {
+            items[0]->select(); // select the play button
+            std::cout << "You selected: Play" << std::endl;
+            return 1;
+        }
+        else if (bottom_pressed && !top_pressed) {
+            items[1]->select(); // select the replay button
+            std::cout << "You selected: Replay" << std::endl;
+            return 2;
+        }
+        else if (bottom_pressed && top_pressed) {
+            std::cout << "Invalid selection" << std::endl;
+            return 0;
+        }
     }
 }
 

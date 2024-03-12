@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 #include <iostream>
-#include "../../top/client/src/read_controller.cpp"
+#include "read_controller.hpp"
 
 class menuItem { // home screen, play and replay buttons, replay screen, exit replay screen, list of replays are all menu items
 
@@ -17,9 +17,9 @@ public:
 
 protected:
     float x_, y_; // Coordinates of button center
-    float width_, height_; // Size of button 
+    float width_, height_; // Size of button
     float color[3]; // Color (RGB)
-    std::string name_button_; // Name of the button, default color should be black for text 
+    std::string name_button_; // Name of the button, default color should be black for text
     std::vector<std::unique_ptr<menuItem>> items; // Menu items
 
 };
