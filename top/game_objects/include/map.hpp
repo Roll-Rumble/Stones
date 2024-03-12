@@ -44,7 +44,9 @@ public:
     XYPairFloat get_start_position() const;
 
 
+#ifdef CLIENT_COMPILE
     void draw(const Shader &shader) const;
+#endif
 
 private:
     unsigned int buffer_;

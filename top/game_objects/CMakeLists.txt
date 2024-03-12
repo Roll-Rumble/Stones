@@ -11,7 +11,7 @@ file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_library(game_objects ${SRC_FILES})
 
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
-	target_compile_definitions(game_objects INTERFACE "CLIENT_COMPILE")
+	target_compile_definitions(game_objects PUBLIC "CLIENT_COMPILE")
 
 	target_include_directories(game_objects PUBLIC
 		"${CMAKE_CURRENT_SOURCE_DIR}/dependencies/GLEW/include"
@@ -39,7 +39,7 @@ if(CMAKE_HOST_SYSTEM MATCHES Windows)
 endif()
 
 if (CMAKE_HOST_SYSTEM MATCHES Linux)
-	target_compile_definitions(game_objects INTERFACE "SERVER_COMPILE")
+	target_compile_definitions(game_objects PUBLIC "SERVER_COMPILE")
 	target_include_directories(game_objects PUBLIC
 		"${CMAKE_CURRENT_SOURCE_DIR}/include")
 endif()

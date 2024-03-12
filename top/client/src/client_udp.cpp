@@ -3,88 +3,93 @@
 #include "netutils.hpp"
 #include "winsock_start.hpp"
 #include <cstdint>
+#include <cstdio>
 #include <iostream>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-UDP_Client::UDP_Client() {
+UDPClient::UDPClient() {
     start_WSA();
 
-    // Send socket init
-    send_socket_ = INVALID_SOCKET;
-    send_socket_ = socket(AF_INET, SOCK_DGRAM, 0);
-    if (send_socket_ == SOCKET_ERROR) {
+    try {
+        ADDRINFOA *client_addr_info = net::addr_info(
+            "0.0.0.0", CLIENT_UDP_RECV_PORT, SOCK_DGRAM);
+
+        ADDRINFOA *server_addr_info = net::addr_info(
+            SERVER_IP, SERVER_UDP_PORT, SOCK_DGRAM);
+
+        send_socket_ = socket(client_addr_info->ai_family,
+            client_addr_info->ai_socktype, client_addr_info->ai_protocol);
+        if (send_socket_ == -1) {
+            throw NetworkException("can't create socket");
+        }
+
+        int reuse = 1;
+        if (setsockopt(send_socket_, SOL_SOCKET, SO_REUSEADDR,
+            (char *)&reuse, sizeof(int)) == -1) {
+                throw NetworkException("can't set UDP socket to be reusable");
+        }
+
+        std::cout << "client_addr_info is " << inet_ntoa(((SOCKADDR_IN *)server_addr_info->ai_addr)->sin_addr) << "\n";
+        if (bind(send_socket_, client_addr_info->ai_addr,
+            client_addr_info->ai_addrlen) == -1) {
+            throw NetworkException("can't bind socket");
+        }
+
+        if (connect(send_socket_, server_addr_info->ai_addr,
+            server_addr_info->ai_addrlen) == -1) {
+            throw NetworkException("can't connect to socket");
+        }
+        freeaddrinfo(client_addr_info);
+        freeaddrinfo(server_addr_info);
+    } catch (std::exception &e) {
         WSACleanup();
-        throw NetworkException("Error creating UDP send socket");
+        throw e;
     }
-
-    SOCKADDR_IN server_addr;
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(SERVER_UDP_PORT); // Ensure the port is correct
-    inet_pton(AF_INET, SERVER_IP, &server_addr.sin_addr); // Ensure the IP is correct
-
-    SOCKADDR_IN local_addr;
-    local_addr.sin_family = AF_INET;
-    local_addr.sin_port = htons(SERVER_UDP_PORT);
-    inet_pton(AF_INET, "0.0.0.0", &local_addr.sin_addr);
-
-    // shoudl be recv socket
-    if (bind(send_socket_, (SOCKADDR *)&local_addr, sizeof(local_addr)) == SOCKET_ERROR) {
-        std::cerr << "UDP error code: " << WSAGetLastError() << "\n";
-        WSACleanup();
-        throw NetworkException("error binding UDP socket: error code ");
-    }
-
-    if (connect(send_socket_, (SOCKADDR *)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
-        WSACleanup();
-        throw NetworkException("can't connect to UDP socket");
-    }
-
-    // // Recv socket init
-    // recv_socket_ = INVALID_SOCKET;
-    // recv_socket_ = socket(AF_INET, SOCK_DGRAM, 0);
-    // if (recv_socket_ == SOCKET_ERROR) {
-    //     WSACleanup();
-    //     throw NetworkException("Error creating UDP recv send socket");
-    // }
 }
 
-UDP_Client::~UDP_Client() {
+UDPClient::~UDPClient() {
     closesocket(send_socket_);
-    closesocket(recv_socket_);
     WSACleanup();
 }
 
-void UDP_Client::send_xy(int16_t x, int16_t y) {
+void UDPClient::send_xy(int16_t x, int16_t y) {
     unsigned char buffer[4];
     pack::encode_input(buffer, x, y);
 
-    int sbyteCount = send(send_socket_, (char *) buffer, sizeof(buffer), 0);
-    if (sbyteCount == SOCKET_ERROR) {
+    try {
+        net::send_buf(send_socket_, buffer, sizeof(buffer));
+    } catch (std::exception &e) {
+        std::cout << "exception: " << e.what() << "\n";
+        wchar_t* s = NULL;
+        FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, WSAGetLastError(),
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPWSTR)&s, 0, NULL);
+        fprintf(stderr, "%S\n", s);
+        LocalFree(s);
         WSACleanup();
-        throw NetworkException("error sending UDP data");
+        throw e;
     }
 }
 
-std::pair<float, float> UDP_Client::receive_xy() {
-    sockaddr_in sender_addr; // Client address
-    socklen_t sender_len = sizeof(sender_addr);
-    int bytes_received;
-
+std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
     unsigned char buffer[8];
+    try {
+        if (net::recv_buf(send_socket_, buffer, sizeof(buffer))) {
+            return pack::decode_pos(buffer);
+        } else {
+            return def;
+        }
 
-    // Receive data from the client
-    // should be recv_socket_
-    bytes_received = recv(send_socket_, (char *) buffer, sizeof(buffer), 0);
-    if (bytes_received == SOCKET_ERROR) { // Error receiving data or client closed connection
+    } catch (std::exception &e) {
+        std::cout << "exception: " << e.what() << "\n";
         WSACleanup();
-        throw NetworkException("error receiving UDP data");
+        throw e;
     }
-
-    return pack::decode_pos(buffer);
 }
 
-// void UDP_Client::send(char buffer[UDP_SEND_BUF_SIZE]) {
+// void UDPClient::send(char buffer[UDP_SEND_BUF_SIZE]) {
 //     buffer = htons(buffer);
 
 //     int sbyteCount = sendto(client_socket_, &buffer, sizeof(buffer), 0, (SOCKADDR*) &client_addr, sizeof(client_addr));
@@ -93,7 +98,7 @@ std::pair<float, float> UDP_Client::receive_xy() {
 //     }
 // }
 
-// void UDP_Client::receive(char buffer[UDP_RECEIVE_BUF_SIZE]) {
+// void UDPClient::receive(char buffer[UDP_RECEIVE_BUF_SIZE]) {
 //     sockaddr_in sender_addr; // Client address
 //     socklen_t sender_len = sizeof(sender_addr);
 //     int bytes_received;

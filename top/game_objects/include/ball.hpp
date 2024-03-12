@@ -31,6 +31,7 @@ public:
     void update_velocity();
     // Uses current velocity to update position
     void update_position();
+
     // Uses current position to resolve collisions and update velocity
     void resolve_wall_collisions(const Map &map);
 
@@ -39,7 +40,9 @@ public:
     static void resolve_ball_collision(Ball &ball1, Ball &ball2);
 
 
+#ifdef CLIENT_COMPILE
     void draw(const Shader &shader) const;
+#endif
 
 
     /* Order of function calls in frame calculation:
