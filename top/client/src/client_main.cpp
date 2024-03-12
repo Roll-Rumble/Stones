@@ -59,6 +59,8 @@ int main() {
 
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window)) {
+        auto start = std::chrono::steady_clock::now(); // Start counting
+
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Read accelerometer data from Nios II
@@ -80,6 +82,15 @@ int main() {
 
         // Poll for and process events
         glfwPollEvents();
+        auto end = std::chrono::steady_clock::now(); // End counting
+        // Calculate the duration in milliseconds
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+        while (elapsed.count() < 1000 / FPS) { //wait until min amount has passed
+            end = std::chrono::steady_clock::now();
+            elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        }
+        std::cout << "fps: " << 1000 / elapsed.count() << "\n";
     }
 
     glfwTerminate();
