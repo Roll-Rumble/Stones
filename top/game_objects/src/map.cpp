@@ -9,6 +9,7 @@
 
 #include "game_util.hpp"
 #include "shader.hpp"
+#include <iostream>
 
 
 Map::Map()
@@ -25,18 +26,23 @@ bool Map::is_wall(XYPairFloat coordinates) const
     return map_[tile_y_idx][tile_x_idx] == Tile::W;
 }
 
+/* this function was made to mimic is_wall design to achieve consistency
+do not change! */
 XYPairFloat Map::tile_centre(XYPairFloat coordinates) const
 {
-    int centre_x = static_cast<int>(coordinates.x / TILE_WIDTH)*TILE_WIDTH + TILE_WIDTH/2;
-    int centre_y = static_cast<int>(coordinates.y / TILE_HEIGHT)*TILE_HEIGHT + TILE_HEIGHT/2;
-    return {static_cast<float>(centre_x), static_cast<float>(centre_y)};
+    int tile_x_idx = static_cast<int>(coordinates.x / TILE_WIDTH);
+    int tile_y_idx = static_cast<int>(MAP_HEIGHT - (coordinates.y / TILE_HEIGHT));
+    float x_coord = tile_x_idx * TILE_WIDTH + TILE_WIDTH / 2;
+    float y_coord = SCREEN_HEIGHT - (tile_y_idx * TILE_HEIGHT + TILE_HEIGHT / 2);
+    return { x_coord, y_coord };
 }
 
 TileQuadrant Map::get_tile_quadrant(XYPairFloat coordinates) const
 {
     // Calculate pixel position in tile relative to bottom left of tile
-    float tile_x_pos = remainder(coordinates.x, TILE_WIDTH);
-    float tile_y_pos = remainder(coordinates.y, TILE_HEIGHT);
+    float tile_x_pos = std::fmod(coordinates.x, TILE_WIDTH);
+    float tile_y_pos = std::fmod(coordinates.y, TILE_HEIGHT);
+
 
     TileQuadrant quadrant;
 
