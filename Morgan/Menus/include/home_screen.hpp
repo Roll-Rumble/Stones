@@ -3,7 +3,7 @@
 
 #include "menu_item.hpp"
 #include "button.hpp"
-#include "../../top/client/include/read_controller.hpp"
+#include "read_controller.hpp"
 
 class homeScreen : public menuItem {
 

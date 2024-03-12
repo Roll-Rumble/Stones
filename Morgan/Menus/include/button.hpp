@@ -3,7 +3,7 @@
 
 #include "menu_item.hpp"
 #include <string>
-#include "../../top/client/include/read_controller.hpp"
+#include "read_controller.hpp"
 
 class Button : public menuItem {
 
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif 
+#endif
