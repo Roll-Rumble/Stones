@@ -6,8 +6,10 @@ void Button::draw() const {
     // draw - not sure how to do this yet
 }
 
-void Button::select(){
+int Button::select(){
     // select animation
     std::cout << "Selecting button animation" << std::endl;
+
+    return 0;
 } 
-//
+
