@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <cstring>
+#include <errno.h>
 #include "netutils.hpp"
 namespace pack {
 
@@ -168,6 +170,7 @@ bool recv_buf(int sock, unsigned char *buf, ssize_t len, int timeout)
         return false;
     }
     if (received == -1) {
+        std::cout << "error no: " << strerror(errno) << "\n";
         throw NetworkException("can't receive");
     }
     ssize_t recv_len = received;
@@ -178,6 +181,7 @@ bool recv_buf(int sock, unsigned char *buf, ssize_t len, int timeout)
             return false;
         }
         if (received == -1) {
+            std::cout << "err no: " << strerror(errno) << "\n";
             throw NetworkException("can't receive");
         }
         recv_len += received;

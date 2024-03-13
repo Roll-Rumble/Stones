@@ -13,7 +13,6 @@
 Ball::Ball(const Map& map) : velocity_{ 0 }, accel_{ 0 }, radius_{ RADIUS }
 {
     position_ = map.get_start_position();
-    std::cout << position_.x << "," << position_.y << std::endl;
 #ifdef CLIENT_COMPILE
     glGenBuffers(1, &buffer_);
 #endif
