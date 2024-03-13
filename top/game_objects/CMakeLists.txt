@@ -6,8 +6,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-
 file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/floor_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/floor_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/hole_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/hole_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/wall_texture_2.png" "${CMAKE_CURRENT_BINARY_DIR}/wall_texture_2.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/metal-texture.png" "${CMAKE_CURRENT_BINARY_DIR}/metal-texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/exit.png" "${CMAKE_CURRENT_BINARY_DIR}/exit.png" COPYONLY)
+
 add_library(game_objects ${SRC_FILES})
 
 if(CMAKE_HOST_SYSTEM MATCHES Windows)

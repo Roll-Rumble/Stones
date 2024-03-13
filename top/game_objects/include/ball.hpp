@@ -44,7 +44,7 @@ public:
 
 
 #ifdef CLIENT_COMPILE
-    void draw(const Shader &shader) const;
+    void draw(Shader &shader) const;
 #endif
 
 

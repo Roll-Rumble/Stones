@@ -13,6 +13,7 @@
 #include "map.hpp"
 #include "read_controller.hpp"
 #include "shader.hpp"
+#include "texture.hpp"
 
 
 int main() {
@@ -35,55 +36,6 @@ int main() {
         exit(1);
     }
 
-    int16_t i = 0;
-
-
-    // while (true) {
-    //     auto start = std::chrono::steady_clock::now(); // Start counting
-
-    //     // glClear(GL_COLOR_BUFFER_BIT);
-
-    //     // std::cout << "Client sending packet " << (int) i << "\n";
-    //     // udpClient.send_xy(i, i);
-    //     // i++;
-
-    //     // std::pair<float,float> prev_xy_pos = xy_pos;
-    //     // xy_pos = udpClient.receive_xy(xy_pos);
-    //     // if (xy_pos.first != prev_xy_pos.first) {
-    //     //     std::cout << "Client received packet " << (int) xy_pos.first << "\n";
-    //     // }
-
-    //     // Send data from controller over UDP
-    //     udpClient.send_xy(xy_accel_data.x, xy_accel_data.y);
-
-    //     // Receive position data over UDP
-    //     xy_pos = udpClient.receive_xy(xy_pos);
-    //     ball.set_position({xy_pos.first, xy_pos.second});
-
-    //     // Render frame
-    //     map.draw(shader);
-    //     ball.draw(shader);
-
-    //     // Swap front and back buffers
-    //     glfwSwapBuffers(window);
-
-    //     // Poll for and process events
-    //     glfwPollEvents();
-    //     auto end = std::chrono::steady_clock::now(); // End counting
-    //     // Calculate the duration in milliseconds
-    //     auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-
-    //     // 10 FPS is ok
-
-    //     while (elapsed.count() < 50000) { //wait until min amount has passed
-    //         end = std::chrono::steady_clock::now();
-    //         elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    //     }
-    //     // std::cout << "fps: " << 1000 / elapsed.count() << "\n";
-    // }
-
-    // // glfwTerminate();
-
     // Create a windowed mode window and its OpenGL context
     window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Roll Rumble", NULL, NULL);
     if (!window) {
@@ -100,6 +52,21 @@ int main() {
 
     // Load shaders
     Shader shader("color_shader_vs.txt", "color_shader_fs.txt");
+    Texture floor_tex("floor_texture.png");
+    Texture wall_tex("wall_texture_2.png");
+    Texture hole_tex("hole_texture.png");
+    Texture ball_tex("metal-texture.png");
+    Texture exit_tex("exit.png");
+    Texture entrance_tex("exit.png");
+
+    floor_tex.Bind(FLOOR_SLOT);
+    wall_tex.Bind(WALL_SLOT);
+    hole_tex.Bind(HOLE_SLOT);
+    ball_tex.Bind(BALL_SLOT);
+    entrance_tex.Bind(ENTRANCE_SLOT);
+    exit_tex.Bind(EXIT_SLOT);
+
+    shader.Bind();
 
     // Instantiate game objects
     Map map;
@@ -150,8 +117,7 @@ int main() {
         // Calculate the duration in milliseconds
         auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-        // 10 FPS is ok
-
+        // Currently locked at 20fps
         while (elapsed.count() < 50000) { //wait until min amount has passed
             end = std::chrono::steady_clock::now();
             elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
