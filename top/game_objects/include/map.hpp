@@ -63,12 +63,21 @@ private:
     /*const std::array<std::array<Tile,MAP_WIDTH>,MAP_HEIGHT> map_ = {{
         {W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
         {W,_,_,_,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,_,_,_,W,W,W,W,W,W,W,W,W,W},
+<<<<<<< HEAD
         {W,_,I,_,W,O,_,_,_,_,H,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,W},
         {W,_,H,_,W,W,W,W,W,_,_,_,W,_,_,W,W,_,_,W,W,W,_,_,_,W,W,W,W,W,W,W},
         {W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,_,H,_,W,W,W,W,W,W,W},
         {W,_,_,H,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,H,_,W,W,W,W,W,W,W},
         {W,_,H,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,_,_,_,_,_,H,W,W,W,W,W,W},
         {W,W,W,W,W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,H,_,W,W,_,_,_,W,W,W,W,W},
+=======
+        {W,_,I,_,W,O,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,W},
+        {W,_,H,_,W,W,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,W,_,_,_,W,W,W,W,W,W,W},
+        {W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
+        {W,_,_,H,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
+        {W,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,_,_,_,_,_,_,W,W,W,W,W,W},
+        {W,W,W,W,W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,_,_,W,W,_,_,_,W,W,W,W,W},
+>>>>>>> b53a791 (holes working, map not yet changed)
         {W,W,W,W,W,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,_,_,_,W,W,W,W},
         {W,W,W,W,_,_,_,W,W,W,_,_,W,W,W,W,W,_,H,_,W,W,W,W,W,W,_,_,_,W,W,W},
         {W,W,W,_,_,_,W,W,W,W,W,_,_,W,W,W,W,_,_,_,W,W,W,W,W,W,W,_,_,W,W,W},
