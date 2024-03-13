@@ -8,7 +8,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-UDPClient::UDPClient() {
+UDPClient::UDPClient(uint32_t connection_nb) {
     start_WSA();
 
     try {
@@ -16,7 +16,7 @@ UDPClient::UDPClient() {
             "0.0.0.0", CLIENT_UDP_RECV_PORT, SOCK_DGRAM);
 
         ADDRINFOA *server_addr_info = net::addr_info(
-            SERVER_IP, SERVER_UDP_PORT, SOCK_DGRAM);
+            SERVER_IP, SERVER_UDP_PORT_BASE + connection_nb, SOCK_DGRAM);
 
         send_socket_ = socket(client_addr_info->ai_family,
             client_addr_info->ai_socktype, client_addr_info->ai_protocol);

@@ -1,12 +1,14 @@
 #include "client_tcp.hpp"
 
-#include "netutils.hpp"
-#include "winsock_start.hpp"
 #include <cstdint>
 #include <iostream>
 #include <string>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+
+#include "netutils.hpp"
+#include "winsock_start.hpp"
+
 
 TCPClient::TCPClient() {
     start_WSA();
@@ -14,7 +16,7 @@ TCPClient::TCPClient() {
     try {
         ADDRINFOA *client_addr_info = net::addr_info(
             SERVER_IP, SERVER_TCP_PORT, SOCK_STREAM);
-        
+
         socket_ = socket(client_addr_info->ai_family,
             client_addr_info->ai_socktype, client_addr_info->ai_protocol);
         if (socket_ == SOCKET_ERROR) {
@@ -38,11 +40,21 @@ TCPClient::TCPClient() {
         WSACleanup();
         throw e;
     }
+
+    // Get connection number
+    unsigned char buffer[RECEIVE_BUF_SIZE];
+    receive(buffer);
+    connection_nb_ = pack::unpacku32(buffer);
 }
 
 TCPClient::~TCPClient() {
     closesocket(socket_);
     WSACleanup();
+}
+
+uint32_t TCPClient::get_connection_nb() const
+{
+    return connection_nb_;
 }
 
 void TCPClient::send_data(unsigned char buffer[SEND_BUF_SIZE]) {

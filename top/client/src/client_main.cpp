@@ -25,7 +25,7 @@ int main() {
 
     // Initialize network communication sockets
     TCPClient tcpClient;
-    UDPClient udpClient;
+    UDPClient udpClient(tcpClient.get_connection_nb());
 
     // Create window for rendering
     GLFWwindow* window;
