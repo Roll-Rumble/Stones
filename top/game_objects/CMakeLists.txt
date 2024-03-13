@@ -13,6 +13,8 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/hole_texture.png" "${CMAKE_
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/wall_texture_2.png" "${CMAKE_BINARY_DIR}/bin/wall_texture_2.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/metal-texture.png" "${CMAKE_BINARY_DIR}/bin/metal-texture.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/exit.png" "${CMAKE_BINARY_DIR}/bin/exit.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/start_texture.png" "${CMAKE_BINARY_DIR}/bin/start_texture.png" COPYONLY)
+
 
 add_library(game_objects ${SRC_FILES})
 
