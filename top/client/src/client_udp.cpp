@@ -11,6 +11,9 @@
 UDPClient::UDPClient(uint32_t connection_nb) {
     start_WSA();
 
+    std::cout << "Creating UDP port to listen on port " << CLIENT_UDP_RECV_PORT
+              << "and send to address " << SERVER_IP << " at port " << SERVER_UDP_PORT_BASE + connection_nb << "\n";
+
     try {
         ADDRINFOA *client_addr_info = net::addr_info(
             "0.0.0.0", CLIENT_UDP_RECV_PORT, SOCK_DGRAM);
@@ -78,6 +81,7 @@ std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
     try {
         // UDP recv has timeout of 1ms
         if (net::recv_buf(send_socket_, buffer, sizeof(buffer), 1000)) {
+            std::cout << "Successfully received a UDP packet\n";
             return pack::decode_pos(buffer);
         } else {
             return def;
