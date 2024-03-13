@@ -35,6 +35,9 @@ public:
     // Uses current position to resolve collisions and update velocity
     void resolve_wall_collisions(const Map &map);
 
+    // Uses current position to teleport ball to start if in a hole
+    void resolve_hole_fall(const Map& map);
+
 
     // Use current position and velocity to resolve collision with other ball
     static void resolve_ball_collision(Ball &ball1, Ball &ball2);

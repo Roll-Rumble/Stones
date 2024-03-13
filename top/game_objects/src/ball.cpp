@@ -104,7 +104,7 @@ void Ball::resolve_wall_collisions(const Map& map)
         if (map.is_wall(temp)) {
             wall_centre = map.tile_centre(temp);
             corner = { wall_centre.x + TILE_WIDTH / 2, wall_centre.y - TILE_HEIGHT / 2 };
-            distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+            distance = calculate_distance(position_, corner);
             if (radius_ > distance) {
                 position_.x += (position_.x - corner.x) * (radius_ - distance) / distance;
                 position_.y -= (corner.y - position_.y) * (radius_ - distance) / distance;
@@ -118,7 +118,7 @@ void Ball::resolve_wall_collisions(const Map& map)
         if (map.is_wall(temp2)) {
             wall_centre = map.tile_centre(temp2);
             corner = { wall_centre.x - TILE_WIDTH / 2, wall_centre.y - TILE_HEIGHT / 2 };
-            distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+            distance = calculate_distance(position_, corner);
             if (radius_ > distance) {
                 position_.x -= (corner.x - position_.x) * (radius_ - distance) / distance;
                 position_.y -= (corner.y - position_.y) * (radius_ - distance) / distance;
@@ -131,7 +131,7 @@ void Ball::resolve_wall_collisions(const Map& map)
         if (map.is_wall(temp3)) {
             wall_centre = map.tile_centre(temp3);
             corner = { wall_centre.x + TILE_WIDTH / 2, wall_centre.y + TILE_HEIGHT / 2 };
-            distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+            distance = calculate_distance(position_, corner);
             if (radius_ > distance) {
                 position_.x += (position_.x - corner.x) * (radius_ - distance) / distance;
                 position_.y += (position_.y - corner.y) * (radius_ - distance) / distance;
@@ -144,7 +144,7 @@ void Ball::resolve_wall_collisions(const Map& map)
         if (map.is_wall(temp4)) {
             wall_centre = map.tile_centre(temp4);
             corner = { wall_centre.x - TILE_WIDTH / 2, wall_centre.y + TILE_HEIGHT / 2 };
-            distance = sqrt(pow(position_.x - corner.x, 2) + pow(position_.y - corner.y, 2));
+            distance = calculate_distance(position_, corner);
             if (radius_ > distance) {
                 position_.x -= (corner.x - position_.x) * (radius_ - distance) / distance;
                 position_.y += (position_.y - corner.y) * (radius_ - distance) / distance;
@@ -155,6 +155,17 @@ void Ball::resolve_wall_collisions(const Map& map)
     default:
         std::cerr << "Unrecognised tile quadrant\n";
         exit(1);
+    }
+}
+
+void Ball::resolve_hole_fall(const Map& map)
+{
+    if (map.is_hole({ position_.x, position_.y})) {
+        XYPairFloat tile_centre = map.tile_centre(position_);
+        if (calculate_distance(position_, tile_centre) < HOLE_RADIUS) {
+            //make it go to the beginning
+            position_ = map.get_start_position();
+        }
     }
 }
 
