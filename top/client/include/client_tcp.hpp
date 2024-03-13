@@ -10,7 +10,7 @@
 
 
 #define SEND_BUF_SIZE 4
-#define RECEIVE_BUF_SIZE 8
+#define RECEIVE_BUF_SIZE 4
 
 class TCPClient {
 public:

@@ -4,7 +4,8 @@
 #include <winsock2.h>
 
 // TODO: MOVE THIS
-#define SERVER_IP "13.49.68.13"
+#define SERVER_IP "35.177.183.56"
+// #define SERVER_IP "13.49.68.13"
 
 void start_WSA();
 
