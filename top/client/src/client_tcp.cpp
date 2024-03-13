@@ -44,7 +44,8 @@ TCPClient::TCPClient() {
     // Get connection number
     unsigned char buffer[RECEIVE_BUF_SIZE];
     receive(buffer);
-    connection_nb_ = pack::unpacku32(buffer);
+    connection_nb_ = (unsigned int) pack::decode_pos(buffer).first;
+    std::cout << "Connected with connection number " << (int) connection_nb_ << "\n";
 }
 
 TCPClient::~TCPClient() {
