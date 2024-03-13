@@ -17,7 +17,7 @@
 
 enum class GameState {START, END, DB, PLAY};
 
-
+         
 
 int main(void)
 {
@@ -92,11 +92,12 @@ int main(void)
 
             if (ImGui::Begin("Example: Fullscreen window", NULL, flags))
             {
-                ImGui::SetWindowFontScale(3);
+                //ShowExampleMenuFile();
+                ImGui::SetWindowFontScale(7);
                 text_horizontally_center("Roll Rumble");
                 ImGui::SetCursorPosY(400);
                 ImGui::Text("Roll Rumble");
-                ImGui::Spacing();
+                ImGui::SetWindowFontScale(3);
                 if (button_horizontally_center("Start Game", ImVec2(500, 100))) {
                     state = GameState::PLAY;
                 }
@@ -106,6 +107,8 @@ int main(void)
                 if (button_horizontally_center("test: END", ImVec2(500, 100))) {
                     state = GameState::END;
                 }
+
+
                 /*ImGui::SameLine();
                 ImGui::Indent();
                 ImGui::Unindent();*/
