@@ -121,6 +121,7 @@ int main() {
         my_ball.set_velocity(normalize_accel(xy_tilt_input));
         my_ball.update_position();
         my_ball.resolve_wall_collisions(map);
+        my_ball.resolve_hole_fall(map);
 
         // Send data from controller over UDP
         XYPairFloat ball_position = my_ball.get_position();
