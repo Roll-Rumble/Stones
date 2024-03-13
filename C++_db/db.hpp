@@ -2,13 +2,14 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include "top/game_objects/include/game_util.hpp"
+#include "game_util.hpp"
 #include <filesystem>
 
 class Logger{
 
 public:
 	Logger(const int &GameID){
+		frame_ID_ = 0;
 		gameID_ = GameID;
 		std::string filename = "Replays/Storage" + std::to_string(GameID) + ".json";
 		file_.open(filename, std::ios::app);

@@ -40,6 +40,7 @@ int main() {
 	input.push_back( std::make_pair("0", "0"));
 	//std::cout << test.substr(test.find(":") + 1, 1);
 	log.Put(input);
+	std::cout << "put" << std::endl;
 	for(int i =1; i < 100; i++ ){
 		input[0].first = std::to_string(i);
 		input[1].second = std::to_string(i);
@@ -48,6 +49,7 @@ int main() {
 	log.Close();
 
 	output = log.Parse(0);
+	std::cout << "parse" << std::endl;
 	std::cout << output[0][0].x << " " << output[0][0].y << std::endl;
 	std::cout << output[1][1].x << " " << output[1][1].y << std::endl;
 	std::fstream file("Storage0.txt", std::ios::app);
@@ -62,4 +64,6 @@ int main() {
 	//std::cout << output[0].first << " " << output[0].second << std::endl;
 	//std::cout << output[1].first << " " << output[1].second << std::endl;
 	//log.Open("Storage0.json");
+
+	// g++ -std=c++17 main.cpp db.cpp -o main   // compile using C++ 17 or later
 }
