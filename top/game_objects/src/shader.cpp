@@ -156,8 +156,9 @@ void Shader::SetUniformMatrix4fv(const std::string& name, float* arr)
 
 int Shader::GetUniformLocation(const std::string& name)
 {
-	if (uniform_location_cache_.find(name) != uniform_location_cache_.end())
+	if (uniform_location_cache_.find(name) != uniform_location_cache_.end()) {
 		return uniform_location_cache_[name];
+	}
 
 	int location = glGetUniformLocation(shader_prog_, name.c_str());
 	if (location == -1) {
