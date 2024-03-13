@@ -1,4 +1,3 @@
-#ifdef CLIENT_COMPILE
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -6,8 +5,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "shader.hpp"
 #include "game_util.hpp"
+#include "shader.hpp"
+#include "objects.hpp"
+
 
 
 Shader::Shader(const std::string& vertex_shader_fname, const std::string& fragment_shader_fname)
@@ -43,13 +44,9 @@ Shader::~Shader()
 	glDeleteProgram(shader_prog_);
 }
 
-void Shader::Use(float r, float g, float b, float a) const
+void Shader::Bind()
 {
-	int vertexColorLocation = glGetUniformLocation(shader_prog_, COLOR_UNF);
-	int scaleTransformLocation = glGetUniformLocation(shader_prog_, SCALE_TRANS_UNF);
-	int subTransformLocation = glGetUniformLocation(shader_prog_, SUB_TRANS_UNF);
 	glUseProgram(shader_prog_);
-	glUniform4f(vertexColorLocation, r, g, b, a);
 	float scale_trans_mat[16] = {
 		2.0/SCREEN_WIDTH, 0.0, 0.0, 0.0,
 		0.0, 2.0/SCREEN_HEIGHT, 0.0, 0.0,
@@ -60,9 +57,14 @@ void Shader::Use(float r, float g, float b, float a) const
 	float sub_trans_vec[4] = {
 		-1.0, -1.0, 0.0, 0.0,
 	};
-	
-	glUniformMatrix4fv(scaleTransformLocation, 1, GL_FALSE, scale_trans_mat);
-	glUniform4fv(subTransformLocation, 1, sub_trans_vec);
+
+	SetUniformMatrix4fv(SCALE_TRANS_UNF, scale_trans_mat);
+	SetUniform4fv(SUB_TRANS_UNF, sub_trans_vec);
+}
+
+void Shader::Unbind()
+{
+	glUseProgram(0);
 }
 
 
@@ -77,8 +79,8 @@ unsigned int Shader::CreateShader(const std::string& vertex_shader, const std::s
 	glLinkProgram(program);
 
 	// this is optional and will detach them from the program object
-	// can also not use Detach to keep shader in there which might be
-	// useful for debugging
+	// can also not Bind Detach to keep shader in there which might be
+	// Bindful for debugging
 	glDetachShader(program, vs);
 	glDetachShader(program, fs);
 
@@ -89,7 +91,7 @@ unsigned int Shader::CreateShader(const std::string& vertex_shader, const std::s
 	glDeleteShader(fs);
 
 	return program;
-	
+
 }
 
 unsigned int Shader::CompileShader(const std::string& shader, unsigned int type)
@@ -127,4 +129,39 @@ unsigned int Shader::CompileShader(const std::string& shader, unsigned int type)
 
 	return id;
 }
-#endif
+
+void Shader::SetUniform1i(const std::string& name, int val)
+{
+	glUniform1i(GetUniformLocation(name), val);
+}
+
+void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
+{
+	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+}
+
+void Shader::SetUniform4fv(const std::string& name, float* arr)
+{
+	glUniform4fv(GetUniformLocation(name), 1, arr);
+}
+
+void Shader::SetUniformMatrix4fv(const std::string& name, float* arr)
+{
+	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, arr);
+}
+
+int Shader::GetUniformLocation(const std::string& name)
+{
+	if (uniform_location_cache_.find(name) != uniform_location_cache_.end()) {
+		return uniform_location_cache_[name];
+	}
+
+	int location = glGetUniformLocation(shader_prog_, name.c_str());
+	if (location == -1) {
+		std::cerr << "Warning: uniform '" << name << "' doesn't exist!" << std::endl;
+	}
+
+	uniform_location_cache_[name] = location;
+	return location;
+
+}
