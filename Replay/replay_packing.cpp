@@ -36,6 +36,9 @@ void encode_input(char *buffer, int16_t x, int16_t y) {
 //         }
 //     }
 //     if (buffer_index > 0) {
+//         while(buffer_index < BUFFER_SIZE){
+//             data_buffer[buffer_index++] = 33 333;
+//         }
 //         TCPclient.send_data(data_buffer);
 //     }
 // }
