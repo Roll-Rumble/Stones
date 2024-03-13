@@ -20,7 +20,7 @@ int main()
         std::cout << "About to do emplace number " << i << "\n";
         udp_handlers.emplace_back(new UDPServ(client_addrs[i].first, i));
         std::cout << "Finished emplace number " << i << "\n";
-        balls.emplace_back(map);
+        balls.emplace_back(map, 0);
     }
 
     std::cout << "Size of udp handlers is " << udp_handlers.size() << "\n";

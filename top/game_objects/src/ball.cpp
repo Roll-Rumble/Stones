@@ -15,7 +15,7 @@
 #include "map.hpp"
 #include <cmath>
 
-Ball::Ball(const Map& map) : velocity_{ 0 }, accel_{ 0 }, radius_{ RADIUS }
+Ball::Ball(const Map& map, int ball_slot) : velocity_{ 0 }, accel_{ 0 }, radius_{ RADIUS }, ball_slot_{ball_slot}
 {
     position_ = map.get_start_position();
 #ifdef CLIENT_COMPILE
@@ -276,7 +276,7 @@ void Ball::draw(Shader &shader) const
         layout.Push<float>(2);
         va.AddBuffer(vb, layout);
         shader.Bind();
-        shader.SetUniform1i(TEX_UNF, BALL_SLOT);
+        shader.SetUniform1i(TEX_UNF, ball_slot_);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
         va.Unbind();
