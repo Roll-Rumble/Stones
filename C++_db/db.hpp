@@ -2,13 +2,14 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include "top/game_objects/include/game_util.hpp"
+#include "game_util.hpp"
 #include <filesystem>
 
 class Logger{
 
 public:
 	Logger(const int &GameID){
+		frame_ID_ = 0;
 		gameID_ = GameID;
 		std::string filename = "Replays/Storage" + std::to_string(GameID) + ".json";
 		file_.open(filename, std::ios::app);
@@ -29,16 +30,14 @@ public:
 	void Open(const std::string &file){
 		file_.open(file, std::ios::app);
 	};
-	int GetLatestGame(){
-		return latest_game_;
-	};
-	int Getlatestgame(){
+	uint32_t GetLatestGame(){
 		return latest_game_;
 	};
 	
+	
 private:
 	std::ofstream file_;
-	int latest_game_;
+	uint32_t latest_game_;
 	int gameID_;
 	int game_length_;
 	int frame_ID_;
