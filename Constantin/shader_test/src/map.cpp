@@ -87,6 +87,9 @@ void Map::draw(Shader &shader) const
             case Tile::O:
                 shader.SetUniform1i(TEX_UNF, EXIT_SLOT);
                 break;
+            case Tile::H:
+                shader.SetUniform1i(TEX_UNF, HOLE_SLOT);
+                break;
             }
 
             glDrawArrays(GL_QUADS, 0, 4);

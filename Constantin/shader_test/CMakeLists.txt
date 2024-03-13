@@ -13,8 +13,9 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_fs.txt" "$
  
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/floor_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/floor_texture.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/hole_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/hole_texture.png" COPYONLY)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/wall_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/wall_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/wall_texture_2.png" "${CMAKE_CURRENT_BINARY_DIR}/wall_texture_2.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/metal-texture.png" "${CMAKE_CURRENT_BINARY_DIR}/metal-texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/exit.png" "${CMAKE_CURRENT_BINARY_DIR}/exit.png" COPYONLY)
 
 # Add source to this project's executable.
 add_executable (shader_test "src/main.cpp"  "src/game_util.cpp" "src/ball.cpp" "src/map.cpp" "src/shader.cpp" "src/texture.cpp" "src/stb_image.cpp" "src/vertex_buffer.cpp" "src/vertex_array.cpp")

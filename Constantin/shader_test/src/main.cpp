@@ -19,7 +19,7 @@ int main(void)
 
     
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "Roll Rumble", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -38,16 +38,18 @@ int main(void)
 
     Shader shader("color_shader_vs.txt", "color_shader_fs.txt");
     Texture floor_tex("floor_texture.png");
-    Texture wall_tex("wall_texture.png");
+    Texture wall_tex("wall_texture_2.png");
     Texture hole_tex("hole_texture.png");
     Texture ball_tex("metal-texture.png");
+    Texture exit_tex("exit.png");
+    Texture entrance_tex("exit.png");
 
     floor_tex.Bind(FLOOR_SLOT);
     wall_tex.Bind(WALL_SLOT);
     hole_tex.Bind(HOLE_SLOT);
     ball_tex.Bind(BALL_SLOT);
-    floor_tex.Bind(ENTRANCE_SLOT);
-    floor_tex.Bind(EXIT_SLOT);
+    entrance_tex.Bind(ENTRANCE_SLOT);
+    exit_tex.Bind(EXIT_SLOT);
 
     shader.Bind();
     /* Loop until the Bindr closes the window */
