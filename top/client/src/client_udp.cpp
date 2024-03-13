@@ -8,15 +8,18 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-UDPClient::UDPClient() {
+UDPClient::UDPClient(uint32_t connection_nb) {
     start_WSA();
+
+    std::cout << "Creating UDP port to listen on port " << CLIENT_UDP_RECV_PORT
+              << "and send to address " << SERVER_IP << " at port " << SERVER_UDP_PORT_BASE + connection_nb << "\n";
 
     try {
         ADDRINFOA *client_addr_info = net::addr_info(
             "0.0.0.0", CLIENT_UDP_RECV_PORT, SOCK_DGRAM);
 
         ADDRINFOA *server_addr_info = net::addr_info(
-            SERVER_IP, SERVER_UDP_PORT, SOCK_DGRAM);
+            SERVER_IP, SERVER_UDP_PORT_BASE + connection_nb, SOCK_DGRAM);
 
         send_socket_ = socket(client_addr_info->ai_family,
             client_addr_info->ai_socktype, client_addr_info->ai_protocol);
@@ -49,6 +52,7 @@ UDPClient::UDPClient() {
 }
 
 UDPClient::~UDPClient() {
+    std::cout << "entering UDP destructor\n";
     closesocket(send_socket_);
     WSACleanup();
 }
@@ -76,13 +80,16 @@ void UDPClient::send_xy(int16_t x, int16_t y) {
 std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
     unsigned char buffer[8];
     try {
-        if (net::recv_buf(send_socket_, buffer, sizeof(buffer))) {
+        // UDP recv has timeout of 1ms
+        if (net::recv_buf(send_socket_, buffer, sizeof(buffer), 1000)) {
+            std::cout << "Successfully received a UDP packet\n";
             return pack::decode_pos(buffer);
         } else {
             return def;
         }
 
     } catch (std::exception &e) {
+        std::cout << "error code: " << WSAGetLastError() << "\n";
         std::cout << "exception: " << e.what() << "\n";
         WSACleanup();
         throw e;

@@ -162,9 +162,10 @@ void send_buf(int sock, unsigned char *buf, ssize_t len)
     }
 }
 
-bool recv_buf(int sock, unsigned char *buf, ssize_t len)
+bool recv_buf(int sock, unsigned char *buf, ssize_t len, int timeout)
 {
-    ssize_t received = recvtimeout(sock, (char *)buf, len, 1000);
+    // Temporarily made timeout 1000s to avoid changing all code to blocking
+    ssize_t received = recvtimeout(sock, (char *)buf, len, timeout);
     if (received == -2) {
         return false;
     }
@@ -174,7 +175,8 @@ bool recv_buf(int sock, unsigned char *buf, ssize_t len)
     }
     ssize_t recv_len = received;
     while (received < len) {
-        received = recvtimeout(sock, (char *)buf + recv_len, len - recv_len, 1000);
+        // Temporarily made timeout 1000s to avoid changing all code to blocking
+        received = recvtimeout(sock, (char *)buf + recv_len, len - recv_len, timeout);
         if (received == -2) {
             return false;
         }
