@@ -15,18 +15,20 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/game_objects)
 
 if(CMAKE_HOST_SYSTEM MATCHES Windows)
 	file(GLOB CLIENT_SRC_FILES "${PROJECT_SOURCE_DIR}/client/src/*.cpp")
+	file(GLOB IMGUI_SRC_FILES "${PROJECT_SOURCE_DIR}/imgui/src/*.cpp")
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/client/dependencies/jtag_atlantic/lib/jtag_atlantic.dll" "${CMAKE_CURRENT_BINARY_DIR}/bin/jtag_atlantic.dll" COPYONLY)
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/client/dependencies/jtag_atlantic/lib/jtag_client.dll" "${CMAKE_CURRENT_BINARY_DIR}/bin/jtag_client.dll" COPYONLY)
 
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/client/color_shader/color_shader_vs.txt" "${CMAKE_CURRENT_BINARY_DIR}/bin/color_shader_vs.txt" COPYONLY)
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/client/color_shader/color_shader_fs.txt" "${CMAKE_CURRENT_BINARY_DIR}/bin/color_shader_fs.txt" COPYONLY)
 	# Add source to this project's executable.
-	add_executable (client ${CLIENT_SRC_FILES})
+	add_executable (client ${CLIENT_SRC_FILES} ${IMGUI_SRC_FILES})
 
 	target_include_directories(client PUBLIC
 		"${CMAKE_CURRENT_SOURCE_DIR}/client/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/client/dependencies/jtag_atlantic/include"
 		"${PROJECT_SOURCE_DIR}/netutils"
+		"${PROJECT_SOURCE_DIR}/imgui/include"
 		"${PROJECT_SOURCE_DIR}/game_objects/include")
 
 	# Add dynamically linked library
