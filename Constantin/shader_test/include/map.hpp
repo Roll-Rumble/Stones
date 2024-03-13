@@ -41,7 +41,7 @@ public:
     XYPairFloat get_start_position() const;
 
 
-    void draw(const Shader &shader) const;
+    void draw(Shader &shader) const;
 
 private:
     unsigned int buffer_;

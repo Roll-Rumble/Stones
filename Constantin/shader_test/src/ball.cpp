@@ -4,6 +4,11 @@
 
 #include "ball.hpp"
 
+#include "vertex_array.hpp"
+#include "vertex_buffer.hpp"
+#include "vertex_buffer_layout.hpp"
+
+#include "texture.hpp"
 #include "game_util.hpp"
 #include "map.hpp"
 
@@ -113,33 +118,45 @@ XYPairFloat Ball::get_circle_pos(float angle) const
     return pos;
 }
 
-void Ball::draw(const Shader &shader) const
+void Ball::draw(Shader &shader) const
 {
-    shader.Use(1.0, 0.0, 0.0, 1.0);
-    float positions[6];
+    shader.Bind();
+    shader.SetUniform4f(COLOR_UNF, 1.0, 0.0, 0.0, 1.0);
+    float positions[3 * 4];
 
     float x_off, y_off;
-
+    VertexArray va;
     for (int i = 0; i < CIRCLE_SEGS; i++)
     {
         auto [x_off_0, y_off_0] = get_circle_pos(2.0f * PI * float(i) / float(CIRCLE_SEGS));
-
+        
         positions[0] = position_.x + x_off_0;
         positions[1] = position_.y + y_off_0;
+        positions[2] = x_off_0 / radius_;
+        positions[3] = y_off_0 / radius_;
 
         auto [x_off_1, y_off_1] = get_circle_pos(2.0f * PI * float(i + 1) / float(CIRCLE_SEGS));
-        positions[2] = position_.x + x_off_1;
-        positions[3] = position_.y + y_off_1;
-        positions[4] = position_.x;
-        positions[5] = position_.y;
+        positions[4] = position_.x + x_off_1;
+        positions[5] = position_.y + y_off_1;
+        positions[6] = x_off_1 / radius_;
+        positions[7] = y_off_1 / radius_;
+        positions[8] = position_.x;
+        positions[9] = position_.y;
+        positions[10] = 0.0f;
+        positions[11] = 0.0f;
 
-        glBindBuffer(GL_ARRAY_BUFFER, buffer_);
-        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_DYNAMIC_DRAW);
+        VertexBuffer vb(positions, 3 * 4 * sizeof(float));
+        VertexBufferLayout layout;
+        layout.Push<float>(2);
+        layout.Push<float>(2);
+        va.AddBuffer(vb, layout);
+        shader.Bind();
+        shader.SetUniform1i(TEX_UNF, BALL_SLOT);
 
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, 0);
-
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        va.Unbind();
+        vb.Unbind();
+        shader.Unbind();
     }
 
     

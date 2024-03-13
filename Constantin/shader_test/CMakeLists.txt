@@ -11,8 +11,13 @@ project ("shader_test")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_vs.txt" "${CMAKE_CURRENT_BINARY_DIR}/color_shader_vs.txt" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_fs.txt" "${CMAKE_CURRENT_BINARY_DIR}/color_shader_fs.txt" COPYONLY)
  
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/floor_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/floor_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/hole_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/hole_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/wall_texture.png" "${CMAKE_CURRENT_BINARY_DIR}/wall_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/metal-texture.png" "${CMAKE_CURRENT_BINARY_DIR}/metal-texture.png" COPYONLY)
+
 # Add source to this project's executable.
-add_executable (shader_test "src/main.cpp"  "src/game_util.cpp" "src/ball.cpp" "src/map.cpp" "src/shader.cpp")
+add_executable (shader_test "src/main.cpp"  "src/game_util.cpp" "src/ball.cpp" "src/map.cpp" "src/shader.cpp" "src/texture.cpp" "src/stb_image.cpp" "src/vertex_buffer.cpp" "src/vertex_array.cpp")
 
 
 target_include_directories(shader_test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include"
