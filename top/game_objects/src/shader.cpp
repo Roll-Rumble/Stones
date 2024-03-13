@@ -57,7 +57,7 @@ void Shader::Bind()
 	float sub_trans_vec[4] = {
 		-1.0, -1.0, 0.0, 0.0,
 	};
-	
+
 	SetUniformMatrix4fv(SCALE_TRANS_UNF, scale_trans_mat);
 	SetUniform4fv(SUB_TRANS_UNF, sub_trans_vec);
 }
@@ -91,7 +91,7 @@ unsigned int Shader::CreateShader(const std::string& vertex_shader, const std::s
 	glDeleteShader(fs);
 
 	return program;
-	
+
 }
 
 unsigned int Shader::CompileShader(const std::string& shader, unsigned int type)
@@ -152,8 +152,9 @@ void Shader::SetUniformMatrix4fv(const std::string& name, float* arr)
 
 int Shader::GetUniformLocation(const std::string& name)
 {
-	if (uniform_location_cache_.find(name) != uniform_location_cache_.end())
+	if (uniform_location_cache_.find(name) != uniform_location_cache_.end()) {
 		return uniform_location_cache_[name];
+	}
 
 	int location = glGetUniformLocation(shader_prog_, name.c_str());
 	if (location == -1) {
