@@ -24,9 +24,11 @@ std::vector< std::vector<XYPairInt16> > Convert_to_vector (const char *data_buff
         int16_t x = data_buffer[buffer_index++] << 8 + data_buffer[buffer_index++]; // for ball 0
         int16_t y = data_buffer[buffer_index++] << 8 + data_buffer[buffer_index++];
         frame.push_back(toXYpair(x, y));
+
         x = data_buffer[buffer_index++] << 8 + data_buffer[buffer_index++]; // for ball 1
         y = data_buffer[buffer_index++] << 8 + data_buffer[buffer_index++];
         frame.push_back(toXYpair(x, y));
+        
         replay_data.push_back(frame);
         frame.clear();
     }

@@ -6,17 +6,17 @@
 #define BUFFER_SIZE 1024
 #define INT16_SIZE 2
 
-void pack32(char *buf, uint32_t xy) {
-    buf[0] = (xy >> 24) & 0xFF; //  we AND with 0xFF to ensure that the value is 8 only bits long (= 1 byte)
-    buf[1] = (xy >> 16) & 0xFF;
-    buf[2] = (xy >> 8) & 0xFF;
-    buf[3] = xy & 0xFF;
+void pack32(char *buffer, uint32_t xy) {
+    buffer[0] = (xy >> 24) & 0xFF; //  we AND with 0xFF to ensure that the value is 8 only bits long (= 1 byte)
+    buffer[1] = (xy >> 16) & 0xFF;
+    buffer[2] = (xy >> 8) & 0xFF;
+    buffer[3] = xy & 0xFF;
 }
 
 
-void encode_input(char *buf, int16_t x, int16_t y) {
+void encode_input(char *buffer, int16_t x, int16_t y) {
     uint32_t xy = ((uint32_t)x << 16) + (uint32_t)y; // x is most significant 16 bits and y is least significant 16 bits
-    pack32(buf, xy);
+    pack32(buffer, xy);
 }
 
 
@@ -25,8 +25,8 @@ void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> > &replay_da
     unsigned int buffer_index = 0;
     TCP_Client TCPclient;
 
-    for (const auto frame : replay_data) {
-        for (const auto xy_pair : frame) { // each frame has 2 pairs, one for each ball
+    for (const auto& frame : replay_data) {
+        for (const auto& xy_pair : frame) { // each frame has 2 pairs, one for each ball
             encode_input(data_buffer, xy_pair.x, xy_pair.y);
             buffer_index += 2 * INT16_SIZE; // each pair has 2 int16, x and y
             if (buffer_index >= BUFFER_SIZE) {
