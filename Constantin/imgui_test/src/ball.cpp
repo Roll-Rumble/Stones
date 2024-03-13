@@ -139,7 +139,7 @@ void Ball::draw(const Shader &shader) const
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, 0);
 
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 
     

@@ -14,8 +14,10 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_vs.txt" "$
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_fs.txt" "${CMAKE_CURRENT_BINARY_DIR}/color_shader_fs.txt" COPYONLY)
  
 
+file(GLOB IMGUI_SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/imgui/src/*.cpp")
+
 # Add source to this project's executable.
-add_executable (imgui_test ${SRC_FILES})
+add_executable (imgui_test ${SRC_FILES} ${IMGUI_SRC_FILES})
 
 
 target_include_directories(imgui_test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include"
@@ -27,9 +29,7 @@ add_library(GLFW STATIC IMPORTED)
 add_library(GLEW STATIC IMPORTED)
 add_library(OpenGL STATIC IMPORTED)
 
-
 target_compile_definitions(GLEW INTERFACE "GLEW_STATIC")
-
 
 set_target_properties(GLFW PROPERTIES IMPORTED_LOCATION
 "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLFW/lib-vc2022/glfw3.lib")
@@ -40,7 +40,7 @@ set_target_properties(GLEW PROPERTIES IMPORTED_LOCATION
 set_target_properties(OpenGL PROPERTIES IMPORTED_LOCATION
 "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64/OpenGL32.Lib")
 
-target_link_libraries(imgui_test imgui GLFW GLEW OpenGL)
+target_link_libraries(imgui_test GLFW GLEW OpenGL)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET imgui_test PROPERTY CXX_STANDARD 20)
