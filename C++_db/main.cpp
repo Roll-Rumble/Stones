@@ -60,6 +60,7 @@ int main() {
 		}
 		file << std::endl;
 	}
+	std::cout << "closed" << std::endl;
 	//output = log.Get(3,GAMEID);
 	//std::cout << output[0].first << " " << output[0].second << std::endl;
 	//std::cout << output[1].first << " " << output[1].second << std::endl;

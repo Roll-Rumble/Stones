@@ -48,7 +48,8 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 	std::vector<std::vector<XYPairInt16> > output;
 	std::vector<XYPairInt16 > temp;
 	XYPairInt16 pair;
-	std::string filename = "Storage" + std::to_string(GameID) + ".json";
+	std::string filename = "Replays/Storage" + std::to_string(GameID) + ".json";
+	//std::cout << "filename error" << std::endl;
 	std::ifstream file(filename);
 	std::string line;
 	//std::string Frame =std::to_string(FrameID);
@@ -57,16 +58,20 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 	int start;
 	int comma1;
 	int comma2;
-	bool found = false;
+	//std::cout << "file not open " << std::endl;
 	if (file.is_open()) {
+		std::cout << "file open" << std::endl;
 		std::getline(file, line);
 		std::getline(file, line);
 		int BallNo = stoi(line.substr(line.find(":") +1));
+
 		std::getline(file, line);
 		int index = 0;
 		std::getline(file, line);
+		//std::cout << "setup" << std::endl;
 		while (line[line.length() -1] != '}') {
 			start = line.find("[ [");
+			//std::cout << "start" << std::endl;
 			if ( start != std::string::npos) {
 				for (int i = 0; i < BallNo; i++) {
 					
@@ -75,6 +80,7 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 						comma2 = line.find(",", comma1 + 1);
 						x = line.substr(comma1 + 1, comma2 - comma1 - 1);
 						y = line.substr(comma2 + 1, line.find("]") - comma2 - 1);
+						//std::cout << x << "x ball y" << y << std::endl;
 					//}
 					pair.x = stoi(x);
 					pair.y = stoi(y);
@@ -89,14 +95,16 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 				temp.clear();
 				//std::cout << "output generated" << std::endl;
 			}
+			//std::cout << std::endl << line[line.length() -1] << std::endl;
 		}
 		file.close();
-		//std::cout << "Get is successful" << std::endl;
+		std::cout << "Get is successful" << std::endl;
 		game_length_ = output.size();
 		return output;
 	}
 	//std::cout << "Get is unsuccessful" << std::endl;
-	throw "File not found";
+	std::cout << "File not found" << std::endl;
+	return output;
 	}
 	
 
