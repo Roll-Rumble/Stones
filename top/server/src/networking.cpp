@@ -83,7 +83,7 @@ void TCPServ::send_xy(int client_id, float x, float y)
 std::pair<int16_t, int16_t> TCPServ::recv_xy(int client_id, std::pair<int16_t, int16_t> def)
 {
     unsigned char buf[4];
-    if (net::recv_buf(conn_socks_[client_id], buf, 4)) {
+    if (net::recv_buf(conn_socks_[client_id], buf, 4, 1000000000)) {
         return pack::decode_input(buf);
     } else {
         return def;
@@ -145,7 +145,7 @@ void UDPServ::send_xy(float x, float y)
 std::pair<int16_t, int16_t> UDPServ::recv_xy(std::pair<int16_t, int16_t> def)
 {
     unsigned char buf[4];
-    if (net::recv_buf(sockfd_, buf, 4)) {
+    if (net::recv_buf(sockfd_, buf, 4, 1000)) {
         return pack::decode_input(buf);
     } else {
         return def;
