@@ -18,8 +18,9 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/color_shader/color_shader_fs.txt" "$
 add_executable (imgui_test ${SRC_FILES})
 
 
-target_include_directories(shader_test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include"
-  "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLFW/include")
+target_include_directories(imgui_test PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLEW/include"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/GLFW/include"
+  "${CMAKE_CURRENT_SOURCE_DIR}/imgui/include")
 
 # Add dynamically linked library
 add_library(GLFW STATIC IMPORTED)
@@ -39,8 +40,8 @@ set_target_properties(GLEW PROPERTIES IMPORTED_LOCATION
 set_target_properties(OpenGL PROPERTIES IMPORTED_LOCATION
 "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64/OpenGL32.Lib")
 
-target_link_libraries(shader_test GLFW GLEW OpenGL)
+target_link_libraries(imgui_test imgui GLFW GLEW OpenGL)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET shader_test PROPERTY CXX_STANDARD 20)
+  set_property(TARGET imgui_test PROPERTY CXX_STANDARD 20)
 endif()
