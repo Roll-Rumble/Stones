@@ -52,6 +52,7 @@ UDPClient::UDPClient(uint32_t connection_nb) {
 }
 
 UDPClient::~UDPClient() {
+    std::cout << "entering UDP destructor\n";
     closesocket(send_socket_);
     WSACleanup();
 }
@@ -88,6 +89,7 @@ std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
         }
 
     } catch (std::exception &e) {
+        std::cout << "error code: " << WSAGetLastError() << "\n";
         std::cout << "exception: " << e.what() << "\n";
         WSACleanup();
         throw e;
