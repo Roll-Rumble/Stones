@@ -13,6 +13,7 @@
 
 #include "netutils.hpp"
 #include "networking.hpp"
+#include "replay_packing.cpp"
 
 
 TCPServ::TCPServ()
@@ -89,6 +90,42 @@ std::pair<int16_t, int16_t> TCPServ::recv_xy(int client_id, std::pair<int16_t, i
         return def;
     }
 }
+
+
+void TCPServ::send_nb_games(int client_id){
+    uint32_t num_games;
+    Logger db(0);
+    num_games = db.GetLatestGame();
+    unsigned char num_games_buffer[4];
+    pack32(num_games_buffer, num_games);
+    net::send_buf(conn_socks_[client_id], num_games_buffer, 4);
+}
+
+
+int TCPServ::recieve_game_ID(){
+    //recieve game ID from client
+    unsigned char buf[4];
+    if (net::recv_buf(conn_socks_[client_id], buf, 4)) {
+        return buf[3];
+    }
+    else{
+        return -1;
+    }
+}
+
+void TCPServ::send_replay_data(uint32_t GameID, int client_id){
+    Logger db(GameID);
+    std::vector< std::vector<XYPairInt16> > replay_data = db.Parse(GameID);
+    Convert_to_Buffers(replay_data, int client_id);
+}
+
+void TCPServ::send_buffer(int client_id, const char *buffer, size_t size)
+{
+    net::send_buf(conn_socks_[client_id], buffer, size);
+}
+
+
+
 
 // returns socket file descriptor
 UDPServ::UDPServ(std::string &addr, uint32_t connection_nb)

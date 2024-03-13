@@ -27,6 +27,7 @@ public:
 private:
     int sockfd_;
     std::vector<int> conn_socks_;
+    void send_buffer(int client_id, const char *buffer, size_t size);
 };
 
 class UDPServ
