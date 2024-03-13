@@ -1,16 +1,73 @@
 #include <iostream>
+#include <thread>
+#include <climits>
 
 #include "networking.hpp"
 #include "ball.hpp"
 #include "map.hpp"
+#include "db.hpp"
+#include "netutils.hpp"
 
 #define NUM_CLIENTS 2
+#define BUF_SIZE 1024
+
+void db_thread(int client_id, TCPServ &serv)
+{
+	Logger db(0);
+	// wait for 'g' (get)
+	
+	char buf[1];
+	
+	
+	// send no of games
+	
+	unsigned char buf_out[BUF_SIZE];
+
+	while (true) {
+
+		buf[0] = 'i';
+		while (buf[0] == 'i') {
+			serv.recv_buffer(client_id, (unsigned char *)buf, 1);
+		}
+		if(buf[0] == 'g'){
+			serv.send_int(client_id, Logger::GetLatestGame());
+		}
+		else
+		{
+			
+			// wait for game id
+			int game_id = serv.recv_int(client_id);
+			// send data for game id
+			
+			std::vector<std::vector<XYPairInt16>> game_data = db.Parse(game_id);
+			serv.send_int(client_id, game_data.size());
+			
+			unsigned char *buf_ptr = buf_out;
+			for (int i = 0; i < game_data.size(); i++) {
+				pack::packu16(buf_ptr, game_data[i][0].x);
+				pack::packu16(buf_ptr+2, game_data[i][0].y);
+				pack::packu16(buf_ptr+4, game_data[i][1].x);
+				pack::packu16(buf_ptr+6, game_data[i][1].y);
+				buf_ptr += 8;
+				if (buf_ptr - buf_out == BUF_SIZE) {
+					serv.send_buffer(client_id, buf_out, BUF_SIZE);
+					buf_ptr = buf_out;
+				}
+			}
+			memset(buf_ptr, 255, BUF_SIZE - (buf_ptr - buf_out));
+			serv.send_buffer(client_id, buf_out, BUF_SIZE);
+		}
+	}
+}
 
 int main()
 {
 	TCPServ tcp_serv;
 	Map map;
 	std::vector<std::pair<std::string, int>> client_addrs = tcp_serv.get_connections(NUM_CLIENTS);
+
+	std::thread client_thread_0(db_thread, 0, tcp_serv);
+	std::thread client_thread_1(db_thread, 1, tcp_serv);
 
 	std::vector<UDPServ *> udp_handlers;
 	std::vector<Ball> balls;
@@ -42,21 +99,33 @@ int main()
 	// 	udp_handlers.emplace_back(addr_and_port.first, addr_and_port.second);
 	// 	balls.emplace_back(map);
 	// }
-
-	std::vector<std::pair<int16_t, int16_t>> input = {{0,0}, {0,0}};
+	Logger db(Logger::GetLatestGame() + 1);
+	std::vector<std::pair<uint16_t, uint16_t>> input = {{0,0}, {0,0}};
 	while (true) {
         // std::cout << "Number of balls is " << udp_handlers.size() << "\n";
 		for (int i = 0; i < udp_handlers.size(); i++) {
 		// 	int prev_input = input.first;
             // std::cout << "udp handlers size is " << udp_handlers.size() << "\n";
-            std::pair<int16_t,int16_t> prev_input = input[i];
+            std::pair<uint16_t,uint16_t> prev_input = input[i];
             // std::cout << "About to try to receive on UDP from client " << i << "\n";
 			input[i] = udp_handlers[i]->recv_xy(input[i]);
+			if (input[i].first == SHRT_MAX && input[i].second == SHRT_MAX) {
+				udp_handlers[i]->send_xy((float)SHRT_MAX, (float)SHRT_MAX);
+				udp_handlers[!i]->send_xy((float)SHRT_MIN, (float)SHRT_MIN);
+				db.Close();
+			}
             // std::cout << "Successfully executed receive function from client" << i << "\n";
-            if (input[i] != prev_input && udp_handlers.size() == 2) {
+            else if (input[i] != prev_input && udp_handlers.size() == 2) {
                 std::cout << "Sending data to client " << !i << "\n";
                 std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
                 udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
+				if (!db.IsOpen())
+				{
+					db.Open("Replays/Storage" + 
+					std::to_string(db.GetLatestGame() + 1) + ".json"); 
+					// will lose frames if out of order causes db close before game end
+				}
+				db.Put(input);
             }
 
             // if (input != prev_input) {
@@ -87,6 +156,9 @@ int main()
     for (auto udp_handler : udp_handlers) {
         delete udp_handler;
     }
+
+	client_thread_0.join();
+	client_thread_1.join();
 
 	return 0;
 }

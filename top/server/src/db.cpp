@@ -16,9 +16,6 @@ Logger::Logger(const int GameID)
 		std::string filename = "Replays/Storage" +
 			std::to_string(GameID) + ".json";
 		file_.open(filename, std::ios::app);
-		latest_game_ = std::distance(
-			std::filesystem::directory_iterator("Replays"),
-			std::filesystem::directory_iterator()) - 1;
 };
 
 Logger::~Logger()
@@ -36,14 +33,25 @@ void Logger::Close()
 void Logger::Open(const std::string &file)
 {
 	file_.open(file, std::ios::app);
-};
+	gameID_ = stoi(file.substr(
+		file.find("e") + 1,file.find(".")-file.find("e") -1 ));
+}
+
+bool Logger::IsOpen(){
+	if (file_.is_open()){
+		return 1;
+	}
+	return 0;
+}
 
 uint32_t Logger::GetLatestGame()
 {
-	return latest_game_;
+	return std::distance(
+			std::filesystem::directory_iterator("Replays"),
+			std::filesystem::directory_iterator()) - 1;
 };
 
-int Logger::Put(std::vector<std::pair<std::string, std::string> > input) {
+int Logger::Put(std::vector<std::pair<uint16_t, uint16_t> > input) {
 	
 	//std::ofstream file_("Storage.txt", std::ios::app); // later use game id
 

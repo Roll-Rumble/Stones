@@ -48,7 +48,7 @@ TCPClient::TCPClient() {
 
     // Get connection number
     unsigned char buffer[RECEIVE_BUF_SIZE];
-    receive(buffer);
+    recv_buffer(buffer, RECEIVE_BUF_SIZE);
     connection_nb_ = (unsigned int) pack::decode_pos(buffer).first;
     std::cout << "Connected with connection number " << (int) connection_nb_ << "\n";
 }
@@ -63,24 +63,44 @@ uint32_t TCPClient::get_connection_nb() const
     return connection_nb_;
 }
 
-void TCPClient::send_data(unsigned char buffer[SEND_BUF_SIZE]) {
+void TCPClient::send_buffer(unsigned char *buffer, size_t len) {
     try {
-        net::send_buf(socket_, buffer, SEND_BUF_SIZE);
+        net::send_buf(socket_, buffer, len);
     } catch (std::exception &e) {
         WSACleanup();
         throw e;
     }
 }
 
-void TCPClient::receive(unsigned char buffer[RECEIVE_BUF_SIZE]) {
+void TCPClient::recv_buffer(unsigned char *buffer, size_t len) {
     try {
-        memset(buffer, 0, RECEIVE_BUF_SIZE);
-        // TCP timeout is 1000s
-        net::recv_buf(socket_, buffer, RECEIVE_BUF_SIZE, 1000000000);
+        net::recv_buf(socket_, buffer, len, -1);
     } catch (std::exception &e) {
         WSACleanup();
         throw e;
     }
+}
+
+void TCPServ::send_int(uint32_t val)
+{
+    unsigned char buf[sizeof(uint32_t)];
+    pack::packu32(buf, val);
+
+    send_buffer(buf, sizeof(uint32_t));
+}
+
+uint32_t TCPServ::recv_int()
+{
+    unsigned char buf[sizeof(uint32_t)];
+    recv_buffer(buf, sizeof(uint32_t));
+    return pack::unpacku32(buf);
+}
+
+uint16_t TCPServ::recv_uint16()
+{
+    unsigned char buf[sizeof(uint16_t)];
+    recv_buffer(buf, sizeof(uint16_t));
+    return pack::unpacku16(buf);
 }
 
 void TCPClient::send_xy(int16_t x, int16_t y) {
@@ -119,13 +139,32 @@ std::pair<float, float> TCPClient::receive_xy(std::pair<float, float> def) {
         throw e;
     }
 }
-int TCPClient::get_nb_games() {    
-    unsigned char num_games_buffer[4];
-    TCPClient client;
-    int num = 22222;
-    client.send_data((unsigned char*)num);
-    client.receive(num_games_buffer); //receive function will be changed to unsigned
-    return num_games_buffer[3];
+uint32_t TCPClient::get_nb_games()
+{    
+    char buf[1];
+	buf[0] = 'g';
+    send_buffer(buf, 1);
+    
+    return recv_int();
+}
+
+std::vector<std::vector<XYPairFloat>> get_game_data(int game_id)
+{
+    char buf_com[1];
+    buf_com[0] = 'd';
+    send_buffer(buf_com, 1)
+    send_int(game_id);
+    uint32_t game_size = recv_int();
+    std::vector<std::vector<XYPairFloat>> out;
+    out.reserve(game_size);
+    for (int i = 0; i < game_size; i++) {
+        out[i].reserve(2);
+        out[i][0] = {.x = static_cast<float>(recv_uint16()),
+            .y = static_cast<float>(recv_uint16())};
+        out[i][1] = {.x = static_cast<float>(recv_uint16()),
+            .y = static_cast<float>(recv_uint16())};
+    }
+    return out;
 }
 
 // std::vector< std::vector<XYPairInt16> > replay_fetch_protocol(uint32_t GameID) {
