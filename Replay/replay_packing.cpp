@@ -23,13 +23,15 @@ void encode_input(char *buffer, int16_t x, int16_t y) {
 //     unsigned int buffer_index = 0;
 //     TCP_Client TCPclient;
 
-//     for (const auto& frame : replay_data) {
-//         for (const auto& xy_pair : frame) { // each frame has 2 pairs, one for each ball
+//     for (const std::vector<XYPairInt16>& frame : replay_data) {
+//         for (const XYPairInt16& xy_pair : frame) { // each frame has 2 pairs, one for each ball
 //             encode_input(data_buffer, xy_pair.x, xy_pair.y);
+//             data_buffer += 2 * INT16_SIZE;
 //             buffer_index += 2 * INT16_SIZE; // each pair has 2 int16, x and y
-//             if (buffer_index >= BUFFER_SIZE) {
+//             if (buffer_index == BUFFER_SIZE) {
 //                 TCPclient.send_data(data_buffer);
 //                 buffer_index = 0;
+//                 data_buffer = 0;
 //             }
 //         }
 //     }
