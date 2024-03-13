@@ -35,26 +35,26 @@ int main() {
 	int FrameID = 0;
 	Logger log(GAMEID);
 	std::vector <std::pair<std::string, std::string> > input;
-	std::vector<std::vector <std::pair<int,int> > > output;
+	std::vector<std::vector <XYPairInt16 > > output;
 	input.push_back( std::make_pair("0", "0"));
 	input.push_back( std::make_pair("0", "0"));
 	//std::cout << test.substr(test.find(":") + 1, 1);
-	log.Put(input, FrameID);
+	log.Put(input);
 	for(int i =1; i < 100; i++ ){
 		input[0].first = std::to_string(i);
 		input[1].second = std::to_string(i);
-		log.Put(input, i);
+		log.Put(input);
 	}
 	log.Close();
 
-	output = log.Parse(65,GAMEID);
-	std::cout << output[0][0].first << " " << output[0][0].second << std::endl;
-	std::cout << output[1][1].first << " " << output[1][1].second << std::endl;
+	output = log.Parse(0);
+	std::cout << output[0][0].x << " " << output[0][0].y << std::endl;
+	std::cout << output[1][1].x << " " << output[1][1].y << std::endl;
 	std::fstream file("Storage0.txt", std::ios::app);
 	for(int i = 0; i < output.size(); i++){
 		file << "Frame " << i << std::endl;
 		for(int j = 0; j < output[i].size(); j++){
-			file << output[i][j].first << " " << output[i][j].second << std::endl;
+			file << output[i][j].x << " " << output[i][j].y << std::endl;
 		}
 		file << std::endl;
 	}
