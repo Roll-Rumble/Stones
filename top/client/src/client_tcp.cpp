@@ -87,10 +87,14 @@ std::vector< std::vector<XYPairInt16> > ReplayClientSide::Get_replay_data(uint32
 
     unsigned char replay_data_buffer[num_of_frames];
 
+    receive(replay_data_buffer);
+
     std::vector< std::vector<XYPairInt16> > game_replay_data;
 
     for(int i = 0; i < num_of_frames; i++){
-        receive(replay_data_buffer); //receive function will be changed to unsigned
+        XYPairInt16 frame;
+        frame.x = ((int16_t)buf[0] << 8) | ((int16_t)buf[1]);
+        frame.y = ((int16_t)buf[2] << 8) | ((int16_t)buf[3]);
         game_replay_data.push_back(decode_input(replay_data_buffer));
     }
 

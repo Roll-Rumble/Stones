@@ -4,6 +4,7 @@
 #include <string>
 #include <winsock2.h>
 #include <vector>
+#include "game_util.hpp"
 
 
 // TODO: MOVE THIS TO NETUTIL

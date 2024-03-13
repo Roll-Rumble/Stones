@@ -34,6 +34,9 @@ public:
 
     std::pair<int16_t, int16_t> recv_xy(std::pair<int16_t, int16_t> def);
     void send_xy(float x, float y);
+
+    void Send_nb_games();
+    void Send_replay_data(uint32_t GameID);
 private:
     int sockfd_;
 };
