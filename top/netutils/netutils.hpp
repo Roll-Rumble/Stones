@@ -63,7 +63,7 @@ ADDRINFOA *addr_info(const std::string &addr, int port, int sock_type);
 
 
 void send_buf(int sock, unsigned char *buf, ssize_t len);
-bool recv_buf(int sock, unsigned char *buf, ssize_t len);
+bool recv_buf(int sock, unsigned char *buf, ssize_t len, int timeout);
 
 int recvtimeout(int s, char *buf, int len, int timeout);
 } // namespace net

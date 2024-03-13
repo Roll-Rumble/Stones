@@ -20,7 +20,10 @@ public:
     TCPServ();
     ~TCPServ();
 
-    std::vector<std::string> get_connections(int num_clients);
+    std::vector<std::pair<std::string, int>> get_connections(int num_clients);
+    std::pair<int16_t, int16_t> recv_xy(int client_id, std::pair<int16_t, int16_t> def);
+    void send_xy(int client_id, float x, float y);
+
 private:
     int sockfd_;
     std::vector<int> conn_socks_;
@@ -29,7 +32,7 @@ private:
 class UDPServ
 {
 public:
-    UDPServ(std::string &addr);
+    UDPServ(std::string &addr, uint32_t connection_nb);
     ~UDPServ();
 
     std::pair<int16_t, int16_t> recv_xy(std::pair<int16_t, int16_t> def);

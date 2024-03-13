@@ -19,7 +19,7 @@ TCPServ::TCPServ()
 {
     ADDRINFOA *server_addr_info = net::addr_info(
         "0.0.0.0", TCP_LISTEN_PORT, SOCK_STREAM);
-    
+
     sockfd_ = socket(server_addr_info->ai_family,
         server_addr_info->ai_socktype, server_addr_info->ai_protocol);
     if (sockfd_ == -1) {
@@ -43,19 +43,20 @@ TCPServ::TCPServ()
 
 TCPServ::~TCPServ()
 {
+    std::cout << "Calling TCP socket destructor\n";
     close(sockfd_);
     for (int sock : conn_socks_) {
         close(sock);
     }
 }
 
-std::vector<std::string> TCPServ::get_connections(int num_clients)
+std::vector<std::pair<std::string, int>> TCPServ::get_connections(int num_clients)
 {
     if (listen(sockfd_, num_clients) == -1) {
         throw NetworkException("can't listen for tcp connection");
     }
 
-    std::vector<std::string> out;
+    std::vector<std::pair<std::string, int>> out;
 
     sockaddr_storage client_addr; // Client address
     socklen_t client_len = sizeof(client_addr);
@@ -65,21 +66,40 @@ std::vector<std::string> TCPServ::get_connections(int num_clients)
         if (conn_socks_[conn_socks_.size()-1] == -1) {
             throw NetworkException("can't accept connection");
         }
-        out.push_back(net::get_addr_and_port(&client_addr).first);
+        out.push_back(net::get_addr_and_port(&client_addr));
     }
-    
+
 	return out;
 }
 
-// returns socket file descriptor
-UDPServ::UDPServ(std::string &addr)
+void TCPServ::send_xy(int client_id, float x, float y)
 {
+    unsigned char buf[NUM_OUT_BYTES];
+    pack::encode_pos(buf, x, y);
+
+    net::send_buf(conn_socks_[client_id], buf, NUM_OUT_BYTES);
+}
+
+std::pair<int16_t, int16_t> TCPServ::recv_xy(int client_id, std::pair<int16_t, int16_t> def)
+{
+    unsigned char buf[4];
+    if (net::recv_buf(conn_socks_[client_id], buf, 4)) {
+        return pack::decode_input(buf);
+    } else {
+        return def;
+    }
+}
+
+// returns socket file descriptor
+UDPServ::UDPServ(std::string &addr, uint32_t connection_nb)
+{
+    std::cout << "Creating UDP to send to address " << addr << " port " << SEND_PORT << "\n";
     ADDRINFOA *client_addr_info = net::addr_info(
         addr, SEND_PORT, SOCK_DGRAM);
-    
+
     ADDRINFOA *server_addr_info = net::addr_info(
-        "0.0.0.0", LISTEN_PORT, SOCK_DGRAM);
-    
+        "0.0.0.0", LISTEN_PORT + connection_nb, SOCK_DGRAM);
+
     sockfd_ = socket(client_addr_info->ai_family,
         client_addr_info->ai_socktype, client_addr_info->ai_protocol);
     if (sockfd_ == -1) {
@@ -92,7 +112,7 @@ UDPServ::UDPServ(std::string &addr)
             throw NetworkException("can't set UDP socket to be reusable");
     }
 
-
+    std::cout << "Binding socket to port " << LISTEN_PORT + connection_nb << "\n";
     if (bind(sockfd_, server_addr_info->ai_addr,
         server_addr_info->ai_addrlen) == -1) {
         throw NetworkException("can't bind socket");
@@ -102,12 +122,15 @@ UDPServ::UDPServ(std::string &addr)
         client_addr_info->ai_addrlen) == -1) {
         throw NetworkException("can't connect to socket");
     }
+    std::cout << "Created socket " << sockfd_ << "\n";
+
     freeaddrinfo(client_addr_info);
     freeaddrinfo(server_addr_info);
 }
 
 UDPServ::~UDPServ()
 {
+    std::cout << "Calling UDP socket destructor on socket " << sockfd_ << "\n";
     close(sockfd_);
 }
 
@@ -116,7 +139,6 @@ void UDPServ::send_xy(float x, float y)
 {
     unsigned char buf[NUM_OUT_BYTES];
     pack::encode_pos(buf, x, y);
-
     net::send_buf(sockfd_, buf, NUM_OUT_BYTES);
 }
 
@@ -124,12 +146,8 @@ std::pair<int16_t, int16_t> UDPServ::recv_xy(std::pair<int16_t, int16_t> def)
 {
     unsigned char buf[4];
     if (net::recv_buf(sockfd_, buf, 4)) {
-        net::recv_buf(sockfd_, buf, 4);
         return pack::decode_input(buf);
     } else {
         return def;
     }
 }
-
-
-
