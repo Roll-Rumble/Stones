@@ -24,6 +24,13 @@ public:
     std::pair<int16_t, int16_t> recv_xy(int client_id, std::pair<int16_t, int16_t> def);
     void send_xy(int client_id, float x, float y);
 
+    void send_buffer(int client_id, unsigned char *buffer, size_t size);
+    void recv_buffer(int client_id, unsigned char *buffer, size_t len);
+
+    void send_int(int client_id, uint32_t val);
+    uint32_t recv_int(int client_id);
+
+
 private:
     int sockfd_;
     std::vector<int> conn_socks_;

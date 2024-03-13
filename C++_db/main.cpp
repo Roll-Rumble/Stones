@@ -16,12 +16,14 @@ void encode_input(char *buffer, int16_t x, int16_t y) {
     pack32(buffer, xy);
 }
 
-void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_data, char* data_buffer) {
+void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_data, std::vector<char*>) { //return a vectors of all the pointers
     unsigned int buffer_index = 0;
+	double size = replay_data.size();
+	double num_buffers = size/128;
+	int index = 0;
 
     for (const std::vector<XYPairInt16>& frame : replay_data) {
-        int i = 0;
-        for (const XYPairInt16& xy_pair : frame) { // each frame has 2 pairs, one for each ball
+		for (const XYPairInt16& xy_pair : frame) { // each frame has 2 pairs, one for each ball
             encode_input(data_buffer, xy_pair.x, xy_pair.y);
             data_buffer += 2 * INT16_SIZE;
             buffer_index += 2 * INT16_SIZE; // each pair has 2 int16, x and y
@@ -30,7 +32,6 @@ void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_da
                 return;
             }
         }
-        i = 0;
     }
 }
 
@@ -131,10 +132,6 @@ int main() {
 	//log.Open("Storage0.json");
 
 	// g++ -std=c++17 main.cpp db.cpp -o main   // compile using C++ 17 or later
-	double size = output.size();
-	double num_buffers = size/128;
-	int index = 0;
-	while(index < num_buffers)
 	Convert_to_Buffers(output, buffer);
     
     std::vector< std::vector<XYPairInt16> > replay_data2 = Convert_to_vector(buffer);

@@ -38,6 +38,8 @@ uint64_t pack754(long double f, unsigned bits, unsigned expbits);
 long double unpack754(uint64_t i, unsigned bits, unsigned expbits);
 void packu32(unsigned char *buf, uint32_t i);
 uint32_t unpacku32(unsigned char *buf);
+void packu16(unsigned char *buf, uint16_t i);
+uint16_t unpacku16(unsigned char *buf);
 
 void encode_pos(unsigned char *buf, float x, float y);
 std::pair<float, float> decode_pos(unsigned char *buf);

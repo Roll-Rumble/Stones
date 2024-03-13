@@ -1,5 +1,5 @@
 #include <sys/types.h>
-#include <sys/socket.h>
+#include <sys/socket.h> // linux stuff
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
@@ -83,12 +83,38 @@ void TCPServ::send_xy(int client_id, float x, float y)
 std::pair<int16_t, int16_t> TCPServ::recv_xy(int client_id, std::pair<int16_t, int16_t> def)
 {
     unsigned char buf[4];
-    if (net::recv_buf(conn_socks_[client_id], buf, 4, 1000000000)) {
+    if (net::recv_buf(conn_socks_[client_id], buf, 4, -1)) {
         return pack::decode_input(buf);
     } else {
         return def;
     }
 }
+
+void TCPServ::send_buffer(int client_id, unsigned char *buffer, size_t size)
+{
+    net::send_buf(conn_socks_[client_id], buffer, size);
+}
+
+void TCPServ::recv_buffer(int client_id, unsigned char *buffer, size_t len)
+{
+    net::recv_buf(conn_socks_[client_id], buffer, len, -1);
+}
+
+void TCPServ::send_int(int client_id, uint32_t val)
+{
+    unsigned char buf[sizeof(uint32_t)];
+    pack::packu32(buf, val);
+
+    net::send_buf(conn_socks_[client_id], buf, sizeof(uint32_t));
+}
+
+uint32_t TCPServ::recv_int(int client_id)
+{
+    unsigned char buf[sizeof(uint32_t)];
+    net::recv_buf(conn_socks_[client_id], buf, sizeof(uint32_t), -1);
+    return pack::unpacku32(buf);
+}
+
 
 // returns socket file descriptor
 UDPServ::UDPServ(std::string &addr, uint32_t connection_nb)
@@ -151,3 +177,36 @@ std::pair<int16_t, int16_t> UDPServ::recv_xy(std::pair<int16_t, int16_t> def)
         return def;
     }
 }
+
+
+
+void TCPServ::send_nb_games(){
+    uint32_t num_games;
+    Logger db(0);
+    num_games = db.GetLatestGame();
+    unsigned char num_games_buffer[NB_GAMES_SIZE];
+    pack::packu32(num_games_buffer, num_games);
+    send_data(num_games_buffer);
+}
+
+void TCPServ::send_data(const char *data_buffer){
+    send(sockfd_, data_buffer, BUFFER_SIZE, 0);
+}
+
+void TCPServ::recieve_data(char *data_buffer, int buffer_size){
+    recv(sockfd_, data_buffer, buffer_size, 0);
+}
+
+int TCPServ::recieve_game_ID(){
+    //recieve game ID from client
+    char *game_ID_[GAME_ID_SIZE];
+    recieve_data(game_ID_, GAME_ID_SIZE); // not sure about this buffer
+    return game_ID_[3]
+}
+
+void TCPServ::send_replay_data(uint32_t GameID){
+    Logger db(GameID);
+    std::vector< std::vector<XYPairInt16> > replay_data = db.Parse(GameID);
+    Convert_to_Buffers(replay_data);
+}
+

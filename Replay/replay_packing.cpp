@@ -2,48 +2,54 @@
 #include <vector>
 #include "game_util.hpp"
 #include "client_tcp.hpp"
+#include "netutils.hpp"
+#include "networking.hpp"
 
 #define BUFFER_SIZE 32
 #define INT16_SIZE 2
 
-void pack32(char *buf, uint32_t xy) {
+void pack32(unsigned char *buf, uint32_t xy) {
     *buf++ = xy>>24; *buf++ = xy>>16;
     *buf++ = xy>>8;  *buf++ = xy;
 }
 
 
-void encode_input(char *buffer, int16_t x, int16_t y) {
+void encode_input(unsigned char *buffer, int16_t x, int16_t y) {
     uint32_t xy = ((uint32_t)x << 16) + (uint32_t)y; // x is most significant 16 bits and y is least significant 16 bits
     pack32(buffer, xy);
 }
 
 
-// void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> > &replay_data) {
-//     char data_buffer[BUFFER_SIZE];
-//     unsigned int buffer_index = 0;
-//     TCP_Client TCPclient;
+void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> > &replay_data, int CLIENT_ID) {
+    unsigned char data_buffer[BUFFER_SIZE];
+    unsigned int buffer_index = 0;
+    TCPServ TCPserver;
 
-//     for (const auto& frame : replay_data) {
-//         for (const auto& xy_pair : frame) { // each frame has 2 pairs, one for each ball
-//             encode_input(data_buffer, xy_pair.x, xy_pair.y);
-//             buffer_index += 2 * INT16_SIZE; // each pair has 2 int16, x and y
-//             if (buffer_index >= BUFFER_SIZE) {
-//                 TCPclient.send_data(data_buffer);
-//                 buffer_index = 0;
-//             }
-//         }
-//     }
-//     if (buffer_index > 0) {
-//         TCPclient.send_data(data_buffer);
-//     }
-// }
+    for (const std::vector<XYPairInt16>& frame : replay_data) {
+        for (const XYPairInt16& xy_pair : frame) { // each frame has 2 pairs, one for each ball
+            encode_input(data_buffer, xy_pair.x, xy_pair.y);
+            data_buffer += 2 * INT16_SIZE;
+            buffer_index += 2 * INT16_SIZE; // each pair has 2 int16, x and y
+            if (buffer_index == BUFFER_SIZE) {
+                TCPserver.send_buffer(CLIENT_ID, (char *)data_buffer, BUFFER_SIZE);
+                buffer_index = 0;
+                data_buffer = 0;
+            }
+        }
+    }
+    if (buffer_index > 0) {
+        while(buffer_index < BUFFER_SIZE){
+            data_buffer[buffer_index++] = 33333;
+        }
+        TCPserver.send_buffer(CLIENT_ID, (char *)data_buffer, BUFFER_SIZE);
+    }
+}
 
 
-void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_data, char* data_buffer) {
+void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_data, unsigned char* data_buffer) {
     unsigned int buffer_index = 0;
 
     for (const std::vector<XYPairInt16>& frame : replay_data) {
-        int i = 0;
         for (const XYPairInt16& xy_pair : frame) { // each frame has 2 pairs, one for each ball
             encode_input(data_buffer, xy_pair.x, xy_pair.y);
             data_buffer += 2 * INT16_SIZE;
@@ -53,7 +59,6 @@ void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_da
                 return;
             }
         }
-        i = 0;
     }
 }
 
@@ -66,7 +71,7 @@ XYPairInt16 toXYpair(int16_t x, int16_t y) {
 }
 
 
-std::vector< std::vector<XYPairInt16> > Convert_to_vector (const char *data_buffer) {
+std::vector< std::vector<XYPairInt16> > Convert_to_vector (const unsigned char *data_buffer) {
     std::vector< std::vector<XYPairInt16> > replay_data;
     std::vector<XYPairInt16> frame;
 
