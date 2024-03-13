@@ -76,7 +76,8 @@ void UDPClient::send_xy(int16_t x, int16_t y) {
 std::pair<float, float> UDPClient::receive_xy(std::pair<float, float> def) {
     unsigned char buffer[8];
     try {
-        if (net::recv_buf(send_socket_, buffer, sizeof(buffer))) {
+        // UDP recv has timeout of 1ms
+        if (net::recv_buf(send_socket_, buffer, sizeof(buffer), 1000)) {
             return pack::decode_pos(buffer);
         } else {
             return def;

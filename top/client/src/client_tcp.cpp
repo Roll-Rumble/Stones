@@ -70,7 +70,8 @@ void TCPClient::send_data(unsigned char buffer[SEND_BUF_SIZE]) {
 void TCPClient::receive(unsigned char buffer[RECEIVE_BUF_SIZE]) {
     try {
         memset(buffer, 0, RECEIVE_BUF_SIZE);
-        net::recv_buf(socket_, buffer, RECEIVE_BUF_SIZE);
+        // TCP timeout is 1000s
+        net::recv_buf(socket_, buffer, RECEIVE_BUF_SIZE, 1000000000);
     } catch (std::exception &e) {
         WSACleanup();
         throw e;
@@ -100,7 +101,8 @@ void TCPClient::send_xy(int16_t x, int16_t y) {
 std::pair<float, float> TCPClient::receive_xy(std::pair<float, float> def) {
     unsigned char buffer[8];
     try {
-        if (net::recv_buf(socket_, buffer, sizeof(buffer))) {
+        // TCP recv has timeout 1000s
+        if (net::recv_buf(socket_, buffer, sizeof(buffer), 1000000000)) {
             return pack::decode_pos(buffer);
         } else {
             return def;
