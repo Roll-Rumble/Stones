@@ -11,9 +11,10 @@ file(GLOB SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/floor_texture.png" "${CMAKE_BINARY_DIR}/bin/floor_texture.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/hole_texture.png" "${CMAKE_BINARY_DIR}/bin/hole_texture.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/wall_texture_2.png" "${CMAKE_BINARY_DIR}/bin/wall_texture_2.png" COPYONLY)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/metal-texture.png" "${CMAKE_BINARY_DIR}/bin/metal-texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/enemy_ball.png" "${CMAKE_BINARY_DIR}/bin/enemy_ball.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/exit.png" "${CMAKE_BINARY_DIR}/bin/exit.png" COPYONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/start_texture.png" "${CMAKE_BINARY_DIR}/bin/start_texture.png" COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/textures/my_ball.png" "${CMAKE_BINARY_DIR}/bin/my_ball.png" COPYONLY)
 
 
 add_library(game_objects ${SRC_FILES})

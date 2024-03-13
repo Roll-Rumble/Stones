@@ -55,14 +55,16 @@ int main() {
     Texture floor_tex("floor_texture.png");
     Texture wall_tex("wall_texture_2.png");
     Texture hole_tex("hole_texture.png");
-    Texture ball_tex("metal-texture.png");
+    Texture enemy_ball_tex("enemy_ball.png");
+    Texture my_ball_tex("my_ball.png");
     Texture exit_tex("exit.png");
     Texture entrance_tex("start_texture.png");
 
     floor_tex.Bind(FLOOR_SLOT);
     wall_tex.Bind(WALL_SLOT);
     hole_tex.Bind(HOLE_SLOT);
-    ball_tex.Bind(BALL_SLOT);
+    my_ball_tex.Bind(MY_BALL_SLOT);
+    enemy_ball_tex.Bind(ENEMY_BALL_SLOT);
     entrance_tex.Bind(ENTRANCE_SLOT);
     exit_tex.Bind(EXIT_SLOT);
 
@@ -70,8 +72,8 @@ int main() {
 
     // Instantiate game objects
     Map map;
-    Ball my_ball(map);
-    Ball op_ball(map);
+    Ball my_ball(map, MY_BALL_SLOT);
+    Ball op_ball(map, ENEMY_BALL_SLOT);
 
     std::pair<float,float> xy_pos = {0,0};
 

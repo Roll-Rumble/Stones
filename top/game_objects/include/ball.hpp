@@ -13,7 +13,7 @@
 
 class Ball {
 public:
-    Ball(const Map &map);
+    Ball(const Map &map, int ball_slot);
     ~Ball() {}
 
     // Setters for position and velocity
@@ -62,6 +62,7 @@ private:
     XYPairFloat velocity_;  // Measured in pixels/s
     XYPairFloat accel_;     // Measured in pixels/s^2
     XYPairFloat get_circle_pos(float angle) const;
+    int ball_slot_;     // Determines whether my/enemy texture is used for ball
 };
 
 #endif

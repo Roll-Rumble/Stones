@@ -8,7 +8,8 @@
 #define HOLE_SLOT 2
 #define ENTRANCE_SLOT 3
 #define EXIT_SLOT 4
-#define BALL_SLOT 5
+#define MY_BALL_SLOT 5
+#define ENEMY_BALL_SLOT 6
 
 class Texture
 {
