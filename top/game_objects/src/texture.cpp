@@ -1,9 +1,14 @@
+#ifdef CLIENT_COMPILE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
+
 #include <string>
 
 #include "texture.hpp"
 #include "stb_image.h"
+
+#ifdef CLIENT_COMPILE
 
 Texture::Texture(const std::string& path)
 	: renderer_id_(0), file_path_(path), local_buffer_(nullptr),
@@ -49,3 +54,5 @@ void Texture::Unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+#endif

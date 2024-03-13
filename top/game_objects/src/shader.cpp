@@ -2,13 +2,17 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
+#ifdef CLIENT_COMPILE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
 
 #include "game_util.hpp"
 #include "shader.hpp"
 #include "objects.hpp"
 
+#ifdef CLIENT_COMPILE
 
 
 Shader::Shader(const std::string& vertex_shader_fname, const std::string& fragment_shader_fname)
@@ -57,7 +61,7 @@ void Shader::Bind()
 	float sub_trans_vec[4] = {
 		-1.0, -1.0, 0.0, 0.0,
 	};
-	
+
 	SetUniformMatrix4fv(SCALE_TRANS_UNF, scale_trans_mat);
 	SetUniform4fv(SUB_TRANS_UNF, sub_trans_vec);
 }
@@ -91,7 +95,7 @@ unsigned int Shader::CreateShader(const std::string& vertex_shader, const std::s
 	glDeleteShader(fs);
 
 	return program;
-	
+
 }
 
 unsigned int Shader::CompileShader(const std::string& shader, unsigned int type)
@@ -164,3 +168,5 @@ int Shader::GetUniformLocation(const std::string& name)
 	return location;
 
 }
+
+#endif

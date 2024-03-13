@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#ifdef CLIENT_COMPILE
 #include <GL/glew.h>
 
 struct VertexBufferElement
@@ -61,5 +62,7 @@ public:
 	inline const std::vector<VertexBufferElement> GetElements() const { return elements_; }
 	inline unsigned int GetStride() const { return stride_; }
 };
+
+#endif
 
 #endif // !VERTEX_BUFFER_LAYOUT_HPP

@@ -2,6 +2,8 @@
 #include "vertex_buffer_layout.hpp"
 #include "vertex_buffer.hpp"
 
+#ifdef CLIENT_COMPILE
+
 VertexArray::VertexArray()
 {
 	glGenVertexArrays(1, &renderer_id_);
@@ -38,3 +40,5 @@ void VertexArray::Unbind() const
 {
 	glBindVertexArray(0);
 }
+
+#endif
