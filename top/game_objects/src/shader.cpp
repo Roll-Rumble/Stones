@@ -2,13 +2,17 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
+#ifdef CLIENT_COMPILE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
 
 #include "game_util.hpp"
 #include "shader.hpp"
 #include "objects.hpp"
 
+#ifdef CLIENT_COMPILE
 
 
 Shader::Shader(const std::string& vertex_shader_fname, const std::string& fragment_shader_fname)
@@ -165,3 +169,5 @@ int Shader::GetUniformLocation(const std::string& name)
 	return location;
 
 }
+
+#endif

@@ -1,9 +1,12 @@
+#ifdef CLIENT_COMPILE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
 
 #include <iostream>
 #include "objects.hpp"
 
+#ifdef CLIENT_COMPILE
 
 Rectangle::Rectangle(float x, float y, float w, float h)
 	: x_(x), y_(y), w_(w), h_(h)
@@ -107,3 +110,5 @@ void Circle::move(float x_in, float y_in)
         y_ -= 2;
     }
 }
+
+#endif
