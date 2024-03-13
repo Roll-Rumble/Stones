@@ -2,6 +2,11 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 
+#include "vertex_buffer_layout.hpp"
+#include "vertex_array.hpp"
+#include "vertex_buffer.hpp"
+#include "texture.hpp"
+
 #include "shader.hpp"
 #include "map.hpp"
 
@@ -49,39 +54,48 @@ XYPairFloat Map::get_start_position() const {
     return {static_cast<float>(start_pos_x), static_cast<float>(start_pos_y)};
 }
 
-void Map::draw(const Shader &shader) const
+void Map::draw(Shader &shader) const
 {
     for (int row = 0; row < map_.size(); row++) {
         for (int col = 0; col < map_[row].size(); col++) {
             int row_conv = MAP_HEIGHT - 1 - row;
-            float positions[8] = {
-                col * TILE_WIDTH, row_conv* TILE_HEIGHT,
-                col * TILE_WIDTH, (row_conv + 1) * TILE_HEIGHT,
-                (col + 1) * TILE_WIDTH, (row_conv + 1) * TILE_HEIGHT,
-                (col + 1) * TILE_WIDTH, row_conv * TILE_HEIGHT,
+            float positions[] = {
+                col * TILE_WIDTH, row_conv* TILE_HEIGHT, 0.0f, 0.0f,
+                col * TILE_WIDTH, (row_conv + 1) * TILE_HEIGHT, 1.0f, 0.0f,
+                (col + 1) * TILE_WIDTH, (row_conv + 1) * TILE_HEIGHT, 1.0f, 1.0f,
+                (col + 1) * TILE_WIDTH, row_conv * TILE_HEIGHT, 0.0f, 1.0f,
             };
+            VertexArray va;
+            VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+            VertexBufferLayout layout;
+            layout.Push<float>(2);
+            layout.Push<float>(2);
+            // this will already bind vertex array and buffer
+            va.AddBuffer(vb, layout);
+            shader.Bind();
+        
             switch (map_[row][col]) {
             case Tile::W:
-                shader.Use(0.6, 0.6, 0.6, 1.0);
+                shader.SetUniform1i(TEX_UNF, WALL_SLOT);
                 break;
             case Tile::_:
-                shader.Use(0.0, 0.0, 0.0, 1.0);
+                shader.SetUniform1i(TEX_UNF, FLOOR_SLOT);
                 break;
             case Tile::I:
-                shader.Use(0.2, 0.2, 0.2, 1.0);
+                shader.SetUniform1i(TEX_UNF, ENTRANCE_SLOT);
                 break;
             case Tile::O:
-                shader.Use(0.0, 0.7, 0.0, 1.0);
+                shader.SetUniform1i(TEX_UNF, EXIT_SLOT);
+                break;
+            case Tile::H:
+                shader.SetUniform1i(TEX_UNF, HOLE_SLOT);
                 break;
             }
-            glBindBuffer(GL_ARRAY_BUFFER, buffer_);
-            glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), positions, GL_DYNAMIC_DRAW);
-
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float) * 2, 0);
-
 
             glDrawArrays(GL_QUADS, 0, 4);
+            va.Unbind();
+            vb.Unbind();
+            shader.Unbind();
         }
     }
 }

@@ -7,6 +7,7 @@
 #include "ball.hpp"
 #include "map.hpp"
 #include "shader.hpp"
+#include "texture.hpp"
 
 int main(void)
 {
@@ -18,7 +19,7 @@ int main(void)
 
     
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "Roll Rumble", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -36,9 +37,23 @@ int main(void)
     Ball ball(map);
 
     Shader shader("color_shader_vs.txt", "color_shader_fs.txt");
-    shader.Use(1.0, 0.0, 0.0, 1.0);
-    /* Loop until the user closes the window */
-    if (!glfwWindowShouldClose(window))
+    Texture floor_tex("floor_texture.png");
+    Texture wall_tex("wall_texture_2.png");
+    Texture hole_tex("hole_texture.png");
+    Texture ball_tex("metal-texture.png");
+    Texture exit_tex("exit.png");
+    Texture entrance_tex("exit.png");
+
+    floor_tex.Bind(FLOOR_SLOT);
+    wall_tex.Bind(WALL_SLOT);
+    hole_tex.Bind(HOLE_SLOT);
+    ball_tex.Bind(BALL_SLOT);
+    entrance_tex.Bind(ENTRANCE_SLOT);
+    exit_tex.Bind(EXIT_SLOT);
+
+    shader.Bind();
+    /* Loop until the Bindr closes the window */
+    while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
@@ -53,7 +68,6 @@ int main(void)
 
         /* Poll for and process events */
         glfwPollEvents();
-        while (true);
     }
 
     glfwTerminate();

@@ -20,14 +20,14 @@ public:
     void set_position(XYPairFloat position);
     void set_acceleration(XYPairFloat accel);
 
-    // Uses current acceleration to update velocity
+    // Binds current acceleration to update velocity
     void update_velocity();
-    // Uses current velocity to update position
+    // Binds current velocity to update position
     void update_position();
-    // Uses current position to resolve collisions and update velocity
+    // Binds current position to resolve collisions and update velocity
     void resolve_wall_collisions(const Map &map);
 
-    void draw(const Shader &shader) const;
+    void draw(Shader &shader) const;
 
     /* Order of function calls in frame calculation:
      * 1. set_accleration

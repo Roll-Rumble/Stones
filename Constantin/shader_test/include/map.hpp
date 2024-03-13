@@ -15,7 +15,8 @@ enum class Tile {
     W,  // Wall
     _,  // Floor
     I,  // Entrance
-    O   // Exit
+    O,  // Exit
+    H   // Hole
 };
 
 // Refers to 4 quadrants of a single tile
@@ -41,7 +42,7 @@ public:
     XYPairFloat get_start_position() const;
 
 
-    void draw(const Shader &shader) const;
+    void draw(Shader &shader) const;
 
 private:
     unsigned int buffer_;
@@ -49,26 +50,26 @@ private:
     XYPairInt16 start_position_ = {2,2};
 
     using enum Tile;	// Allows map display below with strongly typed enums
-    const std::array<std::array<Tile,MAP_WIDTH>,MAP_HEIGHT> map_ = {{
+    const std::array<std::array<Tile, MAP_WIDTH>, MAP_HEIGHT> map_ = { {
         {W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
         {W,_,_,_,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,_,_,_,W,W,W,W,W,W,W,W,W,W},
-        {W,_,I,_,W,O,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,W},
-        {W,_,_,_,W,W,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,W,_,_,_,W,W,W,W,W,W,W},
-        {W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
-        {W,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
-        {W,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,_,_,_,_,_,_,W,W,W,W,W,W},
-        {W,W,W,W,W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,_,_,W,W,_,_,_,W,W,W,W,W},
+        {W,_,I,_,W,O,_,_,_,_,H,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,W},
+        {W,_,H,_,W,W,W,W,W,_,_,_,W,_,_,W,W,_,_,W,W,W,_,_,_,W,W,W,W,W,W,W},
+        {W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,_,H,_,W,W,W,W,W,W,W},
+        {W,_,_,H,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,H,_,W,W,W,W,W,W,W},
+        {W,_,H,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,_,_,_,_,_,H,W,W,W,W,W,W},
+        {W,W,W,W,W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,H,_,W,W,_,_,_,W,W,W,W,W},
         {W,W,W,W,W,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,_,_,_,W,W,W,W},
-        {W,W,W,W,_,_,_,W,W,W,_,_,W,W,W,W,W,_,_,_,W,W,W,W,W,W,_,_,_,W,W,W},
+        {W,W,W,W,_,_,_,W,W,W,_,_,W,W,W,W,W,_,H,_,W,W,W,W,W,W,_,_,_,W,W,W},
         {W,W,W,_,_,_,W,W,W,W,W,_,_,W,W,W,W,_,_,_,W,W,W,W,W,W,W,_,_,W,W,W},
-        {W,W,_,_,_,W,W,W,W,W,W,W,_,_,W,W,W,W,W,_,_,_,_,_,W,W,W,_,_,W,W,W},
-        {W,W,_,_,W,W,W,W,W,W,W,W,_,_,_,W,W,W,W,_,_,_,_,_,W,W,W,_,_,W,W,W},
-        {W,W,W,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,_,_,_,_,_,_,_,_,_,_,_,_,W},
-        {W,W,W,W,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,_,_,_,_,_,_,_,_,_,W},
-        {W,W,W,W,W,W,W,_,_,W,_,_,W,_,_,_,_,W,W,_,_,_,_,_,W,W,W,W,W,W,W,W},
+        {W,W,_,_,H,W,W,W,W,W,W,W,_,_,W,W,W,W,W,_,_,_,_,_,W,W,W,_,_,W,W,W},
+        {W,W,_,_,W,W,W,W,W,W,W,W,_,H,_,W,W,W,W,_,_,_,_,_,W,W,W,_,H,W,W,W},
+        {W,W,W,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,_,H,_,_,_,_,_,_,_,_,_,_,W},
+        {W,W,W,W,_,_,_,_,H,_,_,_,W,W,W,W,W,W,W,_,_,_,_,_,_,_,_,_,_,_,_,W},
+        {W,W,W,W,W,W,W,_,_,W,_,_,W,_,_,_,_,W,W,_,_,_,H,_,W,W,W,W,W,W,W,W},
         {W,W,W,W,W,W,W,_,_,W,_,_,_,_,W,W,_,_,_,_,W,W,W,W,W,W,W,W,W,W,W,W},
         {W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W}
-    }};
+    } };
 };
 
 /* Template for creating additional maps
