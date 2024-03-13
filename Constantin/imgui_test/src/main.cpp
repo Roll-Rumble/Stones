@@ -4,6 +4,8 @@
 #include <iostream>
 #include <chrono>
 #include <string>
+#include <chrono>
+#include <thread>
 
 #include "ball.hpp"
 #include "map.hpp"
@@ -15,7 +17,7 @@
 
 #include "imgui_util.hpp"
 
-enum class GameState {START, END, DB, PLAY};
+enum class GameState {START, END, DB, PLAY, REPLAY};
 
          
 
@@ -152,7 +154,7 @@ int main(void)
                 for (int i = 0; i < num_of_replays; i++) {
                     std::string replay_identifier = "REPLAY: " + std::to_string(i);
                     if (button_horizontally_center(replay_identifier, ImVec2(500, 100))) {
-                        state = GameState::PLAY;
+                        state = GameState::REPLAY;
                     }
                 }
                 if (button_horizontally_center("BACK", ImVec2(500, 100))) {
@@ -193,6 +195,26 @@ int main(void)
             // Rendering
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        }
+
+        else if (state == GameState::REPLAY) {
+            std::vector<XYPairFloat> replay_ball = {
+                XYPairFloat(1,2),
+                XYPairFloat(200,2),
+                XYPairFloat(302,200),
+                XYPairFloat(10,2)
+            };
+            bool finished = false;
+            for (int i = 0; i < replay_ball.size(); i++) {
+                glClear(GL_COLOR_BUFFER_BIT);
+                map.draw(shader);
+                ball.set_position(replay_ball[i]);
+                ball.draw(shader);
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                glfwSwapBuffers(window);
+                glfwPollEvents();
+            }
+            std::cout << "completely finished replay\n";
         }
 
         /* Swap front and back buffers */
