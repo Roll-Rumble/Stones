@@ -63,3 +63,39 @@ void TCPClient::receive(unsigned char buffer[RECEIVE_BUF_SIZE]) {
         throw e;
     }
 }
+
+void TCPClient::send_xy(int16_t x, int16_t y) {
+    unsigned char buffer[4];
+    pack::encode_input(buffer, x, y);
+
+    try {
+        net::send_buf(socket_, buffer, sizeof(buffer));
+    } catch (std::exception &e) {
+        std::cout << "exception: " << e.what() << "\n";
+        wchar_t* s = NULL;
+        FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, WSAGetLastError(),
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPWSTR)&s, 0, NULL);
+        fprintf(stderr, "%S\n", s);
+        LocalFree(s);
+        WSACleanup();
+        throw e;
+    }
+}
+
+std::pair<float, float> TCPClient::receive_xy(std::pair<float, float> def) {
+    unsigned char buffer[8];
+    try {
+        if (net::recv_buf(socket_, buffer, sizeof(buffer))) {
+            return pack::decode_pos(buffer);
+        } else {
+            return def;
+        }
+
+    } catch (std::exception &e) {
+        std::cout << "exception: " << e.what() << "\n";
+        WSACleanup();
+        throw e;
+    }
+}

@@ -71,6 +71,24 @@ std::vector<std::string> TCPServ::get_connections(int num_clients)
 	return out;
 }
 
+void TCPServ::send_xy(int client_id, float x, float y)
+{
+    unsigned char buf[NUM_OUT_BYTES];
+    pack::encode_pos(buf, x, y);
+
+    net::send_buf(conn_socks_[client_id], buf, NUM_OUT_BYTES);
+}
+
+std::pair<int16_t, int16_t> TCPServ::recv_xy(int client_id, std::pair<int16_t, int16_t> def)
+{
+    unsigned char buf[4];
+    if (net::recv_buf(conn_socks_[client_id], buf, 4)) {
+        return pack::decode_input(buf);
+    } else {
+        return def;
+    }
+}
+
 // returns socket file descriptor
 UDPServ::UDPServ(std::string &addr)
 {
@@ -124,7 +142,6 @@ std::pair<int16_t, int16_t> UDPServ::recv_xy(std::pair<int16_t, int16_t> def)
 {
     unsigned char buf[4];
     if (net::recv_buf(sockfd_, buf, 4)) {
-        net::recv_buf(sockfd_, buf, 4);
         return pack::decode_input(buf);
     } else {
         return def;

@@ -1,6 +1,8 @@
 #include <iostream>
+#ifdef CLIENT_COMPILE
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#endif
 
 #include "ball.hpp"
 
@@ -12,7 +14,9 @@ Ball::Ball(const Map& map) : velocity_{ 0 }, accel_{ 0 }, radius_{ RADIUS }
 {
     position_ = map.get_start_position();
     std::cout << position_.x << "," << position_.y << std::endl;
+#ifdef CLIENT_COMPILE
     glGenBuffers(1, &buffer_);
+#endif
 }
 
 void Ball::set_position(XYPairFloat position)
@@ -223,6 +227,7 @@ XYPairFloat Ball::get_circle_pos(float angle) const
     return pos;
 }
 
+#ifdef CLIENT_COMPILE
 void Ball::draw(const Shader& shader) const
 {
     shader.Use(1.0, 0.0, 0.0, 1.0);
@@ -252,3 +257,4 @@ void Ball::draw(const Shader& shader) const
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 }
+#endif
