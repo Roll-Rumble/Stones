@@ -8,6 +8,8 @@
 #define MAP_WIDTH 32    // Measured in tiles
 #define MAP_HEIGHT 18   // Measured in tiles
 
+#define HOLE_RADIUS 20 //Measured in pixels
+
 #define TILE_WIDTH (SCREEN_WIDTH / MAP_WIDTH)       // Measured in pixels
 #define TILE_HEIGHT (SCREEN_HEIGHT / MAP_HEIGHT)    // Measured in pixels
 
@@ -15,7 +17,8 @@ enum class Tile {
     W,  // Wall
     _,  // Floor
     I,  // Entrance
-    O   // Exit
+    O,  // Exit
+    H   // Hole
 };
 
 // Refers to 4 quadrants of a single tile
@@ -33,6 +36,9 @@ public:
 
     // Returns tile type at given coordinates
     bool is_wall(XYPairFloat coordinates) const;
+
+    // Returns whether tile is a hole
+    bool is_hole(XYPairFloat coordinates) const;
 
     // Returns coordinates of centre of tile input coordinates are in
     XYPairFloat tile_centre(XYPairFloat coordinates) const;
@@ -58,9 +64,9 @@ private:
         {W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
         {W,_,_,_,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,_,_,_,W,W,W,W,W,W,W,W,W,W},
         {W,_,I,_,W,O,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,W},
-        {W,_,_,_,W,W,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,W,_,_,_,W,W,W,W,W,W,W},
+        {W,_,H,_,W,W,W,W,W,_,_,W,W,_,_,W,W,_,_,W,W,W,_,_,_,W,W,W,W,W,W,W},
         {W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
-        {W,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
+        {W,_,_,H,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,W,W,W,W},
         {W,_,_,_,_,_,_,_,_,_,_,_,_,_,_,W,W,W,W,W,_,_,_,_,_,_,W,W,W,W,W,W},
         {W,W,W,W,W,_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,_,_,W,W,_,_,_,W,W,W,W,W},
         {W,W,W,W,W,_,_,_,_,_,_,_,W,W,W,W,W,W,W,_,_,_,W,W,W,_,_,_,W,W,W,W},

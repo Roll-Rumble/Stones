@@ -26,6 +26,13 @@ bool Map::is_wall(XYPairFloat coordinates) const
     return map_[tile_y_idx][tile_x_idx] == Tile::W;
 }
 
+bool Map::is_hole(XYPairFloat coordinates) const
+{
+    int tile_x_idx = static_cast<int>(coordinates.x / TILE_WIDTH);
+    int tile_y_idx = static_cast<int>(MAP_HEIGHT - (coordinates.y / TILE_HEIGHT));
+    return map_[tile_y_idx][tile_x_idx] == Tile::H;
+}
+
 /* this function was made to mimic is_wall design to achieve consistency
 do not change! */
 XYPairFloat Map::tile_centre(XYPairFloat coordinates) const
@@ -96,6 +103,9 @@ void Map::draw(const Shader &shader) const
                 break;
             case Tile::O:
                 shader.Use(0.0, 0.7, 0.0, 1.0);
+                break;
+            case Tile::H:
+                shader.Use(0.3, 0.4, 0.9, 1.0);
                 break;
             }
             glBindBuffer(GL_ARRAY_BUFFER, buffer_);
