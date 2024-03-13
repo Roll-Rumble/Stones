@@ -23,8 +23,7 @@ public:
     void send_data(unsigned char buffer[SEND_BUF_SIZE]);
     void receive(unsigned char buffer[RECEIVE_BUF_SIZE]);
     void Convert_to_Buffers(const std::vector< std::vector<XYPairInt16> >& replay_data, char* data_buffer);
-    int replay_fetch_protocol();
-    std::vector< std::vector<XYPairInt16> > replay_setup_protocol();
+    int get_nb_games();
 
     void send_xy(int16_t x, int16_t y);
     std::pair<float, float> receive_xy(std::pair<float, float> def);

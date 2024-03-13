@@ -119,39 +119,43 @@ std::pair<float, float> TCPClient::receive_xy(std::pair<float, float> def) {
         throw e;
     }
 }
-
-int get_nb_games() {    
-    char num_games_buffer[4];
-    TCP_Client client;
+int TCPClient::get_nb_games() {    
+    unsigned char num_games_buffer[4];
+    TCPClient client;
+    int num = 22222;
+    client.send_data((unsigned char*)num);
     client.receive(num_games_buffer); //receive function will be changed to unsigned
     return num_games_buffer[3];
 }
 
-std::vector< std::vector<XYPairInt16> > replay_fetch_protocol(uint32_t GameID) {
-    char game_id_buffer[GAME_ID_SIZE]; // buffer that holds the game id to send to server to request replay
-    char replay_data_buffer[1024]; // buffer that holds the replay data received from server
-    std::vector< std::vector<XYPairInt16> > game_replay_tmp;
-    std::vector< std::vector<XYPairInt16> > game_replay_final;
-    TCP_Client client;
+// std::vector< std::vector<XYPairInt16> > replay_fetch_protocol(uint32_t GameID) {
+//     char game_id_buffer[GAME_ID_SIZE]; // buffer that holds the game id to send to server to request replay
+//     char replay_data_buffer[1024]; // buffer that holds the replay data received from server
+// std::vector< std::vector<XYPairInt16> > TCPClient::replay_fetch_protocal(uint32_t GameID) {
+//     unsigned char game_id_buffer[GAME_ID_SIZE]; // buffer that holds the game id to send to server to request replay
+//     unsigned char replay_data_buffer[1024]; // buffer that holds the replay data received from server
+//     std::vector< std::vector<XYPairInt16> > game_replay_tmp;
+//     std::vector< std::vector<XYPairInt16> > game_replay_final;
+//     TCPClient client;
     
-    pack32(game_id_buffer, GameID); 
-    client.send_data(game_id_buffer); // send game id buffer 
+//     pack::packu32(game_id_buffer, GameID); 
+//     client.send_data(game_id_buffer); // send game id buffer 
 
-    bool finished = false;
-    while(!finished){
-        client.receive(replay_data_buffer); //receive function will be changed to unsigned
-        game_replay_tmp = Convert_to_vector(replay_data_buffer);
-        game_replay_final.insert(game_replay_final.end(), game_replay_tmp.begin(), game_replay_tmp.end());
+//     bool finished = false;
+//     while(!finished){
+//         client.receive(replay_data_buffer); //receive function will be changed to unsigned
+//         game_replay_tmp = Convert_to_vector(replay_data_buffer);
+//         game_replay_final.insert(game_replay_final.end(), game_replay_tmp.begin(), game_replay_tmp.end());
         
 
-        if(game_replay_tmp[game_replay_tmp.size() - 1][0].x == 33333){ // means we have recieved all data and are done.
-            finished = true;
-        }
+//         if(game_replay_tmp[game_replay_tmp.size() - 1][0].x == 33333){ // means we have recieved all data and are done.
+//             finished = true;
+//         }
         
-    }    
+//     }    
 
-    //game_replay_data.insert(game_replay_data.end(), decode_input(replay_data_buffer)
-    // similar to the above line, but for all the frames
-    return game_replay_final;
-}
+//     //game_replay_data.insert(game_replay_data.end(), decode_input(replay_data_buffer)
+//     // similar to the above line, but for all the frames
+//     return game_replay_final;
+// }
 

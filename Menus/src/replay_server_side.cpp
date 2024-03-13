@@ -1,4 +1,5 @@
 #include "replay_server_side.hpp"
+#include "replay_packing.cpp"
 #include "db.hpp"
 
 #define GAME_ID_SIZE 4

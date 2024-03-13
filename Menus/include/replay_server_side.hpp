@@ -8,7 +8,7 @@
 #include "game_util.hpp"
 #include "netutils.hpp"
 
-class ReplayServerSide : public TCP_Client {
+class ReplayServerSide : public TCPClient {
 public:
     
     void Send_nb_games();
