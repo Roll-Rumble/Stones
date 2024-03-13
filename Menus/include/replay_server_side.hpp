@@ -13,6 +13,7 @@ public:
     
     void Send_nb_games();
     void Send_replay_data(uint32_t GameID);
+    
 
 private:
     SOCKET socket_;
