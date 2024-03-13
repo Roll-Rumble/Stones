@@ -57,7 +57,7 @@ int main() {
     Texture hole_tex("hole_texture.png");
     Texture ball_tex("metal-texture.png");
     Texture exit_tex("exit.png");
-    Texture entrance_tex("exit.png");
+    Texture entrance_tex("start_texture.png");
 
     floor_tex.Bind(FLOOR_SLOT);
     wall_tex.Bind(WALL_SLOT);
