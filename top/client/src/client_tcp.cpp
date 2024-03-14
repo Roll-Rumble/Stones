@@ -75,6 +75,7 @@ void TCPClient::recv_buffer(unsigned char *buffer, size_t len) {
     try {
         net::recv_buf(socket_, buffer, len, -1);
     } catch (std::exception &e) {
+        std::cout << "WSA error: " << WSAGetLastError() << "\n";
         WSACleanup();
         throw e;
     }
@@ -139,11 +140,11 @@ std::pair<float, float> TCPClient::receive_xy(std::pair<float, float> def) {
     }
 }
 uint32_t TCPClient::get_nb_games()
-{    
+{
     char buf[1];
 	buf[0] = 'g';
     send_buffer((unsigned char*) buf, 1);
-    
+
     return recv_int();
 }
 
@@ -175,25 +176,24 @@ std::vector<std::vector<XYPairFloat>> TCPClient::get_game_data(int game_id)
 //     std::vector< std::vector<XYPairInt16> > game_replay_tmp;
 //     std::vector< std::vector<XYPairInt16> > game_replay_final;
 //     TCPClient client;
-    
-//     pack::packu32(game_id_buffer, GameID); 
-//     client.send_data(game_id_buffer); // send game id buffer 
+
+//     pack::packu32(game_id_buffer, GameID);
+//     client.send_data(game_id_buffer); // send game id buffer
 
 //     bool finished = false;
 //     while(!finished){
 //         client.receive(replay_data_buffer); //receive function will be changed to unsigned
 //         game_replay_tmp = Convert_to_vector(replay_data_buffer);
 //         game_replay_final.insert(game_replay_final.end(), game_replay_tmp.begin(), game_replay_tmp.end());
-        
+
 
 //         if(game_replay_tmp[game_replay_tmp.size() - 1][0].x == 33333){ // means we have recieved all data and are done.
 //             finished = true;
 //         }
-        
-//     }    
+
+//     }
 
 //     //game_replay_data.insert(game_replay_data.end(), decode_input(replay_data_buffer)
 //     // similar to the above line, but for all the frames
 //     return game_replay_final;
 // }
-
