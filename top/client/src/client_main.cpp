@@ -173,6 +173,8 @@ int main() {
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
+            map.draw(shader);
+            ImGui::SetNextWindowBGgAlpha(0);
 
             // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
             static bool use_work_area = true;
@@ -315,6 +317,10 @@ int main() {
         }
         else if (state == GameState::REPLAY) {
 
+            map.draw(shader);
+
+            
+            ImGui::SetNextWindowBGgAlpha(0);
 
             std::vector<std::vector<XYPairFloat>> replay_data = tcpClient.get_game_data(replay_selected);
             Ball me(map, MY_BALL_SLOT);
