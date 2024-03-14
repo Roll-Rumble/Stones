@@ -108,8 +108,8 @@ int main()
 	// 	udp_handlers.emplace_back(addr_and_port.first, addr_and_port.second);
 	// 	balls.emplace_back(map);
 	// }
-	Logger db(Logger::GetLatestGame() + 1);
-    db.Open(Logger::GetLatestGame() + 1);
+	Logger db(Logger::GetLatestGame());
+    db.Open(Logger::GetLatestGame());
 	std::vector<std::pair<uint16_t, uint16_t>> input = {{0,0}, {0,0}};
 	while (true) {
         // std::cout << "Number of balls is " << udp_handlers.size() << "\n";

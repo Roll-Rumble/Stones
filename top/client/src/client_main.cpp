@@ -280,7 +280,7 @@ int main() {
                     text_horizontally_center("You have lost!");
                     ImGui::Text("You have lost!");
                 }
-
+                ImGui::SetWindowFontScale(3);
                 if (button_horizontally_center("Restart Game", ImVec2(500, 100))) {
                     state = GameState::PLAY;
                 }

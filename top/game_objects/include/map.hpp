@@ -87,9 +87,9 @@ private:
 // W - wall; _ - normal; H - hole
 const std::array<std::array<Tile, MAP_WIDTH>, MAP_HEIGHT> map_ = { {
     {W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-    {W,W,W,W,_,_,_,W,_,_,_,_,_,_,_,_,_,_,W,W,W,_,_,_,_,W,_,_,_,_,_,W},
+    {W,W,W,W,_,_,_,W,_,_,_,_,_,O,_,_,_,_,W,W,W,_,_,_,_,W,_,_,_,_,_,W},
     {W,W,W,_,_,W,_,_,_,W,W,W,W,W,W,_,I,_,W,W,W,_,H,H,_,W,_,H,_,H,_,W},
-    {W,_,_,_,H,W,H,W,H,W,_,_,_,H,W,_,_,_,W,W,_,_,W,_,_,W,_,H,O,H,_,W},
+    {W,_,_,_,H,W,H,W,H,W,_,_,_,H,W,_,_,_,W,W,_,_,W,_,_,W,_,H,_,H,_,W},
     {W,_,W,W,W,W,_,_,_,_,_,W,_,W,W,W,W,W,W,W,_,_,W,_,_,W,_,H,H,H,_,W},
     {W,_,_,_,W,W,_,W,H,W,W,W,_,_,W,H,_,_,_,_,_,W,H,_,W,W,_,_,_,_,_,W},
     {W,W,W,_,W,_,_,_,_,W,W,H,W,_,W,_,_,_,W,W,W,W,W,_,W,W,W,W,_,W,W,W},
