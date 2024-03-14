@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <climits>
+#include <functional>
 
 #include "networking.hpp"
 #include "ball.hpp"
@@ -11,16 +12,19 @@
 #define NUM_CLIENTS 2
 #define BUF_SIZE 1024
 
+#define WIN_CODE 2048
+#define LOSE_CODE 4096
+
 void db_thread(int client_id, TCPServ &serv)
 {
 	Logger db(0);
 	// wait for 'g' (get)
-	
+
 	char buf[1];
-	
-	
+
+
 	// send no of games
-	
+
 	unsigned char buf_out[BUF_SIZE];
 
 	while (true) {
@@ -34,14 +38,14 @@ void db_thread(int client_id, TCPServ &serv)
 		}
 		else
 		{
-			
+
 			// wait for game id
 			int game_id = serv.recv_int(client_id);
 			// send data for game id
-			
+
 			std::vector<std::vector<XYPairInt16>> game_data = db.Parse(game_id);
 			serv.send_int(client_id, game_data.size());
-			
+
 			unsigned char *buf_ptr = buf_out;
 			for (int i = 0; i < game_data.size(); i++) {
 				pack::packu16(buf_ptr, game_data[i][0].x);
@@ -66,8 +70,8 @@ int main()
 	Map map;
 	std::vector<std::pair<std::string, int>> client_addrs = tcp_serv.get_connections(NUM_CLIENTS);
 
-	std::thread client_thread_0(db_thread, 0, tcp_serv);
-	std::thread client_thread_1(db_thread, 1, tcp_serv);
+	std::thread client_thread_0(db_thread, 0, std::ref(tcp_serv));
+	std::thread client_thread_1(db_thread, 1, std::ref(tcp_serv));
 
 	std::vector<UDPServ *> udp_handlers;
 	std::vector<Ball> balls;
@@ -109,23 +113,34 @@ int main()
             std::pair<uint16_t,uint16_t> prev_input = input[i];
             // std::cout << "About to try to receive on UDP from client " << i << "\n";
 			input[i] = udp_handlers[i]->recv_xy(input[i]);
-			if (input[i].first == SHRT_MAX && input[i].second == SHRT_MAX) {
-				udp_handlers[i]->send_xy((float)SHRT_MAX, (float)SHRT_MAX);
-				udp_handlers[!i]->send_xy((float)SHRT_MIN, (float)SHRT_MIN);
-				db.Close();
-			}
+
             // std::cout << "Successfully executed receive function from client" << i << "\n";
-            else if (input[i] != prev_input && udp_handlers.size() == 2) {
-                std::cout << "Sending data to client " << !i << "\n";
-                std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
-                udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
-				if (!db.IsOpen())
-				{
-					db.Open("Replays/Storage" + 
-					std::to_string(db.GetLatestGame() + 1) + ".json"); 
-					// will lose frames if out of order causes db close before game end
-				}
-				db.Put(input);
+            if (input[i] != prev_input && udp_handlers.size() == 2) {
+                if (map.is_exit({(float) input[i].first, (float) input[i].second})) {
+                    // Send win code to winner
+                    udp_handlers[i]->send_xy((float)WIN_CODE, (float)WIN_CODE);
+                    // Send lose code to winner
+                    udp_handlers[!i]->send_xy((float)LOSE_CODE, (float)LOSE_CODE);
+                    db.Close();
+
+
+
+
+                } else {
+                    std::cout << "Sending data to client " << !i << "\n";
+                    std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
+                    udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
+                    if (!db.IsOpen())
+                    {
+                        db.Open("Replays/Storage" +
+                        std::to_string(db.GetLatestGame() + 1) + ".json");
+                        // will lose frames if out of order causes db close before game end
+                    }
+                    db.Put(input);
+                }
+
+
+
             }
 
             // if (input != prev_input) {

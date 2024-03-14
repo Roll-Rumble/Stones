@@ -40,6 +40,9 @@ public:
     // Returns whether tile is a hole
     bool is_hole(XYPairFloat coordinates) const;
 
+    // Returns whether tile is an exit
+    bool is_exit(XYPairFloat coordinates) const;
+
     // Returns coordinates of centre of tile input coordinates are in
     XYPairFloat tile_centre(XYPairFloat coordinates) const;
 

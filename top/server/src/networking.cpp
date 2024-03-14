@@ -11,6 +11,7 @@
 #include <utility>
 #include <iostream>
 
+#include "db.hpp"
 #include "netutils.hpp"
 #include "networking.hpp"
 
@@ -180,33 +181,32 @@ std::pair<int16_t, int16_t> UDPServ::recv_xy(std::pair<int16_t, int16_t> def)
 
 
 
-void TCPServ::send_nb_games(){
-    uint32_t num_games;
-    Logger db(0);
-    num_games = db.GetLatestGame();
-    unsigned char num_games_buffer[NB_GAMES_SIZE];
-    pack::packu32(num_games_buffer, num_games);
-    send_data(num_games_buffer);
-}
+// void TCPServ::send_nb_games(){
+//     uint32_t num_games;
+//     Logger db(0);
+//     num_games = db.GetLatestGame();
+//     unsigned char num_games_buffer[NB_GAMES_SIZE];
+//     pack::packu32(num_games_buffer, num_games);
+//     send_data(num_games_buffer);
+// }
 
-void TCPServ::send_data(const char *data_buffer){
-    send(sockfd_, data_buffer, BUFFER_SIZE, 0);
-}
+// void TCPServ::send_data(const char *data_buffer){
+//     send(sockfd_, data_buffer, BUFFER_SIZE, 0);
+// }
 
-void TCPServ::recieve_data(char *data_buffer, int buffer_size){
-    recv(sockfd_, data_buffer, buffer_size, 0);
-}
+// void TCPServ::recieve_data(char *data_buffer, int buffer_size){
+//     recv(sockfd_, data_buffer, buffer_size, 0);
+// }
 
-int TCPServ::recieve_game_ID(){
-    //recieve game ID from client
-    char *game_ID_[GAME_ID_SIZE];
-    recieve_data(game_ID_, GAME_ID_SIZE); // not sure about this buffer
-    return game_ID_[3]
-}
+// int TCPServ::recieve_game_ID(){
+//     //recieve game ID from client
+//     char *game_ID_[GAME_ID_SIZE];
+//     recieve_data(game_ID_, GAME_ID_SIZE); // not sure about this buffer
+//     return game_ID_[3]
+// }
 
-void TCPServ::send_replay_data(uint32_t GameID){
-    Logger db(GameID);
-    std::vector< std::vector<XYPairInt16> > replay_data = db.Parse(GameID);
-    Convert_to_Buffers(replay_data);
-}
-
+// void TCPServ::send_replay_data(uint32_t GameID){
+//     Logger db(GameID);
+//     std::vector< std::vector<XYPairInt16> > replay_data = db.Parse(GameID);
+//     Convert_to_Buffers(replay_data);
+// }

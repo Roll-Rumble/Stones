@@ -24,6 +24,12 @@ public:
     std::pair<int16_t, int16_t> recv_xy(int client_id, std::pair<int16_t, int16_t> def);
     void send_xy(int client_id, float x, float y);
 
+    void send_nb_games();
+    void send_data(const char *data_buffer);
+    void recieve_data(char *data_buffer, int buffer_size);
+    int recieve_game_ID();
+    void send_replay_data(uint32_t GameID);
+
     void send_buffer(int client_id, unsigned char *buffer, size_t size);
     void recv_buffer(int client_id, unsigned char *buffer, size_t len);
 

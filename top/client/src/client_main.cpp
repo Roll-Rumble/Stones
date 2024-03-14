@@ -23,10 +23,12 @@
 
 enum class GameState { START, END, DB, PLAY, REPLAY };
 
+#define WIN_CODE 2048
+#define LOSE_CODE 4096
 
 int main() {
 
-    int replay_selected=0; 
+    int replay_selected=0;
     int number_of_replays=0;
 
     // Instantiate controller object for reading input
@@ -105,6 +107,8 @@ int main() {
     GameState state = GameState::START;
     GameState prev_state = GameState::START;
 
+    bool won = false;
+
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window)) {
         auto start = std::chrono::steady_clock::now(); // Start counting
@@ -132,6 +136,16 @@ int main() {
             std::pair<float, float> op_ball_pos =
                 udpClient.receive_xy({ op_ball.get_position().x, op_ball.get_position().y });
             op_ball.set_position({ op_ball_pos.first, op_ball_pos.second });
+
+            if (op_ball_pos.first == WIN_CODE) {
+                // Go to win screen
+                won = true;
+                state = GameState::END;
+            } else if (op_ball_pos.first == LOSE_CODE) {
+                // Go to lose screen
+                won = false;
+                state = GameState::END;
+            }
 
             // Render frame
             map.draw(shader);
@@ -178,8 +192,8 @@ int main() {
                     prev_state = state;
                     state = GameState::DB;
                 }
-                if (button_horizontally_center("test: END", ImVec2(500, 100))) {
-                    state = GameState::END;
+                if (button_horizontally_center("Exit", ImVec2(500, 100))) {
+                    break;
                 }
 
 
@@ -257,9 +271,26 @@ int main() {
             if (ImGui::Begin("Example: Fullscreen window", NULL, flags))
             {
                 ImGui::SetWindowFontScale(9);
-                text_horizontally_center("You have won!");
                 ImGui::SetCursorPosY(400);
-                ImGui::Text("You have won!");
+                if (won) {
+                    text_horizontally_center("You have won!");
+                    ImGui::Text("You have won!");
+                } else {
+                    text_horizontally_center("You have lost!");
+                    ImGui::Text("You have lost!");
+                }
+
+                if (button_horizontally_center("Restart Game", ImVec2(500, 100))) {
+                    state = GameState::PLAY;
+                }
+                if (button_horizontally_center("Replay", ImVec2(500, 100))) {
+                    prev_state = state;
+                    state = GameState::DB;
+                }
+                if (button_horizontally_center("Exit", ImVec2(500, 100))) {
+                    break;
+                }
+
             }
             ImGui::End();
 
