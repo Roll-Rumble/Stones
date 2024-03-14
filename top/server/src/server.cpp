@@ -118,49 +118,47 @@ int main()
             std::pair<uint16_t,uint16_t> prev_input = input[i];
             // std::cout << "About to try to receive on UDP from client " << i << "\n";
 			input[i] = udp_handlers[i]->recv_xy(input[i]);
-            if (i == wait_for_client_num) {
-                if (input[i].first == RESTART_CODE && input[i].second == RESTART_CODE) {
-                    wait_for_client_num = -1;
-                    db.Open(Logger::GetLatestGame());
-                    for (int j = 0; j < 100; j++) {
-                        udp_handlers[i]->recv_xy(input[i]);
-                        udp_handlers[!i]->recv_xy(input[i]);
-                    }
-                } else {
-                    continue;
-                }
-            }
-            else if (input[i].first == RESTART_CODE && input[i].second == RESTART_CODE) {
-                wait_for_client_num = !i;
-            }
-
             if (stopped) {
-                continue;
-            }
-            // std::cout << "Successfully executed receive function from client" << i << "\n";
-            if (input[i] != prev_input && udp_handlers.size() == 2) {
-                if (map.is_exit({(float) input[i].first, (float) input[i].second})) {
-                    // Send win code to winner
-                    udp_handlers[i]->send_xy((float)WIN_CODE, (float)WIN_CODE);
-                    // Send lose code to winner
-                    udp_handlers[!i]->send_xy((float)LOSE_CODE, (float)LOSE_CODE);
-                    XYPairFloat start_pos = map.get_start_position();
-
-                    db.Put(input);
-                    db.Close();
-                    input = {{(uint16_t)start_pos.x, (uint16_t)start_pos.y},
-                        {(uint16_t)start_pos.x, (uint16_t)start_pos.y}};
-                    prev_input = {(uint16_t)start_pos.x, (uint16_t)start_pos.y};
-                    stopped = true;
-                } else {
-                    std::cout << "Sending data to client " << !i << "\n";
-                    std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
-                    udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
-
-                    db.Put(input);
+                if (i == wait_for_client_num) {
+                    if (input[i].first == RESTART_CODE && input[i].second == RESTART_CODE) {
+                        wait_for_client_num = -1;
+                        db.Open(Logger::GetLatestGame());
+                        for (int j = 0; j < 100; j++) {
+                            udp_handlers[i]->recv_xy(input[i]);
+                            udp_handlers[!i]->recv_xy(input[i]);
+                        }
+                        stopped = false;
+                    } else {
+                        continue;
+                    }
                 }
+                else if (input[i].first == RESTART_CODE && input[i].second == RESTART_CODE) {
+                    wait_for_client_num = !i;
+                }
+            } else {
+                // std::cout << "Successfully executed receive function from client" << i << "\n";
+                if (input[i] != prev_input && udp_handlers.size() == 2) {
+                    if (map.is_exit({(float) input[i].first, (float) input[i].second})) {
+                        // Send win code to winner
+                        udp_handlers[i]->send_xy((float)WIN_CODE, (float)WIN_CODE);
+                        // Send lose code to winner
+                        udp_handlers[!i]->send_xy((float)LOSE_CODE, (float)LOSE_CODE);
+                        XYPairFloat start_pos = map.get_start_position();
 
+                        db.Put(input);
+                        db.Close();
+                        input = {{(uint16_t)start_pos.x, (uint16_t)start_pos.y},
+                            {(uint16_t)start_pos.x, (uint16_t)start_pos.y}};
+                        prev_input = {(uint16_t)start_pos.x, (uint16_t)start_pos.y};
+                        stopped = true;
+                    } else {
+                        std::cout << "Sending data to client " << !i << "\n";
+                        std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
+                        udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
 
+                        db.Put(input);
+                    }
+                }
 
             }
 

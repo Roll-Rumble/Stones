@@ -246,7 +246,7 @@ int main() {
                     }
                 }
                 if (button_horizontally_center("BACK", ImVec2(500, 100))) {
-                    state = GameState::START;
+                    state = prev_state;
                 }
             }
             ImGui::End();
