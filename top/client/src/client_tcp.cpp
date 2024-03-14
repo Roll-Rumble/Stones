@@ -150,11 +150,11 @@ uint32_t TCPClient::get_nb_games()
 
 std::vector<std::vector<XYPairFloat>> TCPClient::get_game_data(int game_id)
 {
-    char buf_com[1];
-    buf_com[0] = 'd';
-    send_buffer((unsigned char*)buf_com, 1);
+    char buf_com = 'd';
+    send_buffer((unsigned char*)&buf_com, 1);
     send_int(game_id);
     uint32_t game_size = recv_int();
+    std::cout << "Received game size: " << game_size << std::endl;
     std::vector<std::vector<XYPairFloat>> out;
     out.reserve(game_size);
     for (int i = 0; i < game_size; i++) {

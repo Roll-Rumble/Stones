@@ -45,9 +45,9 @@ void db_thread(int client_id, TCPServ &serv)
 			int game_id = serv.recv_int(client_id);
 			// send data for game id
 
-            std::cout << client_id << " before parsing from JSON" << std::endl;
+            std::cout << client_id << " before parsing from JSON for game: " << game_id << std::endl;
 			std::vector<std::vector<XYPairInt16>> game_data = db.Parse(game_id);
-            std::cout << client_id << " sending game size" << std::endl;
+            std::cout << client_id << " sending game size: " << game_data.size() << std::endl;
 			serv.send_int(client_id, game_data.size());
 
 			unsigned char *buf_ptr = buf_out;
