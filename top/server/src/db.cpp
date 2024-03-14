@@ -13,9 +13,6 @@ Logger::Logger(const int GameID)
 {
 		frame_ID_ = 0;
 		gameID_ = GameID;
-		std::string filename = "Replays/Storage" +
-			std::to_string(GameID) + ".json";
-		file_.open(filename, std::ios::app);
 };
 
 Logger::~Logger()
@@ -30,11 +27,15 @@ void Logger::Close()
 	file_.close();
 };
 
-void Logger::Open(const std::string &file)
+void Logger::Open(const int game_id)
 {
-	file_.open(file, std::ios::app);
-	gameID_ = stoi(file.substr(
-		file.find("e") + 1,file.find(".")-file.find("e") -1 ));
+	std::string filename = "Replays/Storage" +
+			std::to_string(game_id) + ".json";
+	file_.open(filename, std::ios::app);
+
+	std::cout << "before stoi in open " << filename << std::endl;
+	gameID_ = game_id;
+	std::cout << "after stoi in open" << std::endl;
 }
 
 bool Logger::IsOpen(){
@@ -46,21 +47,25 @@ bool Logger::IsOpen(){
 
 uint32_t Logger::GetLatestGame()
 {
-	return std::distance(
-			std::filesystem::directory_iterator("Replays"),
-			std::filesystem::directory_iterator()) - 1;
+	std::filesystem::path p1 { "./Replays" };
+	uint32_t count = 0;
+	for (auto& p : std::filesystem::directory_iterator(p1))
+	{
+		++count;
+	}
+	return count;
 };
 
 int Logger::Put(std::vector<std::pair<uint16_t, uint16_t> > input) {
-	
+
 	//std::ofstream file_("Storage.txt", std::ios::app); // later use game id
 
-	
-	
+
+
 	if (file_.is_open()) {
-		
+
 		if (frame_ID_ == 0) {
-		
+
 		file_ << "{" << std::endl;
 		file_ << " \"BallNo\":" << input.size() << "," <<std::endl << " \"data\": [" << std::endl;
 		}
@@ -70,7 +75,7 @@ int Logger::Put(std::vector<std::pair<uint16_t, uint16_t> > input) {
 			file_ <<"," << std::endl;
 		}
 		file_ << "[ ";
-		  
+
 		for (int i = 0; i < input.size(); i++){
 			file_ << "[" << i << "," << input[i].first << "," << input[i].second << "]";
 			if (i != input.size() - 1) {
@@ -80,9 +85,9 @@ int Logger::Put(std::vector<std::pair<uint16_t, uint16_t> > input) {
 		file_ << "]";
 		//file_.close();
 		//std::cout << "Put is successful" << std::endl;
-		return 0;	
+		return 0;
 	}
-		
+
 	return 1;
 }
 
@@ -105,7 +110,7 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 		std::cout << "file open" << std::endl;
 		std::getline(file, line);
 		std::getline(file, line);
-		int BallNo = stoi(line.substr(line.find(":") +1));
+
 
 		std::getline(file, line);
 		int index = 0;
@@ -115,8 +120,8 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 			start = line.find("[ [");
 			//std::cout << "start" << std::endl;
 			if ( start != std::string::npos) {
-				for (int i = 0; i < BallNo; i++) {
-					
+				for (int i = 0; i < 2; i++) {
+
 					//if(line.substr(start + 3, 1) == std::to_string(i)){
 						comma1 = line.find(",", start + 3);
 						comma2 = line.find(",", comma1 + 1);
@@ -124,15 +129,18 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 						y = line.substr(comma2 + 1, line.find("]") - comma2 - 1);
 						//std::cout << x << "x ball y" << y << std::endl;
 					//}
+					std::cout << "before stoi in parse x" << std::endl;
 					pair.x = stoi(x);
+					std::cout << "before stoi in parse y" << std::endl;
 					pair.y = stoi(y);
+					std::cout << "after stoi in parse y" << std::endl;
 					//std::cout << "test" << std::endl;
 					temp.push_back(pair);
 					//std::cout << "test2" << std::endl;
 					line = line.substr(line.find("]") + 2);
 				}
 				std::getline(file, line);
-				
+
 				output.push_back(temp);
 				temp.clear();
 				//std::cout << "output generated" << std::endl;
@@ -148,7 +156,7 @@ std::vector<std::vector<XYPairInt16> > Logger::Parse(int GameID) {
 	std::cout << "File not found" << std::endl;
 	return output;
 	}
-	
+
 
 /*int main() {
 	//std::string test = "123:3:5";

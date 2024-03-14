@@ -232,7 +232,8 @@ int main() {
                 ImGui::Text("Replays");
 
                 if (prev_state != state) {
-                    number_of_replays = tcpClient.get_connection_nb();
+                    number_of_replays = tcpClient.get_nb_games();
+                    std::cout << "number of replays received " << number_of_replays << std::endl;
                     prev_state = state;
                 }
                 for (int i = 0; i < number_of_replays; i++) {
@@ -299,7 +300,9 @@ int main() {
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
         else if (state == GameState::REPLAY) {
+            std::cout << "before requesting replay data" << std::endl;
             std::vector<std::vector<XYPairFloat>> replay_data = tcpClient.get_game_data(replay_selected);
+            std::cout << "received replay data" << std::endl;
             Ball me(map, MY_BALL_SLOT);
             Ball them(map, ENEMY_BALL_SLOT);
             int my_id = tcpClient.get_connection_nb();

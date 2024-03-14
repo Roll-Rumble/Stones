@@ -30,20 +30,24 @@ void db_thread(int client_id, TCPServ &serv)
 	while (true) {
 
 		buf[0] = 'i';
+        std::cout << "waiting for request from client" << std::endl;
 		while (buf[0] == 'i') {
 			serv.recv_buffer(client_id, (unsigned char *)buf, 1);
 		}
 		if(buf[0] == 'g'){
+            std::cout << client_id << " sending amount of files requested: " << Logger::GetLatestGame() << std::endl;
 			serv.send_int(client_id, Logger::GetLatestGame());
 		}
 		else
 		{
-
 			// wait for game id
+            std::cout << "sending game data " << client_id << std::endl;
 			int game_id = serv.recv_int(client_id);
 			// send data for game id
 
+            std::cout << client_id << " before parsing from JSON" << std::endl;
 			std::vector<std::vector<XYPairInt16>> game_data = db.Parse(game_id);
+            std::cout << client_id << " sending game size" << std::endl;
 			serv.send_int(client_id, game_data.size());
 
 			unsigned char *buf_ptr = buf_out;
@@ -54,12 +58,13 @@ void db_thread(int client_id, TCPServ &serv)
 				pack::packu16(buf_ptr+6, game_data[i][1].y);
 				buf_ptr += 8;
 				if (buf_ptr - buf_out == BUF_SIZE) {
+                    std::cout << client_id << " sending 1024 bytes" << std::endl;
 					serv.send_buffer(client_id, buf_out, BUF_SIZE);
 					buf_ptr = buf_out;
 				}
 			}
-			memset(buf_ptr, 255, BUF_SIZE - (buf_ptr - buf_out));
-			serv.send_buffer(client_id, buf_out, BUF_SIZE);
+            std::cout << client_id << " sending remainder" << std::endl;
+			serv.send_buffer(client_id, buf_out, buf_ptr - buf_out);
 		}
 	}
 }
@@ -104,6 +109,7 @@ int main()
 	// 	balls.emplace_back(map);
 	// }
 	Logger db(Logger::GetLatestGame() + 1);
+    db.Open(Logger::GetLatestGame() + 1);
 	std::vector<std::pair<uint16_t, uint16_t>> input = {{0,0}, {0,0}};
 	while (true) {
         // std::cout << "Number of balls is " << udp_handlers.size() << "\n";
@@ -132,8 +138,7 @@ int main()
                     udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
                     if (!db.IsOpen())
                     {
-                        db.Open("Replays/Storage" +
-                        std::to_string(db.GetLatestGame() + 1) + ".json");
+                        db.Open(Logger::GetLatestGame() + 1);
                         // will lose frames if out of order causes db close before game end
                     }
                     db.Put(input);
