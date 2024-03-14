@@ -53,8 +53,11 @@ void Controller::read_inputs() {
             // jtagatlantic_read returns number of bytes read
             buffer_idx += jtagatlantic_read(handle_, buffer + buffer_idx, 1);
 
-            if (buffer_idx > 1 && buffer[buffer_idx - 2] == -128
-                               && buffer[buffer_idx - 1] == 0   ) {
+            if (buffer_idx <= CONTROLLER_BUF_SIZE
+                && buffer_idx > 1
+                && buffer[buffer_idx - 2] == -128
+                && buffer[buffer_idx - 1] == 0   ) {
+
                 if (buffer_idx != CONTROLLER_BUF_SIZE) {
                     break;
                 }
