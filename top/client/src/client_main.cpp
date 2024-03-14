@@ -108,6 +108,7 @@ int main() {
 
     GameState state = GameState::START;
     GameState prev_state = GameState::START;
+    GameState after_db_state = GameState::START;
 
     bool won = false;
 
@@ -192,6 +193,7 @@ int main() {
                 }
                 if (button_horizontally_center("Replay", ImVec2(500, 100))) {
                     prev_state = state;
+                    after_db_state = state;
                     state = GameState::DB;
                 }
                 if (button_horizontally_center("Exit", ImVec2(500, 100))) {
@@ -246,7 +248,7 @@ int main() {
                     }
                 }
                 if (button_horizontally_center("BACK", ImVec2(500, 100))) {
-                    state = prev_state;
+                    state = after_db_state;
                 }
             }
             ImGui::End();
@@ -293,6 +295,7 @@ int main() {
                 }
                 if (button_horizontally_center("Replay", ImVec2(500, 100))) {
                     prev_state = state;
+                    after_db_state = state;
                     state = GameState::DB;
                 }
                 if (button_horizontally_center("Exit", ImVec2(500, 100))) {
