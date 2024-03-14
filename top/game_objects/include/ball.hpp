@@ -24,6 +24,7 @@ public:
 
     // Getters for position and velocity and radius
     const XYPairFloat get_position();
+    void reset_pos(const Map &map);
     const XYPairFloat get_velocity();
 	const float get_radius();
 

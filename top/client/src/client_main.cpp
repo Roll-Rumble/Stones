@@ -255,6 +255,8 @@ int main() {
         }
         /* END GUI */
         else if (state == GameState::END) {
+            my_ball.reset_pos(map);
+            op_ball.reset_pos(map);
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
@@ -300,9 +302,9 @@ int main() {
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
         else if (state == GameState::REPLAY) {
-            std::cout << "before requesting replay data" << std::endl;
+
+
             std::vector<std::vector<XYPairFloat>> replay_data = tcpClient.get_game_data(replay_selected);
-            std::cout << "received replay data" << std::endl;
             Ball me(map, MY_BALL_SLOT);
             Ball them(map, ENEMY_BALL_SLOT);
             int my_id = tcpClient.get_connection_nb();

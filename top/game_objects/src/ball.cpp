@@ -177,6 +177,11 @@ void Ball::resolve_hole_fall(const Map& map)
     }
 }
 
+void Ball::reset_pos(const Map &map)
+{
+    position_ = map.get_start_position();
+}
+
 
 void Ball::resolve_ball_collision(Ball& ball1, Ball& ball2) {
     XYPairFloat ball1_position = ball1.get_position();

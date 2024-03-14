@@ -154,7 +154,6 @@ std::vector<std::vector<XYPairFloat>> TCPClient::get_game_data(int game_id)
     send_buffer((unsigned char*)&buf_com, 1);
     send_int(game_id);
     uint32_t game_size = recv_int();
-    std::cout << "Received game size: " << game_size << std::endl;
     std::vector<std::vector<XYPairFloat>> out;
     out.resize(game_size);
     for (int i = 0; i < game_size; i++) {
