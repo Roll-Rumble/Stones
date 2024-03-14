@@ -122,6 +122,10 @@ int main()
                     udp_handlers[i]->send_xy((float)WIN_CODE, (float)WIN_CODE);
                     // Send lose code to winner
                     udp_handlers[!i]->send_xy((float)LOSE_CODE, (float)LOSE_CODE);
+                    XYPairFloat start_pos = map.get_start_position();
+                    input = {{(uint16_t)start_pos.x, (uint16_t)start_pos.y},
+                        {(uint16_t)start_pos.x, (uint16_t)start_pos.y}};
+                    prev_input = {(uint16_t)start_pos.x, (uint16_t)start_pos.y};
                     db.Close();
                 } else {
                     std::cout << "Sending data to client " << !i << "\n";
