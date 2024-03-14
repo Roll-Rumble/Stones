@@ -21,6 +21,8 @@
 
 #include "imgui_util.hpp"
 
+#include "background.hpp"
+
 enum class GameState { START, END, DB, PLAY, REPLAY };
 
 #define WIN_CODE 2048
@@ -74,6 +76,7 @@ int main() {
     Texture my_ball_tex("my_ball.png");
     Texture exit_tex("exit.png");
     Texture entrance_tex("start_texture.png");
+    Texture background_tex("background.png");
 
     floor_tex.Bind(FLOOR_SLOT);
     wall_tex.Bind(WALL_SLOT);
@@ -82,6 +85,7 @@ int main() {
     enemy_ball_tex.Bind(ENEMY_BALL_SLOT);
     entrance_tex.Bind(ENTRANCE_SLOT);
     exit_tex.Bind(EXIT_SLOT);
+    background_tex.Bind(BACKGROUND_SLOT);
 
     shader.Bind();
 
@@ -89,6 +93,7 @@ int main() {
     Map map;
     Ball my_ball(map, MY_BALL_SLOT);
     Ball op_ball(map, ENEMY_BALL_SLOT);
+    Background background;
 
     std::pair<float,float> xy_pos = {0,0};
 
@@ -169,6 +174,8 @@ int main() {
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
+            background.draw(shader);
+            ImGui::SetNextWindowBGgAlpha(0);
 
             // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
             static bool use_work_area = true;

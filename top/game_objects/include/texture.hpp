@@ -10,6 +10,7 @@
 #define EXIT_SLOT 4
 #define MY_BALL_SLOT 5
 #define ENEMY_BALL_SLOT 6
+#define BACKGROUND_SLOT 7
 
 class Texture
 {
