@@ -5,7 +5,6 @@
 #include <string>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "replay_packing.cpp"
 
 #define REPLAY_SIZE_SIZE 4
 #define GAME_ID_SIZE 4
@@ -81,7 +80,7 @@ void TCPClient::recv_buffer(unsigned char *buffer, size_t len) {
     }
 }
 
-void TCPServ::send_int(uint32_t val)
+void TCPClient::send_int(uint32_t val)
 {
     unsigned char buf[sizeof(uint32_t)];
     pack::packu32(buf, val);
@@ -89,14 +88,14 @@ void TCPServ::send_int(uint32_t val)
     send_buffer(buf, sizeof(uint32_t));
 }
 
-uint32_t TCPServ::recv_int()
+uint32_t TCPClient::recv_int()
 {
     unsigned char buf[sizeof(uint32_t)];
     recv_buffer(buf, sizeof(uint32_t));
     return pack::unpacku32(buf);
 }
 
-uint16_t TCPServ::recv_uint16()
+uint16_t TCPClient::recv_uint16()
 {
     unsigned char buf[sizeof(uint16_t)];
     recv_buffer(buf, sizeof(uint16_t));
@@ -143,16 +142,16 @@ uint32_t TCPClient::get_nb_games()
 {    
     char buf[1];
 	buf[0] = 'g';
-    send_buffer(buf, 1);
+    send_buffer((unsigned char*) buf, 1);
     
     return recv_int();
 }
 
-std::vector<std::vector<XYPairFloat>> get_game_data(int game_id)
+std::vector<std::vector<XYPairFloat>> TCPClient::get_game_data(int game_id)
 {
     char buf_com[1];
     buf_com[0] = 'd';
-    send_buffer(buf_com, 1)
+    send_buffer((unsigned char*)buf_com, 1);
     send_int(game_id);
     uint32_t game_size = recv_int();
     std::vector<std::vector<XYPairFloat>> out;
