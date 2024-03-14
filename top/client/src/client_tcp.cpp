@@ -156,9 +156,9 @@ std::vector<std::vector<XYPairFloat>> TCPClient::get_game_data(int game_id)
     uint32_t game_size = recv_int();
     std::cout << "Received game size: " << game_size << std::endl;
     std::vector<std::vector<XYPairFloat>> out;
-    out.reserve(game_size);
+    out.resize(game_size);
     for (int i = 0; i < game_size; i++) {
-        out[i].reserve(2);
+        out[i].resize(2);
         out[i][0] = {.x = static_cast<float>(recv_uint16()),
             .y = static_cast<float>(recv_uint16())};
         out[i][1] = {.x = static_cast<float>(recv_uint16()),
