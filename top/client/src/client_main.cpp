@@ -25,6 +25,8 @@ enum class GameState { START, END, DB, PLAY, REPLAY };
 
 #define WIN_CODE 2048
 #define LOSE_CODE 4096
+#define RESTART_CODE 3000
+
 
 int main() {
 
@@ -284,6 +286,9 @@ int main() {
                 }
                 ImGui::SetWindowFontScale(3);
                 if (button_horizontally_center("Restart Game", ImVec2(500, 100))) {
+                    for (int i = 0; i < 10; i++) {
+                        udpClient.send_xy((int16_t)RESTART_CODE, (int16_t)RESTART_CODE);
+                    }
                     state = GameState::PLAY;
                 }
                 if (button_horizontally_center("Replay", ImVec2(500, 100))) {

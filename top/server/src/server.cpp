@@ -2,6 +2,7 @@
 #include <thread>
 #include <climits>
 #include <functional>
+#include <chrono>
 
 #include "networking.hpp"
 #include "ball.hpp"
@@ -14,6 +15,7 @@
 
 #define WIN_CODE 2048
 #define LOSE_CODE 4096
+#define RESTART_CODE 3000
 
 void db_thread(int client_id, TCPServ &serv)
 {
@@ -106,6 +108,8 @@ int main()
 	Logger db(Logger::GetLatestGame());
     db.Open(Logger::GetLatestGame());
 	std::vector<std::pair<uint16_t, uint16_t>> input = {{0,0}, {0,0}};
+    int wait_for_client_num = -1;
+    bool stopped = false;
 	while (true) {
         // std::cout << "Number of balls is " << udp_handlers.size() << "\n";
 		for (int i = 0; i < udp_handlers.size(); i++) {
@@ -114,7 +118,25 @@ int main()
             std::pair<uint16_t,uint16_t> prev_input = input[i];
             // std::cout << "About to try to receive on UDP from client " << i << "\n";
 			input[i] = udp_handlers[i]->recv_xy(input[i]);
+            if (i == wait_for_client_num) {
+                if (input[i].first == RESTART_CODE && input[i].second == RESTART_CODE) {
+                    wait_for_client_num = -1;
+                    db.Open(Logger::GetLatestGame());
+                    for (int j = 0; j < 100; j++) {
+                        udp_handlers[i]->recv_xy(input[i]);
+                        udp_handlers[!i]->recv_xy(input[i]);
+                    }
+                } else {
+                    continue;
+                }
+            }
+            else if (input[i].first == RESTART_CODE && input[i].second == RESTART_CODE) {
+                wait_for_client_num = !i;
+            }
 
+            if (stopped) {
+                continue;
+            }
             // std::cout << "Successfully executed receive function from client" << i << "\n";
             if (input[i] != prev_input && udp_handlers.size() == 2) {
                 if (map.is_exit({(float) input[i].first, (float) input[i].second})) {
@@ -123,21 +145,19 @@ int main()
                     // Send lose code to winner
                     udp_handlers[!i]->send_xy((float)LOSE_CODE, (float)LOSE_CODE);
                     XYPairFloat start_pos = map.get_start_position();
+
+                    db.Put(input);
+                    db.Close();
                     input = {{(uint16_t)start_pos.x, (uint16_t)start_pos.y},
                         {(uint16_t)start_pos.x, (uint16_t)start_pos.y}};
                     prev_input = {(uint16_t)start_pos.x, (uint16_t)start_pos.y};
-                    db.Close();
+                    stopped = true;
                 } else {
                     std::cout << "Sending data to client " << !i << "\n";
                     std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
                     udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
-                    if (!db.IsOpen())
-                    {
-                        db.Open(Logger::GetLatestGame());
-                        // will lose frames if out of order causes db close before game end
-                    } else {
-                        db.Put(input);
-                    }
+
+                    db.Put(input);
                 }
 
 

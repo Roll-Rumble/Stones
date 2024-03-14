@@ -32,10 +32,8 @@ void Logger::Open(const int game_id)
 	std::string filename = "Replays/Storage" +
 			std::to_string(game_id) + ".json";
 	file_.open(filename, std::ios::app);
-
-	std::cout << "before stoi in open " << filename << std::endl;
+	frame_ID_ = 0;
 	gameID_ = game_id;
-	std::cout << "after stoi in open" << std::endl;
 }
 
 bool Logger::IsOpen(){
@@ -72,7 +70,7 @@ int Logger::Put(std::vector<std::pair<uint16_t, uint16_t> > input) {
 
 		//file_ << "FrameID:" << FrameID << std::endl;
 		if (frame_ID_++ != 0) {
-			file_ <<"," << std::endl;
+			file_ << "%" << std::endl;
 		}
 		file_ << "[ ";
 
