@@ -30,24 +30,19 @@ void db_thread(int client_id, TCPServ &serv)
 	while (true) {
 
 		buf[0] = 'i';
-        std::cout << "waiting for request from client" << std::endl;
 		while (buf[0] == 'i') {
 			serv.recv_buffer(client_id, (unsigned char *)buf, 1);
 		}
 		if(buf[0] == 'g'){
-            std::cout << client_id << " sending amount of files requested: " << Logger::GetLatestGame() << std::endl;
 			serv.send_int(client_id, Logger::GetLatestGame());
 		}
 		else
 		{
 			// wait for game id
-            std::cout << "sending game data " << client_id << std::endl;
 			int game_id = serv.recv_int(client_id);
 			// send data for game id
 
-            std::cout << client_id << " before parsing from JSON for game: " << game_id << std::endl;
 			std::vector<std::vector<XYPairInt16>> game_data = db.Parse(game_id);
-            std::cout << client_id << " sending game size: " << game_data.size() << std::endl;
 			serv.send_int(client_id, game_data.size());
 
 			unsigned char *buf_ptr = buf_out;
@@ -128,20 +123,17 @@ int main()
                     // Send lose code to winner
                     udp_handlers[!i]->send_xy((float)LOSE_CODE, (float)LOSE_CODE);
                     db.Close();
-
-
-
-
                 } else {
                     std::cout << "Sending data to client " << !i << "\n";
                     std::cout << "Data being sent is x: " << input[i].first << ", y: " << input[i].second << "\n";
                     udp_handlers[!i]->send_xy((float) input[i].first, (float) input[i].second);
                     if (!db.IsOpen())
                     {
-                        db.Open(Logger::GetLatestGame() + 1);
+                        db.Open(Logger::GetLatestGame());
                         // will lose frames if out of order causes db close before game end
+                    } else {
+                        db.Put(input);
                     }
-                    db.Put(input);
                 }
 
 
