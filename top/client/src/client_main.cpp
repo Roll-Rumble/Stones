@@ -21,6 +21,9 @@
 
 #include "imgui_util.hpp"
 
+#include "winmm.h"
+#pragma comment(lib, "winmm.lib")
+
 enum class GameState { START, END, DB, PLAY, REPLAY };
 
 #define WIN_CODE 2048
@@ -112,6 +115,7 @@ int main() {
 
     bool won = false;
 
+    PlaySound(TEXT("shrek.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window)) {
         auto start = std::chrono::steady_clock::now(); // Start counting

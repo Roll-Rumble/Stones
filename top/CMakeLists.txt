@@ -21,6 +21,9 @@ if(CMAKE_HOST_SYSTEM MATCHES Windows)
 
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/client/color_shader/color_shader_vs.txt" "${CMAKE_CURRENT_BINARY_DIR}/bin/color_shader_vs.txt" COPYONLY)
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/client/color_shader/color_shader_fs.txt" "${CMAKE_CURRENT_BINARY_DIR}/bin/color_shader_fs.txt" COPYONLY)
+
+	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/sound/shrek.wav" "${CMAKE_CURRENT_BINARY_DIR}/bin/shrek.wav" COPYONLY)
+
 	# Add source to this project's executable.
 	add_executable (client ${CLIENT_SRC_FILES} ${IMGUI_SRC_FILES})
 
@@ -35,7 +38,7 @@ if(CMAKE_HOST_SYSTEM MATCHES Windows)
 	add_library(jtag_atlantic SHARED IMPORTED)
 	add_library(jtag_client SHARED IMPORTED)
 	add_library(WinSock STATIC IMPORTED)
-
+	add_library(WinMM STATIC IMPORTED)
 
 	set_target_properties(jtag_atlantic PROPERTIES
 		IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/client/dependencies/jtag_atlantic/lib/jtag_atlantic.dll"
@@ -49,7 +52,10 @@ if(CMAKE_HOST_SYSTEM MATCHES Windows)
 	set_target_properties(WinSock PROPERTIES IMPORTED_LOCATION
 	"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64/WS2_32.Lib")
 
-	target_link_libraries(client netutils game_objects jtag_atlantic WinSock)
+	set_target_properties(WinMM PROPERTIES IMPORTED_LOCATION
+	"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64/WinMM.Lib")
+
+	target_link_libraries(client netutils game_objects jtag_atlantic WinSock WinMM)
 endif()
 
 
