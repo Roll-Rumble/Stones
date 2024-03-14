@@ -314,10 +314,11 @@ int main() {
                 them.set_position(replay_data[i][!my_id]);
                 me.draw(shader);
                 them.draw(shader);
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 glfwSwapBuffers(window);
                 glfwPollEvents();
             }
+            state = GameState::DB;
         }
         // Swap front and back buffers
         glfwSwapBuffers(window);
