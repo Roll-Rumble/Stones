@@ -20,3 +20,5 @@ Most online multiplayer games have a fixed rate at which they update the server-
 
 - To test communication between the NIOS II and the client PC, 100 messages were sent from the NIOS II to the host PC and checked to ensure correctness.
 - To test communication from the client to the server, 100 messages were sent from the client to the server, and checked to ensure correctness. The same was then done with the server returning the values to the client to test communication from the server to the client.
+
+### INCLUDE TESTING DIAGRAM
