@@ -72,7 +72,7 @@ void Ball::resolve_wall_collisions(const Map& map)
     XYPairFloat corner;
     float distance;
 
-    //clean this up later; now we need to predeclare
+    
     XYPairFloat temp;
     XYPairFloat temp2;
     XYPairFloat temp3;
