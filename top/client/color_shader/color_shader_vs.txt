@@ -1,0 +1,15 @@
+#version 330 core
+
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec2 tex_coord;
+
+out vec2 tex_coord_v;
+
+uniform mat4 scale_trans_u;
+uniform vec4 sub_trans_u;
+
+void main()
+{
+	gl_Position = scale_trans_u * position + sub_trans_u;
+	tex_coord_v = tex_coord;
+}
