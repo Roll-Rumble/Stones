@@ -6,6 +6,10 @@
 - Explain what the game is and what features it has.
 - Background video will be of people playing the game
 
+## Overall System Architecture 20-30 secs) - Noam
+- explain the overall basics of the system
+- Background will be Noams diagram
+
 ## Hardware (40-50 sec) - Petr
 - Explain hardware implementation- hardware filtering
 - Explain performance metrics
