@@ -19,6 +19,10 @@ The overall goal of the game is to move from the start location of the maze and 
 
 The system architecture, as shown in Fig 1.1, depicts interactions between two clients, each controlling a ball in the game through a DE10-Lite board. The accelerometer on the board sends data to the Nios II processor, which then filters the data using a 49-taps hardware FIR filter on the board. This filtered data guides the motion of the ball in our fully custom game engine, running at a 20 FPS tick rate, handling physics; as well as rendering via OpenGL.
 
+Communication occurs via both UDP and TCP connections. TCP ensures secure initial connection setup, while UDP provides low-latency updates for game data.
+
+On the server, the main thread receives UDP data from clients, updating player positions, processing game logic, and writing position data to a database. Separate threads handle database access for each client to maintain responsiveness. The main thread synchronizes data between clients for multiplayer functionality. 
+
 ## Design decisions
 
 We have decided to make our own FIR filter. We wrote a custom verilog file and connected it using PIO. This way all the multiplications and additions are happenning in paralell. 
@@ -69,10 +73,6 @@ Most online multiplayer games have a fixed rate at which they update the server-
 The database was a custom nosql design that allowed a very lightweight and fast read/write. It is composed of a C++ class which manages the db and is capable of reading and writing to specific Game Ids whilst tracking the amount of games played and storing their replay data. The data itself is stored in a json file which is formatted for maximum machine readability. Using these files a replay can be retrieved very quickly and sent over TCP. We tested the database by storing a large amount of data and making sure it was retrieved without error by comparing it to the original data, all within a reasonable time. The replays are retrieved fully from a single command and requires only a Game Id, after this the database functions sort packing and sending of data with clientside functions to unpack and remake the replay in its original form. These functions were all tested extensively for errors at a component and system level throughout.
 
 We used multithreading to make sure that a live game was not impacted by the logging of data. Each client has its own thread running on the server that deals with appropriately storing the data. This enables even more performance increases and prevents bottlenecking from logging.
-
-Communication occurs via both UDP and TCP connections. TCP ensures secure initial connection setup, while UDP provides low-latency updates for game data.
-
-On the server, the main thread receives UDP data from clients, updating player positions, processing game logic, and writing position data to a database. Separate threads handle database access for each client to maintain responsiveness. The main thread synchronizes data between clients for multiplayer functionality. 
 
 ## Performance metrics
 
