@@ -32,7 +32,8 @@
 
 ## Testing (30-40 sec) - Noam
 - Explain our extensive testing
-- background will be diagrams 
+- background will be diagrams
+- Maybe not necessary?
 
 
 
