@@ -6,9 +6,9 @@
 - Explain what the game is and what features it has.
 - Background video will be of people playing the game
 
-## Overall System Architecture 20-30 secs) - Noam
+## Overall System Architecture (20-30 secs) - Noam
 - explain the overall basics of the system
-- Background will be Noams diagram
+- Background will be Noam's diagram
 
 ## Hardware (40-50 sec) - Petr
 - Explain hardware implementation- hardware filtering
@@ -32,7 +32,7 @@
 
 ## Testing (30-40 sec) - Noam
 - Explain our extensive testing
-- background will be diagrams
+- Background will be diagrams
 - Maybe not necessary?
 
 
